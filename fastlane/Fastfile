@@ -1,0 +1,33 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Run automated unit test suite"
+  lane :test do
+    run_tests(
+      project: "FluidGlow.xcodeproj",
+      scheme: "FluidGlow",
+      destination: "platform=iOS Simulator,name=iPhone 15",
+      clean: true
+    )
+  end
+
+  desc "Build signed production .ipa archive"
+  lane :build do
+    build_app(
+      project: "FluidGlow.xcodeproj",
+      scheme: "FluidGlow",
+      export_method: "app-store",
+      clean: true,
+      output_directory: "./build"
+    )
+  end
+
+  desc "Build and upload directly to TestFlight"
+  lane :beta do
+    test
+    build
+    upload_to_testflight(
+      skip_waiting_for_build_processing: true
+    )
+  end
+end

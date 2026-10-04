@@ -1,0 +1,582 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		TT0200052C00000100000001 /* LocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = TT0100052C00000100000001 /* LocalizationTests.swift */; };
+
+		TT0200012C00000100000001 /* FluidPhysicsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = TT0100012C00000100000001 /* FluidPhysicsTests.swift */; };
+		TT0200022C00000100000001 /* ProFeatureManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = TT0100022C00000100000001 /* ProFeatureManagerTests.swift */; };
+		TT0200042C00000100000001 /* AdManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = TT0100042C00000100000001 /* AdManagerTests.swift */; };
+		E10000022C00000200000002 /* VIPPaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10000012C00000100000001 /* VIPPaywallView.swift */; };
+		ER0100182C00000100000001 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = EF0100182C00000100000001 /* Localizable.xcstrings */; };
+		ER0100152C00000100000001 /* BannerAdContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0100152C00000100000001 /* BannerAdContainerView.swift */; };
+		ZZ0000012C00000100000001 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = YY0000012C00000100000001 /* GoogleMobileAds */; };
+		ER0100122C00000100000001 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0100132C00000100000001 /* AppTheme.swift */; };
+		HK0200012C00000100000001 /* HSCore in Frameworks */ = {isa = PBXBuildFile; productRef = HK0100012C00000100000001 /* HSCore */; };
+		HK0200032C00000100000001 /* HSAds in Frameworks */ = {isa = PBXBuildFile; productRef = HK0100032C00000100000001 /* HSAds */; };
+		HK0200042C00000100000001 /* HSUI in Frameworks */ = {isa = PBXBuildFile; productRef = HK0100042C00000100000001 /* HSUI */; };
+		ER0100012C00000100000001 /* FluidGlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0100012C00000100000001 /* FluidGlowApp.swift */; };
+		ER0100022C00000100000001 /* FluidParticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0100022C00000100000001 /* FluidParticle.swift */; };
+		ER0100032C00000100000001 /* ASMRAudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0100032C00000100000001 /* ASMRAudioEngine.swift */; };
+		ER0100042C00000100000001 /* FluidPhysicsEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0100042C00000100000001 /* FluidPhysicsEngine.swift */; };
+		ER0100052C00000100000001 /* MainFluidCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0100052C00000100000001 /* MainFluidCanvasView.swift */; };
+		ER0100062C00000100000001 /* ShaderPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0100062C00000100000001 /* ShaderPickerSheet.swift */; };
+		ER0100072C00000100000001 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0100072C00000100000001 /* SettingsView.swift */; };
+		ER0100082C00000100000001 /* ProFeatureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0100082C00000100000001 /* ProFeatureManager.swift */; };
+		ER0100092C00000100000001 /* AdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0100092C00000100000001 /* AdManager.swift */; };
+		ER0100102C00000100000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF0100102C00000100000001 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		TT0300012C00000100000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 110000012C00000100000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE0000012C00000100000001;
+			remoteInfo = FluidGlow;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		TT0100052C00000100000001 /* LocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationTests.swift; sourceTree = "<group>"; };
+
+		TT0000012C00000100000001 /* FluidGlowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FluidGlowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		TT0100012C00000100000001 /* FluidPhysicsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FluidPhysicsTests.swift; sourceTree = "<group>"; };
+		TT0100022C00000100000001 /* ProFeatureManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProFeatureManagerTests.swift; sourceTree = "<group>"; };
+		TT0100042C00000100000001 /* AdManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdManagerTests.swift; sourceTree = "<group>"; };
+		E10000012C00000100000001 /* VIPPaywallView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIPPaywallView.swift; sourceTree = "<group>"; };
+		EF0100182C00000100000001 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		EF0100152C00000100000001 /* BannerAdContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAdContainerView.swift; sourceTree = "<group>"; };
+		IC0100012C00000100000001 /* Option1_Thinking_Lightbulb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Option1_Thinking_Lightbulb.png; sourceTree = "<group>"; };
+		IC0100022C00000100000001 /* Option2_Detective_MagnifyingGlass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Option2_Detective_MagnifyingGlass.png; sourceTree = "<group>"; };
+		IC0100032C00000100000001 /* Option3_Apple_GoldenPuzzle_Star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Option3_Apple_GoldenPuzzle_Star.png; sourceTree = "<group>"; };
+		EF0100132C00000100000001 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		SK0100012C00000100000001 /* FluidGlow.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = FluidGlow.storekit; sourceTree = "<group>"; };
+		EB0000012C00000100000001 /* FluidGlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FluidGlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF0100012C00000100000001 /* FluidGlowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FluidGlowApp.swift; sourceTree = "<group>"; };
+		EF0100022C00000100000001 /* FluidParticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FluidParticle.swift; sourceTree = "<group>"; };
+		EF0100032C00000100000001 /* ASMRAudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASMRAudioEngine.swift; sourceTree = "<group>"; };
+		EF0100042C00000100000001 /* FluidPhysicsEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FluidPhysicsEngine.swift; sourceTree = "<group>"; };
+		EF0100052C00000100000001 /* MainFluidCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFluidCanvasView.swift; sourceTree = "<group>"; };
+		EF0100062C00000100000001 /* ShaderPickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShaderPickerSheet.swift; sourceTree = "<group>"; };
+		EF0100072C00000100000001 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		EF0100082C00000100000001 /* ProFeatureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProFeatureManager.swift; sourceTree = "<group>"; };
+		EF0100092C00000100000001 /* AdManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdManager.swift; sourceTree = "<group>"; };
+		EF0100102C00000100000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EF0100122C00000100000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CC0000012C00000100000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				HK0200012C00000100000001 /* HSCore in Frameworks */,
+				ZZ0000012C00000100000001 /* GoogleMobileAds in Frameworks */,
+				HK0200032C00000100000001 /* HSAds in Frameworks */,
+				HK0200042C00000100000001 /* HSUI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		TT0600012C00000100000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		IC0000002C00000100000001 /* IconOptions */ = {
+			isa = PBXGroup;
+			children = (
+				IC0100012C00000100000001 /* Option1_Thinking_Lightbulb.png */,
+				IC0100022C00000100000001 /* Option2_Detective_MagnifyingGlass.png */,
+				IC0100032C00000100000001 /* Option3_Apple_GoldenPuzzle_Star.png */,
+			);
+			name = IconOptions;
+			path = IconOptions;
+			sourceTree = "<group>";
+		};
+		DD0000012C00000100000001 = {
+			isa = PBXGroup;
+			children = (
+				DD0000022C00000100000001 /* FluidGlow */,
+				DD0100072C00000100000001 /* Resources */,
+				TT0B00012C00000100000001 /* Tests */,
+				DD0000032C00000100000001 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DD0000022C00000100000001 /* FluidGlow */ = {
+			isa = PBXGroup;
+			children = (
+				EF0100012C00000100000001 /* FluidGlowApp.swift */,
+				DD0100082C00000100000001 /* Theme */,
+				DD0100022C00000100000001 /* Models */,
+				DD0100032C00000100000001 /* Services */,
+				DD0100042C00000100000001 /* ViewModels */,
+				DD0100052C00000100000001 /* Views */,
+				DD0100062C00000100000001 /* Managers */,
+			);
+			name = FluidGlow;
+			path = FluidGlow;
+			sourceTree = "<group>";
+		};
+		DD0100082C00000100000001 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				EF0100132C00000100000001 /* AppTheme.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		DD0100022C00000100000001 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				EF0100022C00000100000001 /* FluidParticle.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		DD0100032C00000100000001 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				EF0100032C00000100000001 /* ASMRAudioEngine.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		DD0100042C00000100000001 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				EF0100042C00000100000001 /* FluidPhysicsEngine.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		DD0100052C00000100000001 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EF0100052C00000100000001 /* MainFluidCanvasView.swift */,
+				E10000012C00000100000001 /* VIPPaywallView.swift */,
+				EF0100062C00000100000001 /* ShaderPickerSheet.swift */,
+				EF0100072C00000100000001 /* SettingsView.swift */,
+				EF0100152C00000100000001 /* BannerAdContainerView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DD0100062C00000100000001 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				EF0100082C00000100000001 /* ProFeatureManager.swift */,
+				EF0100092C00000100000001 /* AdManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		DD0100072C00000100000001 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				IC0000002C00000100000001 /* IconOptions */,
+				SK0100012C00000100000001 /* FluidGlow.storekit */,
+				EF0100102C00000100000001 /* Assets.xcassets */,
+				EF0100182C00000100000001 /* Localizable.xcstrings */,
+				EF0100122C00000100000001 /* Info.plist */,
+			);
+			name = Resources;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DD0000032C00000100000001 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EB0000012C00000100000001 /* FluidGlow.app */,
+				TT0000012C00000100000001 /* FluidGlowTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		TT0B00012C00000100000001 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				TT0B00022C00000100000001 /* FluidGlowTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		TT0B00022C00000100000001 /* FluidGlowTests */ = {
+			isa = PBXGroup;
+			children = (
+				TT0100012C00000100000001 /* FluidPhysicsTests.swift */,
+				TT0100022C00000100000001 /* ProFeatureManagerTests.swift */,
+				
+				TT0100042C00000100000001 /* AdManagerTests.swift */,
+				TT0100052C00000100000001 /* LocalizationTests.swift */,
+			);
+			path = FluidGlowTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EE0000012C00000100000001 /* FluidGlow */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FF0000012C00000100000001 /* Build configuration list for PBXNativeTarget "FluidGlow" */;
+			buildPhases = (
+				GG0000012C00000100000001 /* Sources */,
+				CC0000012C00000100000001 /* Frameworks */,
+				HH0000012C00000100000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FluidGlow;
+			packageProductDependencies = (
+				HK0100012C00000100000001 /* HSCore */,
+				YY0000012C00000100000001 /* GoogleMobileAds */,
+				HK0100032C00000100000001 /* HSAds */,
+				HK0100042C00000100000001 /* HSUI */,
+			);
+			productName = FluidGlow;
+			productReference = EB0000012C00000100000001 /* FluidGlow.app */;
+			productType = "com.apple.product-type.application";
+		};
+		TT0800012C00000100000001 /* FluidGlowTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = TT0900012C00000100000001 /* Build configuration list for PBXNativeTarget "FluidGlowTests" */;
+			buildPhases = (
+				TT0500012C00000100000001 /* Sources */,
+				TT0600012C00000100000001 /* Frameworks */,
+				TT0700012C00000100000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				TT0400012C00000100000001 /* PBXTargetDependency */,
+			);
+			name = FluidGlowTests;
+			productName = FluidGlowTests;
+			productReference = TT0000012C00000100000001 /* FluidGlowTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		110000012C00000100000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					EE0000012C00000100000001 = {
+						CreatedOnToolsVersion = 15.0;
+						DevelopmentTeam = 8FA6H2MXX5;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 220000012C00000100000001 /* Build configuration list for PBXProject "FluidGlow" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				es,
+				de,
+				fr,
+				ja,
+				"pt-BR",
+			);
+			mainGroup = DD0000012C00000100000001;
+			packageReferences = (
+				XX0000012C00000100000001 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+				HK0000012C00000100000001 /* XCLocalSwiftPackageReference "../HSKit" */,
+			);
+			productRefGroup = DD0000032C00000100000001 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EE0000012C00000100000001 /* FluidGlow */,
+				TT0800012C00000100000001 /* FluidGlowTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		HH0000012C00000100000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ER0100102C00000100000001 /* Assets.xcassets in Resources */,
+				ER0100182C00000100000001 /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		TT0700012C00000100000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		GG0000012C00000100000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ER0100012C00000100000001 /* FluidGlowApp.swift in Sources */,
+				ER0100122C00000100000001 /* AppTheme.swift in Sources */,
+				ER0100022C00000100000001 /* FluidParticle.swift in Sources */,
+				ER0100032C00000100000001 /* ASMRAudioEngine.swift in Sources */,
+				ER0100042C00000100000001 /* FluidPhysicsEngine.swift in Sources */,
+				ER0100052C00000100000001 /* MainFluidCanvasView.swift in Sources */,
+				E10000022C00000200000002 /* VIPPaywallView.swift in Sources */,
+				ER0100062C00000100000001 /* ShaderPickerSheet.swift in Sources */,
+				ER0100072C00000100000001 /* SettingsView.swift in Sources */,
+				ER0100152C00000100000001 /* BannerAdContainerView.swift in Sources */,
+				ER0100082C00000100000001 /* ProFeatureManager.swift in Sources */,
+				ER0100092C00000100000001 /* AdManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		TT0500012C00000100000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				TT0200012C00000100000001 /* FluidPhysicsTests.swift in Sources */,
+				TT0200022C00000100000001 /* ProFeatureManagerTests.swift in Sources */,
+				
+				TT0200042C00000100000001 /* AdManagerTests.swift in Sources */,
+				TT0200052C00000100000001 /* LocalizationTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		TT0400012C00000100000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE0000012C00000100000001 /* FluidGlow */;
+			targetProxy = TT0300012C00000100000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		330000012C00000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		330000022C00000100000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		440000012C00000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8FA6H2MXX5;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Emoji Riddle";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.word-games";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.saadapps.fluidglow;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		440000022C00000100000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8FA6H2MXX5;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Emoji Riddle";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.word-games";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.saadapps.fluidglow;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		TT0A00012C00000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8FA6H2MXX5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.saadapps.fluidglow.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FluidGlow.app/FluidGlow";
+			};
+			name = Debug;
+		};
+		TT0A00022C00000100000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8FA6H2MXX5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.saadapps.fluidglow.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FluidGlow.app/FluidGlow";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		220000012C00000100000001 /* Build configuration list for PBXProject "FluidGlow" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				330000012C00000100000001 /* Debug */,
+				330000022C00000100000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FF0000012C00000100000001 /* Build configuration list for PBXNativeTarget "FluidGlow" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				440000012C00000100000001 /* Debug */,
+				440000022C00000100000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		TT0900012C00000100000001 /* Build configuration list for PBXNativeTarget "FluidGlowTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				TT0A00012C00000100000001 /* Debug */,
+				TT0A00022C00000100000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		XX0000012C00000100000001 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		HK0000012C00000100000001 /* XCLocalSwiftPackageReference "../HSKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../HSKit";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		YY0000012C00000100000001 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = XX0000012C00000100000001 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
+		HK0100012C00000100000001 /* HSCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = HK0000012C00000100000001 /* XCLocalSwiftPackageReference "../HSKit" */;
+			productName = HSCore;
+		};
+		HK0100032C00000100000001 /* HSAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = HK0000012C00000100000001 /* XCLocalSwiftPackageReference "../HSKit" */;
+			productName = HSAds;
+		};
+		HK0100042C00000100000001 /* HSUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = HK0000012C00000100000001 /* XCLocalSwiftPackageReference "../HSKit" */;
+			productName = HSUI;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 110000012C00000100000001 /* Project object */;
+}

@@ -2,6 +2,7 @@ import SwiftUI
 
 public struct SettingsView: View {
     @Binding var showingPaywall: Bool
+    @State private var showingGuide = false
     @Environment(\.dismiss) private var dismiss
     @StateObject private var proManager = ProFeatureManager.shared
     @StateObject private var audio = ASMRAudioEngine.shared
@@ -18,7 +19,29 @@ public struct SettingsView: View {
                 
                 ScrollView {
                     VStack(spacing: 20) {
-                        // Sound & Haptics Section
+                                                // Gesture Guide Section
+                        Button(action: {
+                            FluidHapticsManager.presetSwitched()
+                            showingGuide = true
+                        }) {
+                            HStack {
+                                Label(String(localized: "Gesture Guide & How to Play"), systemImage: "questionmark.circle.fill")
+                                    .font(.system(size: 15, weight: .semibold, design: .rounded))
+                                    .foregroundColor(.white)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 13, weight: .bold))
+                                    .foregroundColor(.gray)
+                            }
+                            .padding()
+                            .background(Color(red: 0.12, green: 0.15, blue: 0.20))
+                            .cornerRadius(16)
+                        }
+                        .sheet(isPresented: $showingGuide) {
+                            WelcomeGuideView()
+                        }
+                        
+// Sound & Haptics Section
                         VStack(spacing: 0) {
                             Toggle(isOn: $audio.isSoundEnabled) {
                                 Label(String(localized: "Sound Effects"), systemImage: "speaker.wave.2.fill")

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		GW0200012C00000100000001 /* WelcomeGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = GW0100012C00000100000001 /* WelcomeGuideView.swift */; };
+
 		TT0200052C00000100000001 /* LocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = TT0100052C00000100000001 /* LocalizationTests.swift */; };
 
 		TT0200012C00000100000001 /* FluidPhysicsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = TT0100012C00000100000001 /* FluidPhysicsTests.swift */; };
@@ -43,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		GW0100012C00000100000001 /* WelcomeGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeGuideView.swift; sourceTree = "<group>"; };
+
 		TT0100052C00000100000001 /* LocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationTests.swift; sourceTree = "<group>"; };
 
 		TT0000012C00000100000001 /* FluidGlowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FluidGlowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -165,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				EF0100052C00000100000001 /* MainFluidCanvasView.swift */,
+				GW0100012C00000100000001 /* WelcomeGuideView.swift */,
 				E10000012C00000100000001 /* VIPPaywallView.swift */,
 				EF0100062C00000100000001 /* ShaderPickerSheet.swift */,
 				EF0100072C00000100000001 /* SettingsView.swift */,
@@ -342,6 +347,7 @@
 				ER0100032C00000100000001 /* ASMRAudioEngine.swift in Sources */,
 				ER0100042C00000100000001 /* FluidPhysicsEngine.swift in Sources */,
 				ER0100052C00000100000001 /* MainFluidCanvasView.swift in Sources */,
+				GW0200012C00000100000001 /* WelcomeGuideView.swift in Sources */,
 				E10000022C00000200000002 /* VIPPaywallView.swift in Sources */,
 				ER0100062C00000100000001 /* ShaderPickerSheet.swift in Sources */,
 				ER0100072C00000100000001 /* SettingsView.swift in Sources */,

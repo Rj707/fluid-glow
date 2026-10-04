@@ -1,806 +1,1394 @@
 {
-  "sourceLanguage": "en",
-  "strings": {
-    "Fluid Shaders": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fluid Shaders"
+  "sourceLanguage" : "en",
+  "strings" : {
+    "$2.99 One-Time • Forever" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2,99 $ Einmalig • Für immer"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Efectos de fluido"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "$2.99 One-Time • Forever"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Flüssigkeits-Shader"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2,99 $ Pago único • Para siempre"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Shaders de fluide"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2,99 $ Paiement unique • Pour toujours"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "流体シェーダー"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "$2.99 一度のみ • 永久"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Efeitos de Fluido"
-          }
-        }
-      }
-    },
-    "Done": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Done"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Listo"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fertig"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Terminé"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "完了"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Concluído"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "US$ 2,99 Pagamento único • Para sempre"
           }
         }
       }
     },
-    "Settings": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Settings"
+    "6 Hypnotic Shaders" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "6 hypnotische Shader"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ajustes"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "6 Hypnotic Shaders"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Einstellungen"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "6 efectos hipnóticos"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Réglages"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "6 shaders hypnotiques"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "設定"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "6つの魅惑的なシェーダー"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Configurações"
-          }
-        }
-      }
-    },
-    "Sound Effects": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sound Effects"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Efectos de sonido"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Soundeffekte"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Effets sonores"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "効果音"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Efeitos Sonoros"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "6 Efeitos Hipnóticos"
           }
         }
       }
     },
-    "Haptic Feedback": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Haptic Feedback"
+    "100% Ad-Free Forever (Zero Banners & Videos)" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "100% werbefrei für immer (keine Banner & Videos)"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Respuesta háptica"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "100% Ad-Free Forever (Zero Banners & Videos)"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Haptisches Feedback"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "100% libre de anuncios para siempre"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Retour haptique"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "100% sans publicité pour toujours"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "触覚フィードバック"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "永久に100%広告なし（バナー・動画ゼロ）"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Feedback Tátil"
-          }
-        }
-      }
-    },
-    "Clear Canvas": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Clear Canvas"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Limpiar lienzo"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Leinwand leeren"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Effacer la toile"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "画面をクリア"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Limpar Tela"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "100% Sem anúncios para sempre"
           }
         }
       }
     },
-    "VIP Pass": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "VIP Pass"
+    "Ad 🎬" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Werbung 🎬"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pase VIP"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ad 🎬"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "VIP-Pass"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anuncio 🎬"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pass VIP"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pub 🎬"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "VIPパス"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "広告 🎬"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Passe VIP"
-          }
-        }
-      }
-    },
-    "Lifetime VIP Pass": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lifetime VIP Pass"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pase VIP de por vida"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lebenslanger VIP-Pass"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pass VIP à vie"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "生涯VIPパス"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Passe VIP Vitalício"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anúncio 🎬"
           }
         }
       }
     },
-    "$2.99 One-Time • Forever": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "$2.99 One-Time • Forever"
+    "AdMob Adaptive Banner • 320x50" : {
+      "comment" : "The name of the AdMob banner ad.",
+      "isCommentAutoGenerated" : true
+    },
+    "Clear Canvas" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leinwand leeren"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "2,99 $ Pago único • Para siempre"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear Canvas"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "2,99 $ Einmalig • Für immer"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limpiar lienzo"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "2,99 $ Paiement unique • Pour toujours"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Effacer la toile"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "$2.99 一度のみ • 永久"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "画面をクリア"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "US$ 2,99 Pagamento único • Para sempre"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limpar Tela"
           }
         }
       }
     },
-    "100% Ad-Free Forever (Zero Banners & Videos)": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "100% Ad-Free Forever (Zero Banners & Videos)"
+    "Done" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fertig"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "100% libre de anuncios para siempre"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "100% werbefrei für immer (keine Banner & Videos)"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listo"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "100% sans publicité pour toujours"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terminé"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "永久に100%広告なし（バナー・動画ゼロ）"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完了"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "100% Sem anúncios para sempre"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Concluído"
           }
         }
       }
     },
-    "Unlock All 6 Premium Fluid Shaders": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unlock All 6 Premium Fluid Shaders"
+    "Drag across the canvas to draw silky glowing streams that flow with realistic liquid physics." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ziehe über die Leinwand, um seidige Leuchtströme mit realistischer Flüssigkeitsphysik zu erzeugen."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Desbloquea los 6 efectos de fluido premium"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drag across the canvas to draw silky glowing streams that flow with realistic liquid physics."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Schalte alle 6 Premium-Shader frei"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrastra por el lienzo para dibujar corrientes brillantes que fluyen con física líquida realista."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Débloquez les 6 shaders premium"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Glissez sur la toile pour créer des flux lumineux soyeux avec une physique fluide réaliste."
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "6つすべてのプレミアム流体シェーダーを解除"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "画面をなぞって、リアルな流体物理に従って流れる絹のような光の軌跡を描きます。"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Desbloqueie todos os 6 efeitos de fluido premium"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arraste pela tela para criar fluxos brilhantes e sedosos com física líquida realista."
           }
         }
       }
     },
-    "Infinite Generative ASMR Soundscapes": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Infinite Generative ASMR Soundscapes"
+    "Fluid Glow v1.0.0 (Build 1)" : {
+      "comment" : "The version of the app.",
+      "isCommentAutoGenerated" : true
+    },
+    "Fluid Shaders" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flüssigkeits-Shader"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Paisajes sonoros ASMR generativos infinitos"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fluid Shaders"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unendliche generative ASMR-Klangwelten"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Efectos de fluido"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ambiances sonores ASMR génératives infinies"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shaders de fluide"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "無限の生成型ASMR音景"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "流体シェーダー"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Paisagens sonoras ASMR infinitas"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Efeitos de Fluido"
           }
         }
       }
     },
-    "Ultra-Responsive Fluid Micro-Haptics": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ultra-Responsive Fluid Micro-Haptics"
+    "Generative ASMR Audio" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generatives ASMR-Audio"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Microhápticos de fluido ultra reactivos"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generative ASMR Audio"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ultra-reaktive Mikro-Haptik"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio ASMR generativo"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Micro-retours haptiques ultra réactifs"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio ASMR génératif"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "高応答流体マイクロ触覚"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "生成型ASMRオーディオ"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Micro-respostas táteis ultra responsivas"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Áudio ASMR Generativo"
           }
         }
       }
     },
-    "Unlock Lifetime VIP • $2.99": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unlock Lifetime VIP • $2.99"
+    "Gesture Guide & How to Play" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gestenanleitung & Spielweise"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Desbloquear VIP de por vida • 2,99 $"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gesture Guide & How to Play"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lebenslangen VIP-Pass freischalten • 2,99 $"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guía de gestos y cómo jugar"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Débloquer le VIP à vie • 2,99 $"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guide des gestes et tutoriel"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "生涯VIPをアンロック • $2.99"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ジェスチャーガイドと遊び方"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Desbloquear VIP Vitalício • US$ 2,99"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guia de Gestos e Como Jogar"
           }
         }
       }
     },
-    "Restore Purchases": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restore Purchases"
+    "Haptic Feedback" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haptisches Feedback"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restaurar Compras"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haptic Feedback"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Käufe wiederherstellen"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Respuesta háptica"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restaurer les achats"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retour haptique"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "購入を復元"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "触覚フィードバック"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restaurar Compras"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feedback Tátil"
           }
         }
       }
     },
-    "Privacy Policy & Terms": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Privacy Policy & Terms"
+    "How to Interact & Relax" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anleitung & Entspannung"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Política de privacidad y términos"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How to Interact & Relax"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Datenschutz & Nutzungsbedingungen"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cómo interactuar y relajarse"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Politique de confidentialité et conditions"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comment interagir et se détendre"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "プライバシーポリシーと利用規約"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "操作方法とリラックス"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Política de Privacidade e Termos"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Como Interagir e Relaxar"
           }
         }
       }
     },
-    "VIP Active • All Features Unlocked": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "VIP Active • All Features Unlocked"
+    "Infinite Generative ASMR Soundscapes" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unendliche generative ASMR-Klangwelten"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "VIP Activo • Todas las funciones desbloqueadas"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Infinite Generative ASMR Soundscapes"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "VIP aktiv • Alle Funktionen freigeschaltet"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paisajes sonoros ASMR generativos infinitos"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "VIP Actif • Toutes les fonctionnalités débloquées"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ambiances sonores ASMR génératives infinies"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "VIP有効 • すべての機能が利用可能"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無限の生成型ASMR音景"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "VIP Ativo • Todos os recursos desbloqueados"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paisagens sonoras ASMR infinitas"
           }
         }
       }
     },
-    "VIP Fluid Preset": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "VIP Fluid Preset"
+    "Lifetime VIP Pass" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lebenslanger VIP-Pass"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Efecto VIP"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lifetime VIP Pass"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "VIP-Flüssigkeits-Preset"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pase VIP de por vida"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Préréglage VIP"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pass VIP à vie"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "VIP流体プリセット"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "生涯VIPパス"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Efeito VIP"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passe VIP Vitalício"
           }
         }
       }
     },
-    "Standard Fluid": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Standard Fluid"
+    "Master the gestures that bring fluid light to life" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meistere die Gesten, die flüssiges Licht zum Leben erwecken"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fluido estándar"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Master the gestures that bring fluid light to life"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Standard-Flüssigkeit"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domina los gestos que dan vida a la luz líquida"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fluide standard"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maîtrisez les gestes qui animent la lumière fluide"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "通常流体"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "光の流体を操るジェスチャーをマスターしましょう"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fluido Padrão"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domine os gestos que dão vida à luz líquida"
           }
         }
       }
     },
-    "Ad 🎬": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ad 🎬"
+    "Multi-Touch Vortex" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Multitouch-Vortex"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Anuncio 🎬"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Multi-Touch Vortex"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Werbung 🎬"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vórtice multitáctil"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pub 🎬"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vortex multi-touch"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "広告 🎬"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "マルチタッチの渦"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Anúncio 🎬"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vórtice multitoque"
+          }
+        }
+      }
+    },
+    "One-Finger Swirl" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein-Finger-Wirbel"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One-Finger Swirl"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remolino con un dedo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tourbillon à un doigt"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "指1本の渦巻き"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Redemoinho com um dedo"
+          }
+        }
+      }
+    },
+    "Privacy Policy & Terms" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datenschutz & Nutzungsbedingungen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy Policy & Terms"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Política de privacidad y términos"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Politique de confidentialité et conditions"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プライバシーポリシーと利用規約"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Política de Privacidade e Termos"
+          }
+        }
+      }
+    },
+    "Put on headphones! Ambient harmonic chimes and frequencies react to your finger speed." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopfhörer aufsetzen! Harmonische Klänge und Frequenzen reagieren auf deine Fingergeschwindigkeit."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Put on headphones! Ambient harmonic chimes and frequencies react to your finger speed."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Ponte auriculares! Los tonos armónicos y frecuencias ambientales reaccionan a la velocidad de tus dedos."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mettez des écouteurs! Les carillons harmoniques et fréquences réagissent à la vitesse de vos doigts."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ヘッドホンを装着してください！指の動く速度に合わせて美しい和音と周波数がリアルタイムに響きます。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coloque fones de ouvido! Os sinos harmônicos e frequências ambientes reagem à velocidade dos seus dedos."
+          }
+        }
+      }
+    },
+    "Restore Purchases" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Käufe wiederherstellen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore Purchases"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restaurar Compras"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restaurer les achats"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "購入を復元"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restaurar Compras"
+          }
+        }
+      }
+    },
+    "Settings" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajustes"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réglages"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurações"
+          }
+        }
+      }
+    },
+    "Sound Effects" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soundeffekte"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sound Effects"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Efectos de sonido"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Effets sonores"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "効果音"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Efeitos Sonoros"
+          }
+        }
+      }
+    },
+    "Standard Fluid" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard-Flüssigkeit"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard Fluid"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fluido estándar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fluide standard"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通常流体"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fluido Padrão"
+          }
+        }
+      }
+    },
+    "Start Swirling ✨" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jetzt wirbeln ✨"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start Swirling ✨"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empezar a fluir ✨"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Commencer à tourbillonner ✨"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "流体を動かす ✨"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Começar a Fluir ✨"
+          }
+        }
+      }
+    },
+    "Switch between Neon Aurora, Liquid Gold, Bioluminescent Deep, Cyberpunk Plasma, and OLED." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wechsle zwischen Neon Aurora, Flüssiggold, Tiefsee-Leuchten, Cyberpunk Plasma und OLED."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Switch between Neon Aurora, Liquid Gold, Bioluminescent Deep, Cyberpunk Plasma, and OLED."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cambia entre Aurora de Neón, Oro Líquido, Abismo Bioluminiscente, Plasma Cyberpunk y OLED."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passez de l'Aurore Néon à l'Or Liquide, l'Abîme Bioluminescent, le Plasma Cyberpunk et l'OLED."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ネオンオーロラ、リキッドゴールド、発光深海、サイバーパンクプラズマ、OLEDを切り替えます。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alterne entre Aurora Neon, Ouro Líquido, Profundezas Bioluminescentes, Plasma Cyberpunk e OLED."
+          }
+        }
+      }
+    },
+    "Tap anywhere to trigger an instant radial explosion of glowing particles and soft bubble pops." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tippe überall hin für eine sofortige radiale Explosion leuchtender Partikel und sanfter Bläschen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap anywhere to trigger an instant radial explosion of glowing particles and soft bubble pops."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toca en cualquier lugar para activar una explosión radial instantánea de partículas y burbujas suaves."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Touchez n'importe où pour déclencher une explosion radiale instantanée de particules lumineuses."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "画面のどこかをタップすると、光る粒子が放射状に弾け、心地よい気泡音が響きます。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toque em qualquer lugar para acionar uma explosão radial de partículas brilhantes e estalos suaves."
+          }
+        }
+      }
+    },
+    "Tap Stardust Burst" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sternenstaub-Explosion"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap Stardust Burst"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explosión de polvo de estrellas"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Éclat de poussière d'étoiles"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "星屑の炸裂タップ"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explosão de poeira estelar"
+          }
+        }
+      }
+    },
+    "Ultra-Responsive Fluid Micro-Haptics" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ultra-reaktive Mikro-Haptik"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ultra-Responsive Fluid Micro-Haptics"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Microhápticos de fluido ultra reactivos"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Micro-retours haptiques ultra réactifs"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "高応答流体マイクロ触覚"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Micro-respostas táteis ultra responsivas"
+          }
+        }
+      }
+    },
+    "Unlock All 6 Premium Fluid Shaders" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schalte alle 6 Premium-Shader frei"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlock All 6 Premium Fluid Shaders"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desbloquea los 6 efectos de fluido premium"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Débloquez les 6 shaders premium"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "6つすべてのプレミアム流体シェーダーを解除"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desbloqueie todos os 6 efeitos de fluido premium"
+          }
+        }
+      }
+    },
+    "Unlock Lifetime VIP • $2.99" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lebenslangen VIP-Pass freischalten • 2,99 $"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlock Lifetime VIP • $2.99"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desbloquear VIP de por vida • 2,99 $"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Débloquer le VIP à vie • 2,99 $"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "生涯VIPをアンロック • $2.99"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desbloquear VIP Vitalício • US$ 2,99"
+          }
+        }
+      }
+    },
+    "Use 2 or 3 fingers simultaneously to create intense swirling whirlpools and gravitational vortexes." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nutze 2 oder 3 Finger gleichzeitig für intensive Strudel und Gravitationswirbel."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use 2 or 3 fingers simultaneously to create intense swirling whirlpools and gravitational vortexes."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usa 2 o 3 dedos a la vez para crear intensos remolinos y vórtices gravitacionales."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilisez 2 ou 3 doigts simultanément pour créer des tourbillons intenses et des vortex gravitationnels."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2本または3本の指を同時に使って、激しい渦潮や引力の渦を作り出します。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use 2 ou 3 dedos simultaneamente para criar redemoinhos intensos e vórtices gravitacionais."
+          }
+        }
+      }
+    },
+    "VIP Active • All Features Unlocked" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VIP aktiv • Alle Funktionen freigeschaltet"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VIP Active • All Features Unlocked"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VIP Activo • Todas las funciones desbloqueadas"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VIP Actif • Toutes les fonctionnalités débloquées"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VIP有効 • すべての機能が利用可能"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VIP Ativo • Todos os recursos desbloqueados"
+          }
+        }
+      }
+    },
+    "VIP Fluid Preset" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VIP-Flüssigkeits-Preset"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VIP Fluid Preset"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Efecto VIP"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Préréglage VIP"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VIP流体プリセット"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Efeito VIP"
+          }
+        }
+      }
+    },
+    "VIP Pass" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VIP-Pass"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VIP Pass"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pase VIP"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pass VIP"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VIPパス"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passe VIP"
           }
         }
       }
     }
   },
-  "version": "1.0"
+  "version" : "1.1"
 }

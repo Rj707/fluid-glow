@@ -8,6 +8,8 @@ public struct MainFluidCanvasView: View {
     
     @State private var showingShaderPicker = false
     @State private var showingSettings = false
+    @State private var showingGuide = false
+    @AppStorage("fluidglow_seen_guide") private var seenGuide = false
     @State private var showingPaywall = false
     @State private var isControlsHidden = false
     
@@ -111,6 +113,18 @@ public struct MainFluidCanvasView: View {
                         
                         Button(action: {
                             FluidHapticsManager.presetSwitched()
+                            showingGuide = true
+                        }) {
+                            Image(systemName: "questionmark")
+                                .font(.system(size: 14, weight: .bold))
+                                .foregroundColor(.white)
+                                .frame(width: 36, height: 36)
+                                .background(.ultraThinMaterial)
+                                .clipShape(Circle())
+                        }
+                        
+                        Button(action: {
+                            FluidHapticsManager.presetSwitched()
                             showingSettings = true
                         }) {
                             Image(systemName: "gearshape.fill")
@@ -181,13 +195,19 @@ public struct MainFluidCanvasView: View {
         .sheet(isPresented: $showingSettings) {
             SettingsView(showingPaywall: $showingPaywall)
         }
+        .sheet(isPresented: $showingGuide) {
+            WelcomeGuideView()
+        }
         .sheet(isPresented: $showingPaywall) {
             VIPPaywallView()
         }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 let args = ProcessInfo.processInfo.arguments
-            if args.contains("-screenshot_picker") {
+            if args.contains("-screenshot_guide") {
+                showingGuide = true
+                return
+            } else if args.contains("-screenshot_picker") {
                 showingShaderPicker = true
                 return
             } else if args.contains("-screenshot_paywall") {

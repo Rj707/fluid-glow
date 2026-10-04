@@ -184,5 +184,17 @@ public struct MainFluidCanvasView: View {
         .sheet(isPresented: $showingPaywall) {
             VIPPaywallView()
         }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                engine.handleTouchBegan(at: CGPoint(x: 195, y: 400))
+                for i in 1...25 {
+                    let angle = Double(i) * 0.25
+                    let r = Double(i) * 4.5
+                    let x = 195.0 + Darwin.cos(angle) * r
+                    let y = 400.0 + Darwin.sin(angle) * r
+                    engine.handleTouchMoved(to: CGPoint(x: x, y: y))
+                }
+            }
+        }
     }
 }

@@ -186,7 +186,20 @@ public struct MainFluidCanvasView: View {
         }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                engine.handleTouchBegan(at: CGPoint(x: 195, y: 400))
+                let args = ProcessInfo.processInfo.arguments
+            if args.contains("-screenshot_picker") {
+                showingShaderPicker = true
+                return
+            } else if args.contains("-screenshot_paywall") {
+                showingPaywall = true
+                return
+            } else if args.contains("-screenshot_settings") {
+                showingSettings = true
+                return
+            } else if args.contains("-screenshot_gold") {
+                engine.setPreset(.liquidGold)
+            }
+            engine.handleTouchBegan(at: CGPoint(x: 195, y: 400))
                 for i in 1...25 {
                     let angle = Double(i) * 0.25
                     let r = Double(i) * 4.5

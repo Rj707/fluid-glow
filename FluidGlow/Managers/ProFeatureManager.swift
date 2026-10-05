@@ -49,14 +49,21 @@ public final class ProFeatureManager: ObservableObject {
     }
     
     public func purchaseVIP() async -> Bool {
+        isPurchasing = true
+        errorMessage = nil
+        defer { isPurchasing = false }
+        
+        #if DEBUG
+        // Immediate simulator test unlock
+        self.isVIP = true
+        UserDefaults.standard.set(true, forKey: "fluidglow_vip_active")
+        FluidHapticsManager.success()
+        return true
+        #else
         guard let product = vipProduct else {
             errorMessage = "VIP Pass product unavailable in App Store."
             return false
         }
-        
-        isPurchasing = true
-        errorMessage = nil
-        defer { isPurchasing = false }
         
         do {
             let result = try await product.purchase()
@@ -85,23 +92,32 @@ public final class ProFeatureManager: ObservableObject {
             errorMessage = error.localizedDescription
             return false
         }
+        #endif
     }
     
     public func restorePurchases() async {
         isPurchasing = true
         defer { isPurchasing = false }
         
+        #if DEBUG
+        self.isVIP = true
+        UserDefaults.standard.set(true, forKey: "fluidglow_vip_active")
+        FluidHapticsManager.success()
+        #else
         do {
             try await AppStore.sync()
             await checkCurrentEntitlements()
             if isVIP {
                 FluidHapticsManager.success()
+            } else {
+                errorMessage = "No previous VIP purchases found."
             }
         } catch {
             errorMessage = "Restore failed: \(error.localizedDescription)"
         }
+        #endif
     }
-    
+
     public func checkCurrentEntitlements() async {
         for await result in Transaction.currentEntitlements {
             if case .verified(let transaction) = result {

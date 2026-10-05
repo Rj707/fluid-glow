@@ -24,7 +24,10 @@ public struct SettingsView: View {
                         if !proManager.isVIP {
                             Button(action: {
                                 FluidHapticsManager.presetSwitched()
-                                showingPaywall = true
+                                dismiss()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    showingPaywall = true
+                                }
                             }) {
                                 VStack(alignment: .leading, spacing: 14) {
                                     // Header: Crown & Title

@@ -29,7 +29,10 @@ public struct ShaderPickerSheet: View {
                                     FluidHapticsManager.presetSwitched()
                                     dismiss()
                                 } else {
-                                    showingPaywall = true
+                                    dismiss()
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                        showingPaywall = true
+                                    }
                                 }
                             }) {
                                 HStack(spacing: 12) {

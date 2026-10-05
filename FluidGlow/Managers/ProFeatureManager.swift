@@ -16,7 +16,11 @@ public final class ProFeatureManager: ObservableObject {
     private var transactionTask: Task<Void, Never>?
     
     public init() {
-        self.isVIP = UserDefaults.standard.bool(forKey: "fluidglow_vip_active")
+        if ProcessInfo.processInfo.arguments.contains("-vip_active") {
+            self.isVIP = true
+        } else {
+            self.isVIP = UserDefaults.standard.bool(forKey: "fluidglow_vip_active")
+        }
         startTransactionListener()
         Task {
             await loadProducts()

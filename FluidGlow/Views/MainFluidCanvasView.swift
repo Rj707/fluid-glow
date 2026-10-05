@@ -42,7 +42,7 @@ public struct MainFluidCanvasView: View {
                     }
                 }
                 .background(Color.black.ignoresSafeArea()
-        .preferredColorScheme(.dark))
+                    .preferredColorScheme(.dark))
                 .onChange(of: timeline.date) { _ in
                     engine.update(deltaTime: 1.0 / 60.0)
                 }
@@ -70,93 +70,97 @@ public struct MainFluidCanvasView: View {
             
             // Floating UI Overlay
             VStack {
-                // Top Header Pill
-                HStack {
+                // Top Header: Centered Shader Capsule with Balanced Controls
+                HStack(alignment: .center) {
+                    // Left: Audio Ambience Toggle (36x36 Circle)
                     Button(action: {
-                        FluidHapticsManager.presetSwitched()
-                        showingShaderPicker = true
+                        audio.isSoundEnabled.toggle()
+                        FluidHapticsManager.fluidSwirl(speed: 10)
                     }) {
-                        HStack(spacing: 8) {
-                            Image(systemName: engine.currentPreset.iconName)
-                                .foregroundColor(engine.currentPreset.primaryColor)
-                            Text(engine.currentPreset.rawValue)
-                                .font(.system(size: 14, weight: .bold, design: .rounded))
-                                .foregroundColor(.white)
-                            Image(systemName: "chevron.down")
-                                .font(.system(size: 11, weight: .semibold))
-                                .foregroundColor(.white.opacity(0.6))
-                        }
-                        .padding(.horizontal, 14)
-                        .padding(.vertical, 8)
-                        .background(.ultraThinMaterial)
-                        .cornerRadius(20)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(engine.currentPreset.primaryColor.opacity(0.4), lineWidth: 1)
-                        )
+                        Image(systemName: audio.isSoundEnabled ? "speaker.wave.2.fill" : "speaker.slash.fill")
+                            .font(.system(size: 13, weight: .semibold))
+                            .foregroundColor(audio.isSoundEnabled ? AppTheme.primaryAccent : .white.opacity(0.5))
+                            .frame(width: 36, height: 36)
+                            .background(.ultraThinMaterial)
+                            .clipShape(Circle())
                     }
                     
                     Spacer()
                     
-                    // Sound & Settings Controls
-                    HStack(spacing: 12) {
-                        Button(action: {
-                            audio.isSoundEnabled.toggle()
-                            FluidHapticsManager.fluidSwirl(speed: 10)
-                        }) {
-                            Image(systemName: audio.isSoundEnabled ? "speaker.wave.2.fill" : "speaker.slash.fill")
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundColor(audio.isSoundEnabled ? AppTheme.primaryAccent : .white.opacity(0.5))
-                                .frame(width: 36, height: 36)
-                                .background(.ultraThinMaterial)
-                                .clipShape(Circle())
-                        }
-                        
-                        Button(action: {
-                            FluidHapticsManager.presetSwitched()
-                            showingGuide = true
-                        }) {
-                            Image(systemName: "questionmark")
-                                .font(.system(size: 14, weight: .bold))
+                    // Center: Floating Shader Preset Capsule (100% Single Line, Never Wraps)
+                    Button(action: {
+                        FluidHapticsManager.presetSwitched()
+                        showingShaderPicker = true
+                    }) {
+                        HStack(spacing: 7) {
+                            Image(systemName: engine.currentPreset.iconName)
+                                .font(.system(size: 13, weight: .bold))
+                                .foregroundColor(engine.currentPreset.primaryColor)
+                            
+                            Text(engine.currentPreset.rawValue)
+                                .font(.system(size: 13, weight: .bold, design: .rounded))
                                 .foregroundColor(.white)
-                                .frame(width: 36, height: 36)
-                                .background(.ultraThinMaterial)
-                                .clipShape(Circle())
+                                .lineLimit(1)
+                                .fixedSize(horizontal: true, vertical: false)
+                            
+                            Image(systemName: "chevron.down")
+                                .font(.system(size: 9, weight: .bold))
+                                .foregroundColor(.white.opacity(0.55))
                         }
-                        
-                        Button(action: {
-                            FluidHapticsManager.presetSwitched()
-                            showingSettings = true
-                        }) {
-                            Image(systemName: "gearshape.fill")
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundColor(.white)
-                                .frame(width: 36, height: 36)
-                                .background(.ultraThinMaterial)
-                                .clipShape(Circle())
-                        }
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 8)
+                        .background(.ultraThinMaterial)
+                        .clipShape(Capsule())
+                        .overlay(
+                            Capsule()
+                                .stroke(engine.currentPreset.primaryColor.opacity(0.5), lineWidth: 1.2)
+                        )
+                        .shadow(color: engine.currentPreset.primaryColor.opacity(0.2), radius: 6)
+                    }
+                    
+                    Spacer()
+                    
+                    // Right: Settings Control (36x36 Circle)
+                    Button(action: {
+                        FluidHapticsManager.presetSwitched()
+                        showingSettings = true
+                    }) {
+                        Image(systemName: "gearshape.fill")
+                            .font(.system(size: 13, weight: .semibold))
+                            .foregroundColor(.white)
+                            .frame(width: 36, height: 36)
+                            .background(.ultraThinMaterial)
+                            .clipShape(Circle())
                     }
                 }
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 16)
                 .padding(.top, 54)
                 .opacity(isControlsHidden ? 0.0 : 1.0)
                 .animation(.easeInOut(duration: 0.25), value: isControlsHidden)
                 
                 Spacer()
                 
-                // Bottom Toolbar (Clear & VIP Paywall)
+                // Bottom Toolbar (Centered when VIP, balanced when Free)
                 HStack {
+                    if proManager.isVIP {
+                        Spacer()
+                    }
+                    
                     Button(action: {
                         FluidHapticsManager.burstPulse()
                         engine.clearParticles()
                     }) {
                         Label(String(localized: "Clear Canvas"), systemImage: "arrow.counterclockwise")
                             .font(.system(size: 13, weight: .semibold, design: .rounded))
-                            .foregroundColor(.white.opacity(0.8))
-                            .padding(.horizontal, 16)
+                            .foregroundColor(.white.opacity(0.85))
+                            .padding(.horizontal, 18)
                             .padding(.vertical, 10)
                             .background(.ultraThinMaterial)
-                            .cornerRadius(20)
+                            .clipShape(Capsule())
+                            .overlay(
+                                Capsule()
+                                    .stroke(Color.white.opacity(0.12), lineWidth: 1)
+                            )
                     }
                     
                     Spacer()
@@ -178,7 +182,7 @@ public struct MainFluidCanvasView: View {
                             .background(
                                 LinearGradient(colors: [.orange, .red], startPoint: .leading, endPoint: .trailing)
                             )
-                            .cornerRadius(20)
+                            .clipShape(Capsule())
                             .shadow(color: .orange.opacity(0.4), radius: 6, x: 0, y: 3)
                         }
                     }
@@ -189,7 +193,6 @@ public struct MainFluidCanvasView: View {
                 .animation(.easeInOut(duration: 0.25), value: isControlsHidden)
             }
         }
-        .ignoresSafeArea()
         .sheet(isPresented: $showingShaderPicker) {
             ShaderPickerSheet(engine: engine, showingPaywall: $showingPaywall)
         }
@@ -203,24 +206,30 @@ public struct MainFluidCanvasView: View {
             VIPPaywallView()
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                let args = ProcessInfo.processInfo.arguments
-            if args.contains("-screenshot_guide") {
-                showingGuide = true
-                return
-            } else if args.contains("-screenshot_picker") {
-                showingShaderPicker = true
-                return
-            } else if args.contains("-screenshot_paywall") {
-                showingPaywall = true
-                return
-            } else if args.contains("-screenshot_settings") {
-                showingSettings = true
-                return
-            } else if args.contains("-screenshot_gold") {
+            let args = ProcessInfo.processInfo.arguments
+            if args.contains("-vip_active") {
+                engine.setPreset(.cyberpunkPlasma)
+            }
+            if args.contains("-screenshot_gold") {
                 engine.setPreset(.liquidGold)
             }
-            engine.handleTouchBegan(at: CGPoint(x: 195, y: 400))
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                if args.contains("-screenshot_guide") {
+                    showingGuide = true
+                    return
+                } else if args.contains("-screenshot_picker") {
+                    showingShaderPicker = true
+                    return
+                } else if args.contains("-screenshot_paywall") {
+                    showingPaywall = true
+                    return
+                } else if args.contains("-screenshot_settings") {
+                    showingSettings = true
+                    return
+                }
+                
+                engine.handleTouchBegan(at: CGPoint(x: 195, y: 400))
                 for i in 1...25 {
                     let angle = Double(i) * 0.25
                     let r = Double(i) * 4.5

@@ -57,9 +57,6 @@
 		E10000012C00000100000001 /* VIPPaywallView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIPPaywallView.swift; sourceTree = "<group>"; };
 		EF0100182C00000100000001 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		EF0100152C00000100000001 /* BannerAdContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAdContainerView.swift; sourceTree = "<group>"; };
-		IC0100012C00000100000001 /* Option1_Thinking_Lightbulb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Option1_Thinking_Lightbulb.png; sourceTree = "<group>"; };
-		IC0100022C00000100000001 /* Option2_Detective_MagnifyingGlass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Option2_Detective_MagnifyingGlass.png; sourceTree = "<group>"; };
-		IC0100032C00000100000001 /* Option3_Apple_GoldenPuzzle_Star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Option3_Apple_GoldenPuzzle_Star.png; sourceTree = "<group>"; };
 		EF0100132C00000100000001 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		SK0100012C00000100000001 /* FluidGlow.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = FluidGlow.storekit; sourceTree = "<group>"; };
 		EB0000012C00000100000001 /* FluidGlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FluidGlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,17 +96,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		IC0000002C00000100000001 /* IconOptions */ = {
-			isa = PBXGroup;
-			children = (
-				IC0100012C00000100000001 /* Option1_Thinking_Lightbulb.png */,
-				IC0100022C00000100000001 /* Option2_Detective_MagnifyingGlass.png */,
-				IC0100032C00000100000001 /* Option3_Apple_GoldenPuzzle_Star.png */,
-			);
-			name = IconOptions;
-			path = IconOptions;
-			sourceTree = "<group>";
-		};
 		DD0000012C00000100000001 = {
 			isa = PBXGroup;
 			children = (
@@ -193,7 +179,6 @@
 		DD0100072C00000100000001 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				IC0000002C00000100000001 /* IconOptions */,
 				SK0100012C00000100000001 /* FluidGlow.storekit */,
 				EF0100102C00000100000001 /* Assets.xcassets */,
 				EF0100182C00000100000001 /* Localizable.xcstrings */,

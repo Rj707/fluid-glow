@@ -32,6 +32,7 @@
 		ER0100082C00000100000001 /* ProFeatureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0100082C00000100000001 /* ProFeatureManager.swift */; };
 		ER0100092C00000100000001 /* AdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0100092C00000100000001 /* AdManager.swift */; };
 		ER0100102C00000100000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF0100102C00000100000001 /* Assets.xcassets */; };
+		GW0200012C00000100000002 /* FluidGlowSplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = GW0100012C00000100000002 /* FluidGlowSplashView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		EF0100092C00000100000001 /* AdManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdManager.swift; sourceTree = "<group>"; };
 		EF0100102C00000100000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EF0100122C00000100000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		GW0100012C00000100000002 /* FluidGlowSplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FluidGlowSplashView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +172,7 @@
 			children = (
 				EF0100052C00000100000001 /* MainFluidCanvasView.swift */,
 				GW0100012C00000100000001 /* WelcomeGuideView.swift */,
+				GW0100012C00000100000002 /* FluidGlowSplashView.swift */,
 				E10000012C00000100000001 /* VIPPaywallView.swift */,
 				EF0100062C00000100000001 /* ShaderPickerSheet.swift */,
 				EF0100072C00000100000001 /* SettingsView.swift */,
@@ -348,6 +351,7 @@
 				ER0100042C00000100000001 /* FluidPhysicsEngine.swift in Sources */,
 				ER0100052C00000100000001 /* MainFluidCanvasView.swift in Sources */,
 				GW0200012C00000100000001 /* WelcomeGuideView.swift in Sources */,
+				GW0200012C00000100000002 /* FluidGlowSplashView.swift in Sources */,
 				E10000022C00000200000002 /* VIPPaywallView.swift in Sources */,
 				ER0100062C00000100000001 /* ShaderPickerSheet.swift in Sources */,
 				ER0100072C00000100000001 /* SettingsView.swift in Sources */,

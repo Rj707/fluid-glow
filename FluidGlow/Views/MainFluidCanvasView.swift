@@ -226,22 +226,22 @@ public struct MainFluidCanvasView: View {
             if showSavedToast {
                 VStack {
                     HStack(spacing: 8) {
-                        Image(systemName: "sparkles")
-                            .foregroundColor(.yellow)
-                            .font(.system(size: 14, weight: .bold))
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(Color(red: 0.1, green: 0.9, blue: 0.6))
+                            .font(.system(size: 15, weight: .bold))
                         Text(toastMessage)
-                            .font(.system(size: 14, weight: .bold, design: .rounded))
+                            .font(.system(size: 13, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
                     }
                     .padding(.horizontal, 18)
-                    .padding(.vertical, 12)
+                    .padding(.vertical, 11)
                     .background(.ultraThinMaterial)
                     .clipShape(Capsule())
                     .overlay(
-                        Capsule().stroke(Color.white.opacity(0.25), lineWidth: 1)
+                        Capsule().stroke(Color.white.opacity(0.2), lineWidth: 1)
                     )
-                    .shadow(color: .black.opacity(0.35), radius: 12, y: 4)
-                    .padding(.top, 54)
+                    .shadow(color: .black.opacity(0.4), radius: 12, y: 5)
+                    .padding(.top, 105)
                     
                     Spacer()
                 }
@@ -382,7 +382,7 @@ public struct MainFluidCanvasView: View {
         
         if let image = renderer.uiImage {
             PhotoLibrarySaver.shared.save(image: image) { success in
-                toastMessage = success ? String(localized: "Wallpaper Saved to Photos ✨") : String(localized: "Could not save photo")
+                toastMessage = success ? String(localized: "Wallpaper Saved to Photos") : String(localized: "Could not save photo")
                 withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
                     showSavedToast = true
                 }

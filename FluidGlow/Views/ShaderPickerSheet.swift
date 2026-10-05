@@ -13,12 +13,12 @@ public struct ShaderPickerSheet: View {
     }
     
     public var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 Color(red: 0.07, green: 0.09, blue: 0.13).ignoresSafeArea()
                 
                 ScrollView {
-                    VStack(spacing: 16) {
+                    VStack(spacing: 12) {
                         ForEach(FluidShaderPreset.allCases) { preset in
                             let isUnlocked = proManager.isPresetUnlocked(preset)
                             
@@ -32,40 +32,49 @@ public struct ShaderPickerSheet: View {
                                     showingPaywall = true
                                 }
                             }) {
-                                HStack(spacing: 16) {
+                                HStack(spacing: 12) {
+                                    // Preset Icon
                                     ZStack {
                                         Circle()
-                                            .fill(preset.primaryColor.opacity(0.2))
-                                            .frame(width: 48, height: 48)
+                                            .fill(preset.primaryColor.opacity(0.18))
+                                            .frame(width: 42, height: 42)
                                         Image(systemName: preset.iconName)
-                                            .font(.system(size: 20, weight: .bold))
+                                            .font(.system(size: 17, weight: .bold))
                                             .foregroundColor(preset.primaryColor)
                                     }
+                                    .fixedSize()
                                     
-                                    VStack(alignment: .leading, spacing: 4) {
-                                        HStack {
+                                    // Title & Category
+                                    VStack(alignment: .leading, spacing: 3) {
+                                        HStack(spacing: 6) {
                                             Text(preset.rawValue)
-                                                .font(.system(size: 16, weight: .bold, design: .rounded))
+                                                .font(.system(size: 14, weight: .bold, design: .rounded))
                                                 .foregroundColor(.white)
+                                                .lineLimit(1)
+                                                .minimumScaleFactor(0.65)
                                             
                                             if preset.isVIPOnly && !proManager.isVIP {
                                                 Image(systemName: "crown.fill")
-                                                    .font(.system(size: 12))
+                                                    .font(.system(size: 11))
                                                     .foregroundColor(.yellow)
+                                                    .fixedSize()
                                             }
                                         }
                                         
                                         Text(preset.isVIPOnly ? String(localized: "VIP Fluid Preset") : String(localized: "Standard Fluid"))
                                             .font(.system(size: 12, weight: .medium))
                                             .foregroundColor(.gray)
+                                            .lineLimit(1)
                                     }
                                     
-                                    Spacer()
+                                    Spacer(minLength: 6)
                                     
+                                    // Status / Action Button
                                     if engine.currentPreset == preset {
                                         Image(systemName: "checkmark.circle.fill")
                                             .font(.system(size: 22))
                                             .foregroundColor(preset.primaryColor)
+                                            .fixedSize()
                                     } else if !isUnlocked {
                                         Button(action: {
                                             adManager.showRewardedVideo(for: preset) {
@@ -76,18 +85,23 @@ public struct ShaderPickerSheet: View {
                                         }) {
                                             HStack(spacing: 4) {
                                                 Image(systemName: "play.circle.fill")
-                                                Text(String(localized: "Ad 🎬"))
                                                     .font(.system(size: 12, weight: .bold))
+                                                Text(String(localized: "Ad"))
+                                                    .font(.system(size: 12, weight: .bold, design: .rounded))
                                             }
-                                            .padding(.horizontal, 10)
-                                            .padding(.vertical, 6)
+                                            .padding(.horizontal, 9)
+                                            .padding(.vertical, 5)
                                             .background(Color.blue.opacity(0.2))
                                             .foregroundColor(.blue)
                                             .cornerRadius(12)
+                                            .fixedSize()
                                         }
+                                        .buttonStyle(.plain)
+                                        .fixedSize()
                                     }
                                 }
-                                .padding(16)
+                                .padding(.horizontal, 14)
+                                .padding(.vertical, 12)
                                 .background(Color(red: 0.12, green: 0.15, blue: 0.20))
                                 .cornerRadius(16)
                                 .overlay(
@@ -95,13 +109,15 @@ public struct ShaderPickerSheet: View {
                                         .stroke(engine.currentPreset == preset ? preset.primaryColor : Color.white.opacity(0.08), lineWidth: 1.5)
                                 )
                             }
+                            .buttonStyle(.plain)
                         }
                     }
-                    .padding(20)
+                    .padding(16)
                 }
             }
             .navigationTitle(String(localized: "Fluid Shaders"))
             .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(.hidden, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(String(localized: "Done")) {
@@ -112,5 +128,6 @@ public struct ShaderPickerSheet: View {
                 }
             }
         }
+        .preferredColorScheme(.dark)
     }
 }

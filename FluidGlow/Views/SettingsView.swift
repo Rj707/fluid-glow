@@ -13,7 +13,7 @@ public struct SettingsView: View {
     }
     
     public var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 Color(red: 0.07, green: 0.09, blue: 0.13).ignoresSafeArea()
                 
@@ -125,6 +125,7 @@ public struct SettingsView: View {
             }
             .navigationTitle(String(localized: "Settings"))
             .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(.hidden, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(String(localized: "Done")) { dismiss() }
@@ -133,5 +134,6 @@ public struct SettingsView: View {
                 }
             }
         }
+        .preferredColorScheme(.dark)
     }
 }

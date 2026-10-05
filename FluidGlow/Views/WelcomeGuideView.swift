@@ -6,7 +6,7 @@ public struct WelcomeGuideView: View {
     public init() {}
     
     public var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 Color(red: 0.07, green: 0.09, blue: 0.13).ignoresSafeArea()
                 
@@ -97,6 +97,7 @@ public struct WelcomeGuideView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(.hidden, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(String(localized: "Done")) {
@@ -107,6 +108,7 @@ public struct WelcomeGuideView: View {
                 }
             }
         }
+        .preferredColorScheme(.dark)
     }
 }
 

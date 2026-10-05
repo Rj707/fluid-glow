@@ -41,7 +41,8 @@ public struct MainFluidCanvasView: View {
                         }
                     }
                 }
-                .background(Color.black.ignoresSafeArea())
+                .background(Color.black.ignoresSafeArea()
+        .preferredColorScheme(.dark))
                 .onChange(of: timeline.date) { _ in
                     engine.update(deltaTime: 1.0 / 60.0)
                 }

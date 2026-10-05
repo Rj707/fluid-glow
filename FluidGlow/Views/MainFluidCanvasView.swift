@@ -12,12 +12,16 @@ public struct MainFluidCanvasView: View {
     @AppStorage("fluidglow_seen_guide") private var seenGuide = false
     @State private var showingPaywall = false
     @State private var isControlsHidden = false
+    @State private var restoreControlsTask: Task<Void, Never>? = nil
+    @State private var isFlashing = false
+    @State private var showSavedToast = false
+    @State private var toastMessage = ""
     
     public init() {}
     
     public var body: some View {
         ZStack {
-            // Fullscreen Canvas with 60/120Hz TimelineView
+            // Fullscreen Canvas with 60/120Hz TimelineView (100% Edge-to-Edge)
             TimelineView(.animation) { timeline in
                 Canvas { context, size in
                     for particle in engine.particles {
@@ -41,15 +45,16 @@ public struct MainFluidCanvasView: View {
                         }
                     }
                 }
-                .background(Color.black.ignoresSafeArea()
-                    .preferredColorScheme(.dark))
+                .background(Color.black.ignoresSafeArea().preferredColorScheme(.dark))
                 .onChange(of: timeline.date) { _ in
                     engine.update(deltaTime: 1.0 / 60.0)
                 }
             }
+            .ignoresSafeArea()
             .gesture(
                 DragGesture(minimumDistance: 0, coordinateSpace: .local)
                     .onChanged { value in
+                        hideControlsOnInteraction()
                         engine.handleTouchMoved(to: value.location)
                         let speed = sqrt(pow(value.translation.width, 2) + pow(value.translation.height, 2))
                         audio.playSwirlTone(speed: speed)
@@ -57,6 +62,7 @@ public struct MainFluidCanvasView: View {
                     }
                     .onEnded { _ in
                         engine.handleTouchEnded()
+                        scheduleControlsRestore(delay: 0.8)
                     }
             )
             .simultaneousGesture(
@@ -65,13 +71,22 @@ public struct MainFluidCanvasView: View {
                         engine.handleTouchBegan(at: location.location)
                         audio.playBurstTone()
                         FluidHapticsManager.burstPulse()
+                        engine.handleTouchEnded()
+                        
+                        if isControlsHidden {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                isControlsHidden = false
+                            }
+                        } else {
+                            scheduleControlsRestore(delay: 0.8)
+                        }
                     }
             )
             
             // Floating UI Overlay
             VStack {
-                // Top Header: Centered Shader Capsule with Balanced Controls
-                HStack(alignment: .center) {
+                // Top Header: Unified Balanced HStack with Guaranteed Padding
+                HStack(alignment: .center, spacing: 0) {
                     // Left: Audio Ambience Toggle (36x36 Circle)
                     Button(action: {
                         audio.isSoundEnabled.toggle()
@@ -85,29 +100,29 @@ public struct MainFluidCanvasView: View {
                             .clipShape(Circle())
                     }
                     
-                    Spacer()
+                    Spacer(minLength: 12)
                     
-                    // Center: Floating Shader Preset Capsule (100% Single Line, Never Wraps)
+                    // Center: Floating Shader Preset Capsule (Always padded, perfectly centered)
                     Button(action: {
                         FluidHapticsManager.presetSwitched()
                         showingShaderPicker = true
                     }) {
-                        HStack(spacing: 7) {
+                        HStack(spacing: 6) {
                             Image(systemName: engine.currentPreset.iconName)
-                                .font(.system(size: 13, weight: .bold))
+                                .font(.system(size: 12, weight: .bold))
                                 .foregroundColor(engine.currentPreset.primaryColor)
                             
                             Text(engine.currentPreset.rawValue)
                                 .font(.system(size: 13, weight: .bold, design: .rounded))
                                 .foregroundColor(.white)
                                 .lineLimit(1)
-                                .fixedSize(horizontal: true, vertical: false)
+                                .minimumScaleFactor(0.85)
                             
                             Image(systemName: "chevron.down")
-                                .font(.system(size: 9, weight: .bold))
+                                .font(.system(size: 8, weight: .bold))
                                 .foregroundColor(.white.opacity(0.55))
                         }
-                        .padding(.horizontal, 14)
+                        .padding(.horizontal, 13)
                         .padding(.vertical, 8)
                         .background(.ultraThinMaterial)
                         .clipShape(Capsule())
@@ -118,7 +133,7 @@ public struct MainFluidCanvasView: View {
                         .shadow(color: engine.currentPreset.primaryColor.opacity(0.2), radius: 6)
                     }
                     
-                    Spacer()
+                    Spacer(minLength: 12)
                     
                     // Right: Settings Control (36x36 Circle)
                     Button(action: {
@@ -134,33 +149,35 @@ public struct MainFluidCanvasView: View {
                     }
                 }
                 .padding(.horizontal, 16)
-                .padding(.top, 54)
-                .opacity(isControlsHidden ? 0.0 : 1.0)
-                .animation(.easeInOut(duration: 0.25), value: isControlsHidden)
                 
                 Spacer()
                 
                 // Bottom Toolbar (Centered when VIP, balanced when Free)
-                HStack {
+                HStack(alignment: .center) {
                     if proManager.isVIP {
                         Spacer()
                     }
                     
                     Button(action: {
-                        FluidHapticsManager.burstPulse()
-                        engine.clearParticles()
+                        saveCurrentWallpaper()
                     }) {
-                        Label(String(localized: "Clear Canvas"), systemImage: "arrow.counterclockwise")
-                            .font(.system(size: 13, weight: .semibold, design: .rounded))
-                            .foregroundColor(.white.opacity(0.85))
-                            .padding(.horizontal, 18)
-                            .padding(.vertical, 10)
-                            .background(.ultraThinMaterial)
-                            .clipShape(Capsule())
-                            .overlay(
-                                Capsule()
-                                    .stroke(Color.white.opacity(0.12), lineWidth: 1)
-                            )
+                        HStack(spacing: 6) {
+                            Image(systemName: "camera.viewfinder")
+                                .font(.system(size: 13, weight: .semibold))
+                            Text(String(localized: "Save Wallpaper"))
+                                .font(.system(size: 13, weight: .semibold, design: .rounded))
+                                .lineLimit(1)
+                                .fixedSize(horizontal: true, vertical: false)
+                        }
+                        .foregroundColor(.white.opacity(0.95))
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 10)
+                        .background(.ultraThinMaterial)
+                        .clipShape(Capsule())
+                        .overlay(
+                            Capsule()
+                                .stroke(Color.white.opacity(0.18), lineWidth: 1)
+                        )
                     }
                     
                     Spacer()
@@ -175,8 +192,10 @@ public struct MainFluidCanvasView: View {
                                     .foregroundColor(.yellow)
                                 Text(String(localized: "VIP Pass"))
                                     .font(.system(size: 13, weight: .bold, design: .rounded))
-                                    .foregroundColor(.white)
+                                    .lineLimit(1)
+                                    .fixedSize(horizontal: true, vertical: false)
                             }
+                            .foregroundColor(.white)
                             .padding(.horizontal, 16)
                             .padding(.vertical, 10)
                             .background(
@@ -188,22 +207,69 @@ public struct MainFluidCanvasView: View {
                     }
                 }
                 .padding(.horizontal, 20)
-                .padding(.bottom, 24)
-                .opacity(isControlsHidden ? 0.0 : 1.0)
-                .animation(.easeInOut(duration: 0.25), value: isControlsHidden)
+            }
+            .padding(.top, 54)
+            .padding(.bottom, 24)
+            .opacity(isControlsHidden ? 0.0 : 1.0)
+            .animation(.easeInOut(duration: 0.25), value: isControlsHidden)
+            .allowsHitTesting(!isControlsHidden)
+            
+            // Camera Shutter White Flash
+            if isFlashing {
+                Color.white
+                    .ignoresSafeArea()
+                    .allowsHitTesting(false)
+                    .transition(.opacity)
+            }
+            
+            // Wallpaper Saved Toast Notification
+            if showSavedToast {
+                VStack {
+                    HStack(spacing: 8) {
+                        Image(systemName: "sparkles")
+                            .foregroundColor(.yellow)
+                            .font(.system(size: 14, weight: .bold))
+                        Text(toastMessage)
+                            .font(.system(size: 14, weight: .bold, design: .rounded))
+                            .foregroundColor(.white)
+                    }
+                    .padding(.horizontal, 18)
+                    .padding(.vertical, 12)
+                    .background(.ultraThinMaterial)
+                    .clipShape(Capsule())
+                    .overlay(
+                        Capsule().stroke(Color.white.opacity(0.25), lineWidth: 1)
+                    )
+                    .shadow(color: .black.opacity(0.35), radius: 12, y: 4)
+                    .padding(.top, 54)
+                    
+                    Spacer()
+                }
+                .transition(.move(edge: .top).combined(with: .opacity))
+                .zIndex(10)
+                .allowsHitTesting(false)
             }
         }
+        .ignoresSafeArea()
         .sheet(isPresented: $showingShaderPicker) {
             ShaderPickerSheet(engine: engine, showingPaywall: $showingPaywall)
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $showingSettings) {
             SettingsView(showingPaywall: $showingPaywall)
+                .presentationDetents([.large])
+                .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $showingGuide) {
             WelcomeGuideView()
+                .presentationDetents([.large])
+                .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $showingPaywall) {
             VIPPaywallView()
+                .presentationDetents([.large])
+                .presentationDragIndicator(.visible)
         }
         .onAppear {
             let args = ProcessInfo.processInfo.arguments
@@ -239,5 +305,111 @@ public struct MainFluidCanvasView: View {
                 }
             }
         }
+    }
+    
+    // MARK: - Auto-Hide Zen Mode
+    private func hideControlsOnInteraction() {
+        restoreControlsTask?.cancel()
+        restoreControlsTask = nil
+        if !isControlsHidden {
+            withAnimation(.easeOut(duration: 0.25)) {
+                isControlsHidden = true
+            }
+        }
+    }
+    
+    private func scheduleControlsRestore(delay: TimeInterval = 0.8) {
+        restoreControlsTask?.cancel()
+        restoreControlsTask = Task { @MainActor in
+            try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
+            if !Task.isCancelled {
+                withAnimation(.easeInOut(duration: 0.35)) {
+                    isControlsHidden = false
+                }
+            }
+        }
+    }
+    
+    // MARK: - Wallpaper Snapshot & Export
+    private func saveCurrentWallpaper() {
+        let size = UIScreen.main.bounds.size
+        
+        // 1. Audio and Haptics
+        audio.playBurstTone()
+        FluidHapticsManager.burstPulse()
+        
+        // 2. Camera Shutter Flash Animation
+        withAnimation(.easeOut(duration: 0.08)) {
+            isFlashing = true
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.12) {
+            withAnimation(.easeIn(duration: 0.28)) {
+                isFlashing = false
+            }
+        }
+        
+        // 3. Render the wallpaper (full OLED black canvas + particles)
+        let particlesToDraw = engine.particles.isEmpty ? engine.generateSignatureParticles(in: size) : engine.particles
+        
+        let wallpaperView = ZStack {
+            Color.black
+            Canvas { context, _ in
+                for particle in particlesToDraw {
+                    let rect = CGRect(
+                        x: particle.position.x - particle.size / 2,
+                        y: particle.position.y - particle.size / 2,
+                        width: particle.size,
+                        height: particle.size
+                    )
+                    let color = Color(
+                        hue: particle.hue,
+                        saturation: particle.saturation,
+                        brightness: particle.brightness,
+                        opacity: particle.life
+                    )
+                    context.drawLayer { ctx in
+                        ctx.addFilter(.blur(radius: particle.blurRadius))
+                        ctx.fill(Path(ellipseIn: rect), with: .color(color))
+                    }
+                }
+            }
+        }
+        .frame(width: size.width, height: size.height)
+        .ignoresSafeArea()
+        
+        let renderer = ImageRenderer(content: wallpaperView)
+        renderer.scale = UIScreen.main.scale
+        
+        if let image = renderer.uiImage {
+            PhotoLibrarySaver.shared.save(image: image) { success in
+                toastMessage = success ? String(localized: "Wallpaper Saved to Photos ✨") : String(localized: "Could not save photo")
+                withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
+                    showSavedToast = true
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.2) {
+                    withAnimation(.easeOut(duration: 0.3)) {
+                        showSavedToast = false
+                    }
+                }
+            }
+        }
+        
+        // 4. Record ad trigger
+        adManager.recordWallpaperSaved()
+    }
+}
+
+// MARK: - Native Photo Album Saver Helper
+final class PhotoLibrarySaver: NSObject {
+    static let shared = PhotoLibrarySaver()
+    private var completion: ((Bool) -> Void)?
+    
+    func save(image: UIImage, completion: @escaping (Bool) -> Void) {
+        self.completion = completion
+        UIImageWriteToSavedPhotosAlbum(image, self, #selector(didFinishSaving(_:withError:contextInfo:)), nil)
+    }
+    
+    @objc private func didFinishSaving(_ image: UIImage, withError error: Error?, contextInfo: UnsafeRawPointer) {
+        completion?(error == nil)
     }
 }

@@ -131,4 +131,47 @@ public final class FluidPhysicsEngine: ObservableObject {
         particles = aliveParticles
         particleCount = particles.count
     }
+    
+    public func generateSignatureParticles(in size: CGSize) -> [FluidParticle] {
+        var generated: [FluidParticle] = []
+        let center = CGPoint(x: size.width / 2.0, y: size.height / 2.0)
+        let turns = 3.2
+        let maxRadius = min(size.width, size.height) * 0.44
+        let count = 180
+        
+        for i in 0..<count {
+            let t = Double(i) / Double(count)
+            let angle = t * turns * 2.0 * .pi
+            let r = t * maxRadius
+            
+            for arm in [0.0, .pi] {
+                let armAngle = angle + arm
+                let x = center.x + CGFloat(Darwin.cos(armAngle)) * r
+                let y = center.y + CGFloat(Darwin.sin(armAngle)) * (r * 1.15)
+                
+                let hueVariance = Double.random(in: -currentPreset.hueVariance...currentPreset.hueVariance)
+                var hue = currentPreset.baseHue + hueVariance + (t * 0.12)
+                if hue < 0.0 { hue += 1.0 }
+                if hue > 1.0 { hue -= 1.0 }
+                
+                let sat = currentPreset == .midnightOLED ? 0.0 : Double.random(in: 0.85...1.0)
+                let particleSize = CGFloat.random(in: 20...36) * CGFloat(1.0 + (1.0 - t) * 0.4)
+                let blur = currentPreset == .midnightOLED ? 3.0 : 8.0
+                
+                let p = FluidParticle(
+                    position: CGPoint(x: x, y: y),
+                    velocity: .zero,
+                    hue: hue,
+                    saturation: sat,
+                    brightness: 1.0,
+                    size: particleSize,
+                    life: Double.random(in: 0.85...1.0),
+                    decayRate: 0.01,
+                    blurRadius: blur
+                )
+                generated.append(p)
+            }
+        }
+        return generated
+    }
 }

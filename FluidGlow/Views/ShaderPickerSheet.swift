@@ -17,8 +17,9 @@ public struct ShaderPickerSheet: View {
             ZStack {
                 Color(red: 0.07, green: 0.09, blue: 0.13).ignoresSafeArea()
                 
-                ScrollView {
-                    VStack(spacing: 12) {
+                VStack(spacing: 0) {
+                    ScrollView {
+                        VStack(spacing: 12) {
                         ForEach(FluidShaderPreset.allCases) { preset in
                             let isUnlocked = proManager.isPresetUnlocked(preset)
                             
@@ -47,30 +48,30 @@ public struct ShaderPickerSheet: View {
                                     }
                                     .fixedSize()
                                     
-                                    // Title & Category
+                                    // Title & Category (Crown moved to subtitle so title has 100% full width)
                                     VStack(alignment: .leading, spacing: 3) {
-                                        HStack(spacing: 6) {
-                                            Text(preset.rawValue)
-                                                .font(.system(size: 14, weight: .bold, design: .rounded))
-                                                .foregroundColor(.white)
-                                                .lineLimit(1)
-                                                .minimumScaleFactor(0.65)
-                                            
+                                        Text(preset.rawValue)
+                                            .font(.system(size: 15, weight: .bold, design: .rounded))
+                                            .foregroundColor(.white)
+                                            .lineLimit(1)
+                                            .minimumScaleFactor(0.85)
+                                        
+                                        HStack(spacing: 5) {
                                             if preset.isVIPOnly && !proManager.isVIP {
                                                 Image(systemName: "crown.fill")
-                                                    .font(.system(size: 11))
+                                                    .font(.system(size: 10, weight: .bold))
                                                     .foregroundColor(.yellow)
-                                                    .fixedSize()
                                             }
+                                            
+                                            Text(preset.isVIPOnly ? String(localized: "VIP Fluid Preset") : String(localized: "Standard Fluid"))
+                                                .font(.system(size: 12, weight: .medium))
+                                                .foregroundColor(preset.isVIPOnly && !proManager.isVIP ? Color.yellow.opacity(0.9) : .gray)
+                                                .lineLimit(1)
                                         }
-                                        
-                                        Text(preset.isVIPOnly ? String(localized: "VIP Fluid Preset") : String(localized: "Standard Fluid"))
-                                            .font(.system(size: 12, weight: .medium))
-                                            .foregroundColor(.gray)
-                                            .lineLimit(1)
                                     }
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                                     
-                                    Spacer(minLength: 6)
+                                    Spacer(minLength: 8)
                                     
                                     // Status / Action Button
                                     if engine.currentPreset == preset {
@@ -105,6 +106,7 @@ public struct ShaderPickerSheet: View {
                                 }
                                 .padding(.horizontal, 14)
                                 .padding(.vertical, 12)
+                                .frame(maxWidth: .infinity)
                                 .background(Color(red: 0.12, green: 0.15, blue: 0.20))
                                 .cornerRadius(16)
                                 .overlay(
@@ -115,8 +117,14 @@ public struct ShaderPickerSheet: View {
                             .buttonStyle(.plain)
                         }
                     }
-                    .padding(16)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 16)
                 }
+                
+                if !proManager.isVIP {
+                    BannerAdContainerView()
+                }
+            }
             }
             .navigationTitle(String(localized: "Fluid Shaders"))
             .navigationBarTitleDisplayMode(.inline)

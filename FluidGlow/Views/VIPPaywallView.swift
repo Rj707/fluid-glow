@@ -13,20 +13,6 @@ public struct VIPPaywallView: View {
             Color(red: 0.05, green: 0.07, blue: 0.11).ignoresSafeArea()
             
             VStack(spacing: 0) {
-                // Top Dismiss Bar
-                HStack {
-                    Spacer()
-                    Button(action: { dismiss() }) {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.system(size: 24))
-                            .foregroundColor(.white.opacity(0.45))
-                    }
-                }
-                .padding(.horizontal, 20)
-                .padding(.top, 16)
-                
-                Spacer(minLength: 4)
-                
                 // Crown & Hero Headline
                 VStack(spacing: 4) {
                     ZStack {
@@ -54,6 +40,7 @@ public struct VIPPaywallView: View {
                         .font(.system(size: 13, weight: .bold, design: .rounded))
                         .foregroundColor(.yellow)
                 }
+                .padding(.top, 24)
                 
                 Spacer(minLength: 8)
                 
@@ -159,6 +146,17 @@ public struct VIPPaywallView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 22)
             }
+        }
+        .overlay(alignment: .topTrailing) {
+            Button(action: { dismiss() }) {
+                Image(systemName: "xmark.circle.fill")
+                    .font(.system(size: 24, weight: .semibold))
+                    .foregroundColor(.white.opacity(0.55))
+                    .frame(width: 44, height: 44)
+                    .contentShape(Circle())
+            }
+            .padding(.top, 18)
+            .padding(.trailing, 18)
         }
         .preferredColorScheme(.dark)
         .alert(String(localized: "VIP Store"), isPresented: $showingAlert) {

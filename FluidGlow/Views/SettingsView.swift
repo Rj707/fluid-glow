@@ -2,7 +2,6 @@ import SwiftUI
 
 public struct SettingsView: View {
     @Binding var showingPaywall: Bool
-    @State private var showingGuide = false
     @Environment(\.dismiss) private var dismiss
     @StateObject private var proManager = ProFeatureManager.shared
     @StateObject private var audio = ASMRAudioEngine.shared
@@ -15,7 +14,20 @@ public struct SettingsView: View {
     public var body: some View {
         NavigationStack {
             ZStack {
-                Color(red: 0.05, green: 0.07, blue: 0.10).ignoresSafeArea()
+                Color(red: 0.04, green: 0.05, blue: 0.08).ignoresSafeArea()
+                
+                // Ambient luxury glow
+                RadialGradient(
+                    gradient: Gradient(colors: [
+                        Color(red: 0.0, green: 0.75, blue: 0.95).opacity(0.08),
+                        Color(red: 0.75, green: 0.15, blue: 0.85).opacity(0.05),
+                        Color.clear
+                    ]),
+                    center: .top,
+                    startRadius: 40,
+                    endRadius: 380
+                )
+                .ignoresSafeArea()
                 
                 ScrollView {
                     VStack(spacing: 22) {
@@ -169,7 +181,64 @@ public struct SettingsView: View {
                             )
                         }
                         
-                        // MARK: - 2. Sensory Experience Section
+                        // MARK: - 2. Guide Section (Prominently placed right below VIP)
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text(String(localized: "HOW TO PLAY & GESTURES"))
+                                .font(.system(size: 11, weight: .bold))
+                                .tracking(1.5)
+                                .foregroundColor(.gray)
+                                .padding(.horizontal, 6)
+                            
+                            NavigationLink(destination: WelcomeGuideView(isModal: false)) {
+                                HStack(spacing: 12) {
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .fill(
+                                                LinearGradient(
+                                                    colors: [Color(red: 0.0, green: 0.80, blue: 0.95), Color(red: 0.0, green: 0.45, blue: 0.90)],
+                                                    startPoint: .topLeading,
+                                                    endPoint: .bottomTrailing
+                                                )
+                                            )
+                                            .frame(width: 36, height: 36)
+                                            .shadow(color: Color.cyan.opacity(0.35), radius: 6, y: 2)
+                                        
+                                        Image(systemName: "questionmark")
+                                            .font(.system(size: 16, weight: .bold))
+                                            .foregroundColor(.white)
+                                    }
+                                    
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text(String(localized: "How to Play & Gesture Guide"))
+                                            .font(.system(size: 15, weight: .semibold, design: .rounded))
+                                            .foregroundColor(.white)
+                                        Text(String(localized: "Master swirls, bursts & interactive soundscapes"))
+                                            .font(.system(size: 12))
+                                            .foregroundColor(.gray)
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: "chevron.right")
+                                        .font(.system(size: 12, weight: .bold))
+                                        .foregroundColor(.gray.opacity(0.6))
+                                }
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 14)
+                                .background(Color(red: 0.08, green: 0.10, blue: 0.15))
+                                .cornerRadius(18)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 18)
+                                        .stroke(Color.white.opacity(0.08), lineWidth: 1)
+                                )
+                            }
+                            .buttonStyle(.plain)
+                            .simultaneousGesture(TapGesture().onEnded {
+                                FluidHapticsManager.presetSwitched()
+                            })
+                        }
+                        
+                        // MARK: - 3. Sensory Experience Section
                         VStack(alignment: .leading, spacing: 8) {
                             Text(String(localized: "SENSORY CONTROLS"))
                                 .font(.system(size: 11, weight: .bold))
@@ -181,12 +250,20 @@ public struct SettingsView: View {
                                 Toggle(isOn: $audio.isSoundEnabled) {
                                     HStack(spacing: 12) {
                                         ZStack {
-                                            RoundedRectangle(cornerRadius: 8)
-                                                .fill(Color.cyan.opacity(0.15))
-                                                .frame(width: 32, height: 32)
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .fill(
+                                                    LinearGradient(
+                                                        colors: [Color(red: 0.0, green: 0.85, blue: 0.80), Color(red: 0.0, green: 0.60, blue: 0.75)],
+                                                        startPoint: .topLeading,
+                                                        endPoint: .bottomTrailing
+                                                    )
+                                                )
+                                                .frame(width: 36, height: 36)
+                                                .shadow(color: Color.teal.opacity(0.35), radius: 6, y: 2)
+                                            
                                             Image(systemName: audio.isSoundEnabled ? "speaker.wave.2.fill" : "speaker.slash.fill")
-                                                .font(.system(size: 15, weight: .semibold))
-                                                .foregroundColor(.cyan)
+                                                .font(.system(size: 15, weight: .bold))
+                                                .foregroundColor(.white)
                                         }
                                         
                                         VStack(alignment: .leading, spacing: 2) {
@@ -203,17 +280,25 @@ public struct SettingsView: View {
                                 .padding(.horizontal, 16)
                                 .padding(.vertical, 12)
                                 
-                                Divider().background(Color.white.opacity(0.08)).padding(.leading, 60)
+                                Divider().background(Color.white.opacity(0.08)).padding(.leading, 64)
                                 
                                 Toggle(isOn: $hapticsEnabled) {
                                     HStack(spacing: 12) {
                                         ZStack {
-                                            RoundedRectangle(cornerRadius: 8)
-                                                .fill(Color.purple.opacity(0.15))
-                                                .frame(width: 32, height: 32)
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .fill(
+                                                    LinearGradient(
+                                                        colors: [Color(red: 0.75, green: 0.25, blue: 0.95), Color(red: 0.55, green: 0.10, blue: 0.85)],
+                                                        startPoint: .topLeading,
+                                                        endPoint: .bottomTrailing
+                                                    )
+                                                )
+                                                .frame(width: 36, height: 36)
+                                                .shadow(color: Color.purple.opacity(0.35), radius: 6, y: 2)
+                                            
                                             Image(systemName: "iphone.radiowaves.left.and.right")
-                                                .font(.system(size: 15, weight: .semibold))
-                                                .foregroundColor(.purple)
+                                                .font(.system(size: 15, weight: .bold))
+                                                .foregroundColor(.white)
                                         }
                                         
                                         VStack(alignment: .leading, spacing: 2) {
@@ -230,56 +315,12 @@ public struct SettingsView: View {
                                 .padding(.horizontal, 16)
                                 .padding(.vertical, 12)
                             }
-                            .background(Color(red: 0.10, green: 0.13, blue: 0.18))
+                            .background(Color(red: 0.08, green: 0.10, blue: 0.15))
                             .cornerRadius(18)
-                        }
-                        
-                        // MARK: - 3. Guide Section
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text(String(localized: "HELP & INTERACTION"))
-                                .font(.system(size: 11, weight: .bold))
-                                .tracking(1.5)
-                                .foregroundColor(.gray)
-                                .padding(.horizontal, 6)
-                            
-                            Button(action: {
-                                FluidHapticsManager.presetSwitched()
-                                showingGuide = true
-                            }) {
-                                HStack(spacing: 12) {
-                                    ZStack {
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .fill(Color.blue.opacity(0.15))
-                                            .frame(width: 32, height: 32)
-                                        Image(systemName: "hand.draw.fill")
-                                            .font(.system(size: 15, weight: .semibold))
-                                            .foregroundColor(.blue)
-                                    }
-                                    
-                                    VStack(alignment: .leading, spacing: 2) {
-                                        Text(String(localized: "Gesture Guide & How to Play"))
-                                            .font(.system(size: 15, weight: .semibold, design: .rounded))
-                                            .foregroundColor(.white)
-                                        Text(String(localized: "Master swirls, bursts & multi-touch"))
-                                            .font(.system(size: 12))
-                                            .foregroundColor(.gray)
-                                    }
-                                    
-                                    Spacer()
-                                    
-                                    Image(systemName: "chevron.right")
-                                        .font(.system(size: 12, weight: .bold))
-                                        .foregroundColor(.gray.opacity(0.6))
-                                }
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 12)
-                                .background(Color(red: 0.10, green: 0.13, blue: 0.18))
-                                .cornerRadius(18)
-                            }
-                            .buttonStyle(.plain)
-                        }
-                        .sheet(isPresented: $showingGuide) {
-                            WelcomeGuideView()
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 18)
+                                    .stroke(Color.white.opacity(0.08), lineWidth: 1)
+                            )
                         }
                         
                         // MARK: - 4. About & Legal
@@ -321,7 +362,7 @@ public struct SettingsView: View {
             }
             .navigationTitle(String(localized: "Settings"))
             .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(Color(red: 0.05, green: 0.07, blue: 0.10), for: .navigationBar)
+            .toolbarBackground(Color(red: 0.04, green: 0.05, blue: 0.08), for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbarColorScheme(.dark, for: .navigationBar)
             .toolbar {

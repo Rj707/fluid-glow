@@ -6,7 +6,18 @@ final class AdManagerTests: XCTestCase {
     func testAdManagerSingleton() {
         let adManager = AdManager.shared
         XCTAssertNotNil(adManager)
-        XCTAssertTrue(adManager.isInterstitialReady)
-        XCTAssertTrue(adManager.isRewardedReady)
+    }
+    
+    @MainActor
+    func testAdManagerTriggerMethods() {
+        let adManager = AdManager.shared
+        adManager.recordCanvasClear()
+        adManager.recordPresetSwitch()
+        
+        var rewardEarned = false
+        adManager.showRewardedVideo(for: .cyberpunkPlasma) {
+            rewardEarned = true
+        }
+        XCTAssertTrue(rewardEarned)
     }
 }

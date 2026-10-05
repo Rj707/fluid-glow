@@ -15,6 +15,7 @@ struct FluidGlowApp: App {
                         .zIndex(1)
                 }
             }
+            .ignoresSafeArea()
         }
     }
 }

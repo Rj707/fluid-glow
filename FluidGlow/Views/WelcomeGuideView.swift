@@ -97,7 +97,9 @@ public struct WelcomeGuideView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(.hidden, for: .navigationBar)
+            .toolbarBackground(Color(red: 0.07, green: 0.09, blue: 0.13), for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarColorScheme(.dark, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(String(localized: "Done")) {

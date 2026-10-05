@@ -1,0 +1,41 @@
+{
+  "identifier": "FG9A1B2C",
+  "nonRenewingSubscriptions": [],
+  "products": [
+    {
+      "displayPrice": "2.99",
+      "familyShareable": true,
+      "internalID": "FG010001",
+      "localizations": [
+        {
+          "description": "Permanently remove all ads and unlock all 6 premium fluid shaders.",
+          "displayName": "Lifetime VIP Pass",
+          "locale": "en_US"
+        },
+        {
+          "description": "Elimina permanentemente los anuncios y desbloquea todos los shaders.",
+          "displayName": "Pase VIP de por vida",
+          "locale": "es_ES"
+        },
+        {
+          "description": "Entfernen Sie alle Werbung dauerhaft und schalten Sie alle Shader frei.",
+          "displayName": "Lebenslanger VIP-Pass",
+          "locale": "de"
+        }
+      ],
+      "productID": "com.saadapps.fluidglow.vip",
+      "referenceName": "Lifetime VIP Pass",
+      "type": "NonConsumable"
+    }
+  ],
+  "settings": {
+    "_failTransactionsEnabled": false,
+    "_locale": "en_US",
+    "_storefront": "USA"
+  },
+  "subscriptionGroups": [],
+  "version": {
+    "major": 3,
+    "minor": 0
+  }
+}

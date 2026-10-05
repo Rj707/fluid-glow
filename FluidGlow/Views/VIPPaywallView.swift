@@ -3,6 +3,8 @@ import SwiftUI
 public struct VIPPaywallView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var proManager = ProFeatureManager.shared
+    @State private var showingAlert = false
+    @State private var alertMessage = ""
     
     public init() {}
     
@@ -97,6 +99,9 @@ public struct VIPPaywallView: View {
                             let success = await proManager.purchaseVIP()
                             if success {
                                 dismiss()
+                            } else if let err = proManager.errorMessage {
+                                alertMessage = err
+                                showingAlert = true
                             }
                         }
                     }) {
@@ -129,6 +134,9 @@ public struct VIPPaywallView: View {
                                 await proManager.restorePurchases()
                                 if proManager.isVIP {
                                     dismiss()
+                                } else if let err = proManager.errorMessage {
+                                    alertMessage = err
+                                    showingAlert = true
                                 }
                             }
                         }) {
@@ -153,6 +161,11 @@ public struct VIPPaywallView: View {
             }
         }
         .preferredColorScheme(.dark)
+        .alert(String(localized: "VIP Store"), isPresented: $showingAlert) {
+            Button(String(localized: "OK"), role: .cancel) {}
+        } message: {
+            Text(alertMessage)
+        }
     }
 }
 

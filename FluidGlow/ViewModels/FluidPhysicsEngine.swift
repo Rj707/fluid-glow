@@ -21,10 +21,12 @@ public final class FluidPhysicsEngine: ObservableObject {
         particleCount = 0
         lastTouchPositions.removeAll()
         touchCount = 0
+        lastSwirlArtwork.removeAll()
     }
     
     public func setPreset(_ preset: FluidShaderPreset) {
         currentPreset = preset
+        lastSwirlArtwork.removeAll()
     }
     
     public func handleTouchBegan(at point: CGPoint, touchId: Int = 0) {
@@ -130,33 +132,49 @@ public final class FluidPhysicsEngine: ObservableObject {
         
         particles = aliveParticles
         particleCount = particles.count
+        
+        // Cache the user's active fluid swirl so it can be saved as wallpaper even after decay
+        if particles.count >= 20 {
+            lastSwirlArtwork = particles.map { p in
+                var copy = p
+                copy.life = max(p.life, 0.88)
+                return copy
+            }
+        }
     }
+    
+    public var lastSwirlArtwork: [FluidParticle] = []
     
     public func generateSignatureParticles(in size: CGSize) -> [FluidParticle] {
         var generated: [FluidParticle] = []
-        let center = CGPoint(x: size.width / 2.0, y: size.height / 2.0)
-        let turns = 3.2
-        let maxRadius = min(size.width, size.height) * 0.44
-        let count = 180
+        let width = size.width
+        let height = size.height
         
-        for i in 0..<count {
-            let t = Double(i) / Double(count)
-            let angle = t * turns * 2.0 * .pi
-            let r = t * maxRadius
+        // 3 cascading fluid ribbons flowing diagonally across the full OLED screen
+        let ribbonCount = 3
+        let pointsPerRibbon = 120
+        
+        for r in 0..<ribbonCount {
+            let xOffset = width * (0.28 + Double(r) * 0.22)
+            let phaseOffset = Double(r) * 1.4
+            let ribbonHueShift = (Double(r) - 1.0) * currentPreset.hueVariance * 0.8
             
-            for arm in [0.0, .pi] {
-                let armAngle = angle + arm
-                let x = center.x + CGFloat(Darwin.cos(armAngle)) * r
-                let y = center.y + CGFloat(Darwin.sin(armAngle)) * (r * 1.15)
+            for i in 0..<pointsPerRibbon {
+                let t = Double(i) / Double(pointsPerRibbon)
+                let y = t * (height + 80.0) - 40.0
                 
-                let hueVariance = Double.random(in: -currentPreset.hueVariance...currentPreset.hueVariance)
-                var hue = currentPreset.baseHue + hueVariance + (t * 0.12)
+                // Fluid harmonic wave curves
+                let wave1 = Darwin.sin(t * .pi * 2.5 + phaseOffset) * (width * 0.22)
+                let wave2 = Darwin.cos(t * .pi * 1.5 - phaseOffset) * (width * 0.12)
+                let x = xOffset + CGFloat(wave1 + wave2)
+                
+                var hue = currentPreset.baseHue + ribbonHueShift + (t * currentPreset.hueVariance * 1.2)
                 if hue < 0.0 { hue += 1.0 }
                 if hue > 1.0 { hue -= 1.0 }
                 
                 let sat = currentPreset == .midnightOLED ? 0.0 : Double.random(in: 0.85...1.0)
-                let particleSize = CGFloat.random(in: 20...36) * CGFloat(1.0 + (1.0 - t) * 0.4)
-                let blur = currentPreset == .midnightOLED ? 3.0 : 8.0
+                let sizeVariation = CGFloat(Darwin.sin(t * .pi)) * 16.0 + CGFloat.random(in: 24...38)
+                let blur = currentPreset == .midnightOLED ? 3.0 : CGFloat.random(in: 6.0...10.0)
                 
                 let p = FluidParticle(
                     position: CGPoint(x: x, y: y),
@@ -164,12 +182,30 @@ public final class FluidPhysicsEngine: ObservableObject {
                     hue: hue,
                     saturation: sat,
                     brightness: 1.0,
-                    size: particleSize,
+                    size: sizeVariation,
                     life: Double.random(in: 0.85...1.0),
                     decayRate: 0.01,
                     blurRadius: blur
                 )
                 generated.append(p)
+                
+                // Soft ambient stardust glow nodes along the stream
+                if i % 3 == 0 {
+                    let spreadX = CGFloat.random(in: -30...30)
+                    let spreadY = CGFloat.random(in: -20...20)
+                    let star = FluidParticle(
+                        position: CGPoint(x: x + spreadX, y: y + spreadY),
+                        velocity: .zero,
+                        hue: hue,
+                        saturation: sat * 0.8,
+                        brightness: 0.9,
+                        size: CGFloat.random(in: 12...22),
+                        life: Double.random(in: 0.6...0.9),
+                        decayRate: 0.01,
+                        blurRadius: blur * 1.3
+                    )
+                    generated.append(star)
+                }
             }
         }
         return generated

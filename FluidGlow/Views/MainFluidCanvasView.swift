@@ -348,8 +348,18 @@ public struct MainFluidCanvasView: View {
             }
         }
         
-        // 3. Render the wallpaper (full OLED black canvas + particles)
-        let particlesToDraw = engine.particles.isEmpty ? engine.generateSignatureParticles(in: size) : engine.particles
+        // 3. Select particles to draw:
+        // Priority 1: Currently live particles on screen
+        // Priority 2: User's cached swirl artwork (if they just swirled and lifted their hand)
+        // Priority 3: Fullscreen cascading OLED Aurora ribbons (signature procedural artwork)
+        let particlesToDraw: [FluidParticle]
+        if !engine.particles.isEmpty {
+            particlesToDraw = engine.particles
+        } else if !engine.lastSwirlArtwork.isEmpty {
+            particlesToDraw = engine.lastSwirlArtwork
+        } else {
+            particlesToDraw = engine.generateSignatureParticles(in: size)
+        }
         
         let wallpaperView = ZStack {
             Color.black

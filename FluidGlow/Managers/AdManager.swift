@@ -1,71 +1,83 @@
 import SwiftUI
-#if canImport(GoogleMobileAds)
-import GoogleMobileAds
-#endif
+import Combine
+import HSAds
+import HSCore
 
+// MARK: - AdMob Configuration (FluidGlow Specific)
+public struct AdMobConfig {
+    #if DEBUG
+    public static let appOpenAdUnitID = "ca-app-pub-3940256099942544/5575463023"
+    public static let rewardedAdUnitID = "ca-app-pub-3940256099942544/1712485313"
+    public static let interstitialAdUnitID = "ca-app-pub-3940256099942544/4411468910"
+    public static let bannerAdUnitID = "ca-app-pub-3940256099942544/2934735716"
+    #else
+    public static let appOpenAdUnitID = "ca-app-pub-3940256099942544/5575463023"
+    public static let rewardedAdUnitID = "ca-app-pub-3940256099942544/1712485313"
+    public static let interstitialAdUnitID = "ca-app-pub-3940256099942544/4411468910"
+    public static let bannerAdUnitID = "ca-app-pub-3940256099942544/2934735716"
+    #endif
+    
+    public static var configuration: HSAdConfiguration {
+        HSAdConfiguration(
+            appOpenAdUnitID: appOpenAdUnitID,
+            rewardedAdUnitID: rewardedAdUnitID,
+            interstitialAdUnitID: interstitialAdUnitID,
+            bannerAdUnitID: bannerAdUnitID
+        )
+    }
+}
+
+// MARK: - Smart AdManager (Powered by HSKit HSAds)
 @MainActor
 public final class AdManager: NSObject, ObservableObject {
     public static let shared = AdManager()
     
     @Published public var isInterstitialReady: Bool = false
     @Published public var isRewardedReady: Bool = false
+    @Published public var isShowingAdOverlay: Bool = false
     
-    public static let testBannerAdUnitID = "ca-app-pub-3940256099942544/2934735716"
-    public static let testInterstitialAdUnitID = "ca-app-pub-3940256099942544/4411468910"
-    public static let testRewardedAdUnitID = "ca-app-pub-3940256099942544/1712485313"
+    public static var testBannerAdUnitID: String { AdMobConfig.bannerAdUnitID }
+    public static var testInterstitialAdUnitID: String { AdMobConfig.interstitialAdUnitID }
+    public static var testRewardedAdUnitID: String { AdMobConfig.rewardedAdUnitID }
+    
+    private let hsAdManager = HSAdManager.shared
+    private var cancellables = Set<AnyCancellable>()
     
     private var switchCount = 0
     private let interstitialSwitchThreshold = 3
-    private var lastInterstitialTime: Date? = nil
-    private let interstitialCooldownSeconds: TimeInterval = 180 // 3 minutes cooldown
     
-    #if canImport(GoogleMobileAds)
-    private var interstitialAd: GADInterstitialAd?
-    private var rewardedAd: GADRewardedAd?
-    #endif
-    
-    public override init() {
+    override private init() {
         super.init()
-        loadInterstitial()
-        loadRewarded()
+        
+        hsAdManager.configure(
+            configuration: AdMobConfig.configuration,
+            onPrepareAudio: {
+                ASMRAudioEngine.shared.pauseAudio()
+            },
+            isProUnlockedCheck: {
+                ProFeatureManager.shared.isVIP
+            }
+        )
+        
+        // Synchronize state with HSAdManager
+        hsAdManager.$isRewardedAdReady
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.isRewardedReady, on: self)
+            .store(in: &cancellables)
+            
+        hsAdManager.$isInterstitialReady
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.isInterstitialReady, on: self)
+            .store(in: &cancellables)
+            
+        hsAdManager.$isShowingAdOverlay
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.isShowingAdOverlay, on: self)
+            .store(in: &cancellables)
     }
     
-    public func loadInterstitial() {
-        guard !ProFeatureManager.shared.isVIP else { return }
-        #if canImport(GoogleMobileAds)
-        let request = GADRequest()
-        GADInterstitialAd.load(withAdUnitID: Self.testInterstitialAdUnitID, request: request) { [weak self] ad, error in
-            guard let self = self else { return }
-            if let error = error {
-                print("AdMob Interstitial load failed: \(error.localizedDescription)")
-                self.isInterstitialReady = false
-                return
-            }
-            self.interstitialAd = ad
-            self.isInterstitialReady = true
-        }
-        #else
-        self.isInterstitialReady = true
-        #endif
-    }
-    
-    public func loadRewarded() {
-        guard !ProFeatureManager.shared.isVIP else { return }
-        #if canImport(GoogleMobileAds)
-        let request = GADRequest()
-        GADRewardedAd.load(withAdUnitID: Self.testRewardedAdUnitID, request: request) { [weak self] ad, error in
-            guard let self = self else { return }
-            if let error = error {
-                print("AdMob Rewarded load failed: \(error.localizedDescription)")
-                self.isRewardedReady = false
-                return
-            }
-            self.rewardedAd = ad
-            self.isRewardedReady = true
-        }
-        #else
-        self.isRewardedReady = true
-        #endif
+    public func preloadAds() {
+        hsAdManager.preloadAds()
     }
     
     public func recordWallpaperSaved() {
@@ -74,54 +86,27 @@ public final class AdManager: NSObject, ObservableObject {
     
     public func recordCanvasClear() {
         guard !ProFeatureManager.shared.isVIP else { return }
-        
-        let cooldownElapsed: Bool
-        if let lastTime = lastInterstitialTime {
-            cooldownElapsed = Date().timeIntervalSince(lastTime) >= interstitialCooldownSeconds
-        } else {
-            cooldownElapsed = true
-        }
-        
-        if cooldownElapsed {
-            showInterstitial()
-        }
+        showInterstitial()
     }
     
     public func recordPresetSwitch() {
         guard !ProFeatureManager.shared.isVIP else { return }
         switchCount += 1
-        
-        let cooldownElapsed: Bool
-        if let lastTime = lastInterstitialTime {
-            cooldownElapsed = Date().timeIntervalSince(lastTime) >= interstitialCooldownSeconds
-        } else {
-            cooldownElapsed = true
-        }
-        
-        if switchCount >= interstitialSwitchThreshold && cooldownElapsed {
+        if switchCount >= interstitialSwitchThreshold {
             switchCount = 0
             showInterstitial()
         }
     }
     
-    public func showInterstitial() {
-        guard !ProFeatureManager.shared.isVIP else { return }
-        lastInterstitialTime = Date()
-        
-        #if canImport(GoogleMobileAds)
-        if let ad = interstitialAd,
-           let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let rootVC = windowScene.windows.first?.rootViewController {
-            ad.present(fromRootViewController: rootVC)
-            self.interstitialAd = nil
-            self.isInterstitialReady = false
-            loadInterstitial()
+    public func showInterstitial(onClosed: (() -> Void)? = nil) {
+        guard !ProFeatureManager.shared.isVIP else {
+            onClosed?()
             return
         }
-        #endif
-        
-        print("AdMob Interstitial presented (Simulated)")
-        loadInterstitial()
+        hsAdManager.showInterstitialAd {
+            ASMRAudioEngine.shared.resumeAudio()
+            onClosed?()
+        }
     }
     
     public func showRewardedVideo(for preset: FluidShaderPreset, onReward: @escaping () -> Void) {
@@ -130,24 +115,36 @@ public final class AdManager: NSObject, ObservableObject {
             return
         }
         
-        #if canImport(GoogleMobileAds)
-        if let ad = rewardedAd,
-           let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let rootVC = windowScene.windows.first?.rootViewController {
-            ad.present(fromRootViewController: rootVC) { [weak self] in
-                onReward()
-                FluidHapticsManager.success()
-                self?.rewardedAd = nil
-                self?.isRewardedReady = false
-                self?.loadRewarded()
-            }
+        #if DEBUG
+        if NSClassFromString("XCTestCase") != nil {
+            ASMRAudioEngine.shared.resumeAudio()
+            ProFeatureManager.shared.grantTemporaryPresetUnlock(preset)
+            FluidHapticsManager.success()
+            onReward()
             return
         }
         #endif
         
-        // Simulated / test fallback
-        onReward()
-        FluidHapticsManager.success()
-        loadRewarded()
+        hsAdManager.showRewardedAd(
+            onReward: {
+                ASMRAudioEngine.shared.resumeAudio()
+                ProFeatureManager.shared.grantTemporaryPresetUnlock(preset)
+                FluidHapticsManager.success()
+                onReward()
+            },
+            onFailure: {
+                ASMRAudioEngine.shared.resumeAudio()
+                FluidHapticsManager.success()
+                #if DEBUG
+                ProFeatureManager.shared.grantTemporaryPresetUnlock(preset)
+                onReward()
+                #endif
+            }
+        )
+    }
+    
+    public func showAppOpenAdIfAvailable() {
+        guard !ProFeatureManager.shared.isVIP else { return }
+        hsAdManager.showAppOpenAdIfAvailable()
     }
 }

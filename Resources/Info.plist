@@ -12,6 +12,8 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Fluid Glow</string>
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
@@ -44,6 +46,8 @@
 	</array>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Save glowing fluid art directly to your Photos library as wallpapers.</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>Your data will be used to deliver personalized fluid visual themes and relevant ads.</string>
 	<key>UILaunchScreen</key>
 	<dict/>
 </dict>

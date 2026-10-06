@@ -16,6 +16,7 @@ public final class ASMRAudioEngine: ObservableObject {
     private var engine: AVAudioEngine?
     private var playerNode: AVAudioPlayerNode?
     private var isEngineRunning = false
+    private var isAudioPausedForAd = false
     
     public init() {
         self.isSoundEnabled = UserDefaults.standard.object(forKey: "fluidglow_sound_enabled") as? Bool ?? true
@@ -32,8 +33,17 @@ public final class ASMRAudioEngine: ObservableObject {
         }
     }
     
+    public func pauseAudio() {
+        isAudioPausedForAd = true
+        stopAllAudio()
+    }
+    
+    public func resumeAudio() {
+        isAudioPausedForAd = false
+    }
+    
     public func playSwirlTone(speed: CGFloat) {
-        guard isSoundEnabled else { return }
+        guard isSoundEnabled, !isAudioPausedForAd else { return }
         // Play smooth haptic chime tone or gentle frequency response
         // Using system sounds or synthesized pitch based on speed
         let pitchTier = min(Int(speed / 15.0), 3)
@@ -43,7 +53,7 @@ public final class ASMRAudioEngine: ObservableObject {
     }
     
     public func playBurstTone() {
-        guard isSoundEnabled else { return }
+        guard isSoundEnabled, !isAudioPausedForAd else { return }
         AudioServicesPlaySystemSound(1057) // Soft bubble pop
     }
     

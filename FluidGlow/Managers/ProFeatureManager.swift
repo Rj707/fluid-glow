@@ -1,35 +1,70 @@
 import Foundation
 import StoreKit
+import Combine
+import SwiftUI
+import HSCore
 
+// MARK: - Rewarded & In-App Purchase VIP Feature Manager (Powered by HSKit HSStoreManager)
 @MainActor
 public final class ProFeatureManager: ObservableObject {
     public static let shared = ProFeatureManager()
     
     public static let lifetimeVIPProductID = "com.saadapps.fluidglow.vip"
     
-    @Published public private(set) var isVIP: Bool = false
+    private let storeManager = HSStoreManager.shared
+    private var cancellables = Set<AnyCancellable>()
+    
+    #if DEBUG
+    @AppStorage("fluidglow_vip_active") private var debugVIPOverride: Bool = false
+    #endif
+    
     @Published public var tempUnlockedPresets: Set<String> = []
-    @Published public private(set) var isPurchasing: Bool = false
-    @Published public private(set) var vipProduct: Product?
-    @Published public var errorMessage: String?
+    @Published public var localErrorMessage: String?
     
-    private var transactionTask: Task<Void, Never>?
-    
-    public init() {
+    public var isVIP: Bool {
+        #if DEBUG
         if ProcessInfo.processInfo.arguments.contains("-vip_active") {
-            self.isVIP = true
-        } else {
-            self.isVIP = UserDefaults.standard.bool(forKey: "fluidglow_vip_active")
+            return true
         }
-        startTransactionListener()
-        Task {
-            await loadProducts()
-            await checkCurrentEntitlements()
+        return storeManager.isProductUnlocked(Self.lifetimeVIPProductID) || debugVIPOverride
+        #else
+        return storeManager.isProductUnlocked(Self.lifetimeVIPProductID)
+        #endif
+    }
+    
+    public var isPurchasing: Bool {
+        storeManager.isPurchasing
+    }
+    
+    public var vipProduct: Product? {
+        storeManager.products.first(where: { $0.id == Self.lifetimeVIPProductID })
+    }
+    
+    public var errorMessage: String? {
+        get { localErrorMessage ?? storeManager.purchaseErrorMessage }
+        set {
+            localErrorMessage = newValue
+            storeManager.purchaseErrorMessage = newValue
         }
     }
     
-    deinit {
-        transactionTask?.cancel()
+    public init() {
+        storeManager.configure(productIDs: [Self.lifetimeVIPProductID])
+        
+        // Synchronize state dynamically when StoreKit updates entitlements
+        storeManager.$unlockedProductIDs
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.objectWillChange.send()
+            }
+            .store(in: &cancellables)
+            
+        storeManager.$isPurchasing
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.objectWillChange.send()
+            }
+            .store(in: &cancellables)
     }
     
     public func isPresetUnlocked(_ preset: FluidShaderPreset) -> Bool {
@@ -41,116 +76,47 @@ public final class ProFeatureManager: ObservableObject {
     public func grantTemporaryPresetUnlock(_ preset: FluidShaderPreset) {
         tempUnlockedPresets.insert(preset.rawValue)
         FluidHapticsManager.success()
+        objectWillChange.send()
     }
     
     public func loadProducts() async {
-        do {
-            let products = try await Product.products(for: [Self.lifetimeVIPProductID])
-            self.vipProduct = products.first
-        } catch {
-            print("Failed to fetch products: \(error)")
-        }
+        await storeManager.requestProducts()
     }
     
     public func purchaseVIP() async -> Bool {
-        isPurchasing = true
-        errorMessage = nil
-        defer { isPurchasing = false }
-        
+        localErrorMessage = nil
         #if DEBUG
-        // Immediate simulator test unlock
-        self.isVIP = true
-        UserDefaults.standard.set(true, forKey: "fluidglow_vip_active")
-        FluidHapticsManager.success()
-        return true
-        #else
-        guard let product = vipProduct else {
-            errorMessage = "VIP Pass product unavailable in App Store."
-            return false
-        }
-        
-        do {
-            let result = try await product.purchase()
-            switch result {
-            case .success(let verification):
-                switch verification {
-                case .verified(let transaction):
-                    await transaction.finish()
-                    self.isVIP = true
-                    UserDefaults.standard.set(true, forKey: "fluidglow_vip_active")
-                    FluidHapticsManager.success()
-                    return true
-                case .unverified(_, let error):
-                    errorMessage = "Purchase could not be verified: \(error.localizedDescription)"
-                    return false
-                }
-            case .userCancelled:
-                return false
-            case .pending:
-                errorMessage = "Purchase is pending approval."
-                return false
-            @unknown default:
-                return false
-            }
-        } catch {
-            errorMessage = error.localizedDescription
-            return false
+        if ProcessInfo.processInfo.arguments.contains("-vip_active") {
+            self.debugVIPOverride = true
+            FluidHapticsManager.success()
+            objectWillChange.send()
+            return true
         }
         #endif
+        
+        let success = await storeManager.purchase(productID: Self.lifetimeVIPProductID)
+        if success {
+            FluidHapticsManager.success()
+        } else if let error = storeManager.purchaseErrorMessage {
+            localErrorMessage = error
+        }
+        objectWillChange.send()
+        return success
     }
     
     public func restorePurchases() async {
-        isPurchasing = true
-        defer { isPurchasing = false }
-        
-        #if DEBUG
-        self.isVIP = true
-        UserDefaults.standard.set(true, forKey: "fluidglow_vip_active")
-        FluidHapticsManager.success()
-        #else
-        do {
-            try await AppStore.sync()
-            await checkCurrentEntitlements()
-            if isVIP {
-                FluidHapticsManager.success()
-            } else {
-                errorMessage = "No previous VIP purchases found."
-            }
-        } catch {
-            errorMessage = "Restore failed: \(error.localizedDescription)"
+        localErrorMessage = nil
+        await storeManager.restorePurchases()
+        if isVIP {
+            FluidHapticsManager.success()
+        } else {
+            localErrorMessage = storeManager.purchaseErrorMessage ?? "No previous VIP purchases found."
         }
-        #endif
+        objectWillChange.send()
     }
 
     public func checkCurrentEntitlements() async {
-        for await result in Transaction.currentEntitlements {
-            if case .verified(let transaction) = result {
-                if transaction.productID == Self.lifetimeVIPProductID {
-                    if transaction.revocationDate == nil {
-                        self.isVIP = true
-                        UserDefaults.standard.set(true, forKey: "fluidglow_vip_active")
-                        return
-                    }
-                }
-            }
-        }
-    }
-    
-    private func startTransactionListener() {
-        transactionTask = Task.detached { [weak self] in
-            for await result in Transaction.updates {
-                if case .verified(let transaction) = result {
-                    await transaction.finish()
-                    await self?.updateEntitlement(for: transaction)
-                }
-            }
-        }
-    }
-    
-    private func updateEntitlement(for transaction: Transaction) {
-        if transaction.productID == Self.lifetimeVIPProductID {
-            self.isVIP = transaction.revocationDate == nil
-            UserDefaults.standard.set(self.isVIP, forKey: "fluidglow_vip_active")
-        }
+        await storeManager.updatePurchasedStatus()
+        objectWillChange.send()
     }
 }

@@ -1,4 +1,5 @@
 import UIKit
+import HSCore
 
 public enum FluidHapticsManager {
     private static var isHapticsEnabled: Bool {
@@ -9,7 +10,6 @@ public enum FluidHapticsManager {
     private static let mediumImpact = UIImpactFeedbackGenerator(style: .medium)
     private static let softImpact = UIImpactFeedbackGenerator(style: .soft)
     private static let rigidImpact = UIImpactFeedbackGenerator(style: .rigid)
-    private static let notificationGenerator = UINotificationFeedbackGenerator()
     
     public static func prepare() {
         guard isHapticsEnabled else { return }
@@ -38,6 +38,8 @@ public enum FluidHapticsManager {
     
     public static func success() {
         guard isHapticsEnabled else { return }
-        notificationGenerator.notificationOccurred(.success)
+        Task { @MainActor in
+            HSHapticsManager.success()
+        }
     }
 }

@@ -1,7 +1,12 @@
 import SwiftUI
+import HSCore
+import HSAds
+import HSUI
 
 @main
 struct FluidGlowApp: App {
+    @Environment(\.scenePhase) private var scenePhase
+    @ObservedObject private var theme = HSThemeManager.shared
     @State private var isSplashActive = true
     
     var body: some Scene {
@@ -16,6 +21,17 @@ struct FluidGlowApp: App {
                 }
             }
             .ignoresSafeArea()
+            .preferredColorScheme(theme.preferredColorScheme)
+            .onAppear {
+                HSConsentManager.shared.requestTrackingPermission { _ in
+                    AdManager.shared.preloadAds()
+                }
+            }
+            .onChange(of: scenePhase) { _, newPhase in
+                if newPhase == .active && !isSplashActive {
+                    AdManager.shared.showAppOpenAdIfAvailable()
+                }
+            }
         }
     }
 }

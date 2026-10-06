@@ -1,6 +1,9 @@
 import AVFoundation
 import SwiftUI
+import UIKit
+import HSCore
 
+// MARK: - Generative ASMR Audio Engine
 public final class ASMRAudioEngine: ObservableObject {
     public static let shared = ASMRAudioEngine()
     
@@ -16,6 +19,7 @@ public final class ASMRAudioEngine: ObservableObject {
     private var engine: AVAudioEngine?
     private var playerNode: AVAudioPlayerNode?
     private var isEngineRunning = false
+    private var isAudioPausedForAd = false
     
     public init() {
         self.isSoundEnabled = UserDefaults.standard.object(forKey: "fluidglow_sound_enabled") as? Bool ?? true
@@ -32,8 +36,17 @@ public final class ASMRAudioEngine: ObservableObject {
         }
     }
     
+    public func pauseAudio() {
+        isAudioPausedForAd = true
+        stopAllAudio()
+    }
+    
+    public func resumeAudio() {
+        isAudioPausedForAd = false
+    }
+    
     public func playSwirlTone(speed: CGFloat) {
-        guard isSoundEnabled else { return }
+        guard isSoundEnabled, !isAudioPausedForAd else { return }
         // Play smooth haptic chime tone or gentle frequency response
         // Using system sounds or synthesized pitch based on speed
         let pitchTier = min(Int(speed / 15.0), 3)
@@ -43,7 +56,7 @@ public final class ASMRAudioEngine: ObservableObject {
     }
     
     public func playBurstTone() {
-        guard isSoundEnabled else { return }
+        guard isSoundEnabled, !isAudioPausedForAd else { return }
         AudioServicesPlaySystemSound(1057) // Soft bubble pop
     }
     
@@ -54,9 +67,7 @@ public final class ASMRAudioEngine: ObservableObject {
     }
 }
 
-
-import UIKit
-
+// MARK: - Fluid Dynamics Tactile Haptic Manager
 public enum FluidHapticsManager {
     private static var isHapticsEnabled: Bool {
         UserDefaults.standard.object(forKey: "fluidglow_haptics_enabled") as? Bool ?? true
@@ -66,7 +77,6 @@ public enum FluidHapticsManager {
     private static let mediumImpact = UIImpactFeedbackGenerator(style: .medium)
     private static let softImpact = UIImpactFeedbackGenerator(style: .soft)
     private static let rigidImpact = UIImpactFeedbackGenerator(style: .rigid)
-    private static let notificationGenerator = UINotificationFeedbackGenerator()
     
     public static func prepare() {
         guard isHapticsEnabled else { return }
@@ -95,6 +105,8 @@ public enum FluidHapticsManager {
     
     public static func success() {
         guard isHapticsEnabled else { return }
-        notificationGenerator.notificationOccurred(.success)
+        Task { @MainActor in
+            HSHapticsManager.success()
+        }
     }
 }

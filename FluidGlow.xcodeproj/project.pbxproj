@@ -31,6 +31,7 @@
 		ER0100072C00000100000001 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0100072C00000100000001 /* SettingsView.swift */; };
 		ER0100082C00000100000001 /* ProFeatureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0100082C00000100000001 /* ProFeatureManager.swift */; };
 		ER0100092C00000100000001 /* AdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0100092C00000100000001 /* AdManager.swift */; };
+		ER0100162C00000100000001 /* ConsentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0100162C00000100000001 /* ConsentManager.swift */; };
 		ER0100102C00000100000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF0100102C00000100000001 /* Assets.xcassets */; };
 		GW0200012C00000100000002 /* FluidGlowSplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = GW0100012C00000100000002 /* FluidGlowSplashView.swift */; };
 /* End PBXBuildFile section */
@@ -69,6 +70,7 @@
 		EF0100072C00000100000001 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		EF0100082C00000100000001 /* ProFeatureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProFeatureManager.swift; sourceTree = "<group>"; };
 		EF0100092C00000100000001 /* AdManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdManager.swift; sourceTree = "<group>"; };
+		EF0100162C00000100000001 /* ConsentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentManager.swift; sourceTree = "<group>"; };
 		EF0100102C00000100000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EF0100122C00000100000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		GW0100012C00000100000002 /* FluidGlowSplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FluidGlowSplashView.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 			children = (
 				EF0100082C00000100000001 /* ProFeatureManager.swift */,
 				EF0100092C00000100000001 /* AdManager.swift */,
+				EF0100162C00000100000001 /* ConsentManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				ER0100152C00000100000001 /* BannerAdContainerView.swift in Sources */,
 				ER0100082C00000100000001 /* ProFeatureManager.swift in Sources */,
 				ER0100092C00000100000001 /* AdManager.swift in Sources */,
+				ER0100162C00000100000001 /* ConsentManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,8 +422,8 @@
 				DEVELOPMENT_TEAM = 8FA6H2MXX5;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Emoji Riddle";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.word-games";
+				INFOPLIST_KEY_CFBundleDisplayName = "Fluid Glow";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -445,8 +449,8 @@
 				DEVELOPMENT_TEAM = 8FA6H2MXX5;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Emoji Riddle";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.word-games";
+				INFOPLIST_KEY_CFBundleDisplayName = "Fluid Glow";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

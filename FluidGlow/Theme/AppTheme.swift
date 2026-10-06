@@ -1,17 +1,28 @@
 import SwiftUI
+import UIKit
+import HSUI
 
-public enum AppThemeMode: String, CaseIterable, Identifiable {
-    case system = "System (Match Device)"
-    case modernDark = "Modern Dark"
-    case midnightOLED = "Midnight OLED"
-    case cyberNeon = "Cyber Neon"
-    case minimalLight = "Minimal Light"
-    
-    public var id: String { rawValue }
-}
+// MARK: - App Theme Modes (Adopted from HSKit HSUI)
+public typealias AppThemeMode = HSThemeMode
 
-public enum AppTheme {
-    @AppStorage("fluidglow_theme_mode") public static var currentTheme: AppThemeMode = .modernDark
+public struct AppTheme {
+    // Current Active Theme State (Synchronized via HSKit HSThemeManager)
+    public static var currentTheme: AppThemeMode {
+        get {
+            if let raw = UserDefaults.standard.string(forKey: HSThemeManager.themeKey) ?? UserDefaults.standard.string(forKey: "fluidglow_theme_mode"),
+               let mode = AppThemeMode(rawValue: raw) {
+                return mode
+            }
+            return .modernDark
+        }
+        set {
+            UserDefaults.standard.set(newValue.rawValue, forKey: "fluidglow_theme_mode")
+            UserDefaults.standard.set(newValue.rawValue, forKey: HSThemeManager.themeKey)
+            Task { @MainActor in
+                HSThemeManager.shared.currentTheme = newValue
+            }
+        }
+    }
     
     public static var primaryAccent: Color {
         Color(red: 0.1, green: 0.85, blue: 0.95)

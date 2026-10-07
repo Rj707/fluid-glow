@@ -43,6 +43,17 @@ public final class AdManager: NSObject, ObservableObject {
     
     private let hsAdManager = HSAdManager.shared
     private var cancellables = Set<AnyCancellable>()
+    private var switchCount = 0
+    private let interstitialSwitchThreshold = 3
+
+    /// Shader-change interstitials stay available for debug testing and stay off in release.
+    private static var showsPresetInterstitial: Bool {
+        #if DEBUG
+        true
+        #else
+        false
+        #endif
+    }
     
     override private init() {
         super.init()
@@ -91,7 +102,13 @@ public final class AdManager: NSObject, ObservableObject {
     }
     
     public func recordPresetSwitch() {
-        // Changing a shader is still the activity. The interstitial waits for a saved wallpaper.
+        guard Self.showsPresetInterstitial else { return }
+        guard !ProFeatureManager.shared.isVIP else { return }
+        switchCount += 1
+        if switchCount >= interstitialSwitchThreshold {
+            switchCount = 0
+            showInterstitial()
+        }
     }
     
     public func showInterstitial(onClosed: (() -> Void)? = nil) {

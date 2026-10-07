@@ -204,6 +204,9 @@ fun FluidApp(
                                         if (!started) showPaywall = true
                                     } else {
                                         applyPreset(canvas, item) { preset = it }
+                                        if (BuildConfig.DEBUG && graph.notePresetSwitch(vip)) {
+                                            graph.ads.showInterstitial(activity)
+                                        }
                                     }
                                     pulse(strong = true)
                                     showPresets = false

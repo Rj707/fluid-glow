@@ -71,6 +71,7 @@ fun FluidApp(
     onWelcomeDismissed: () -> Unit,
 ) {
     val vip by graph.billing.removesAds.collectAsStateWithLifecycle()
+    val privacyOptions by graph.consent.privacyOptionsRequired.collectAsStateWithLifecycle()
     val unlocked by graph.temporaryPresets.collectAsStateWithLifecycle()
     val price by graph.billing.price.collectAsStateWithLifecycle()
     val context = LocalContext.current
@@ -116,7 +117,7 @@ fun FluidApp(
             )
 
             if (controlsVisible) {
-                Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding()) {
+                Column(Modifier.fillMaxSize().statusBarsPadding().padding(bottom = if (vip) 0.dp else 72.dp).navigationBarsPadding()) {
                     Row(
                         Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
                         verticalAlignment = Alignment.CenterVertically,
@@ -178,9 +179,12 @@ fun FluidApp(
                             }
                         }
                     }
-                    AdBanner(graph)
                 }
             }
+            AdBanner(
+                graph,
+                Modifier.align(Alignment.BottomCenter).navigationBarsPadding().padding(bottom = 8.dp),
+            )
 
             if (showPresets) {
                 Sheet(title = "Shaders", onClose = { showPresets = false }) {
@@ -200,7 +204,6 @@ fun FluidApp(
                                         if (!started) showPaywall = true
                                     } else {
                                         applyPreset(canvas, item) { preset = it }
-                                        if (graph.notePresetSwitch(vip)) graph.ads.showInterstitial(activity)
                                     }
                                     pulse(strong = true)
                                     showPresets = false
@@ -233,6 +236,11 @@ fun FluidApp(
                     }
                     TextButton(onClick = { graph.billing.restore() }) {
                         Text("Restore purchases", color = Color.White)
+                    }
+                    if (privacyOptions) {
+                        TextButton(onClick = { graph.consent.showPrivacyOptions(activity) }) {
+                            Text("Privacy options", color = Color.White)
+                        }
                     }
                     if (!vip) {
                         Button(onClick = { showSettings = false; showPaywall = true }, modifier = Modifier.fillMaxWidth()) {
@@ -363,13 +371,13 @@ private fun SettingRow(label: String, checked: Boolean, onChange: (Boolean) -> U
 }
 
 @Composable
-private fun AdBanner(graph: AppGraph) {
+private fun AdBanner(graph: AppGraph, modifier: Modifier = Modifier) {
     val premium by graph.billing.removesAds.collectAsStateWithLifecycle()
     val consent by graph.consent.canRequestAds.collectAsStateWithLifecycle()
     if (premium || !consent || !graph.ads.bannerAllowed()) return
     val unitId = graph.ads.units.banner
     AndroidView(
-        modifier = Modifier.fillMaxWidth().height(50.dp),
+        modifier = modifier.fillMaxWidth().height(50.dp),
         factory = { context ->
             AdView(context).apply {
                 setAdSize(AdSize.BANNER)
@@ -377,5 +385,6 @@ private fun AdBanner(graph: AppGraph) {
                 loadAd(AdRequest.Builder().build())
             }
         },
+        onRelease = { it.destroy() },
     )
 }

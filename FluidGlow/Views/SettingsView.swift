@@ -1,9 +1,11 @@
 import SwiftUI
+import HSCore
 
 public struct SettingsView: View {
     @Binding var showingPaywall: Bool
     @Environment(\.dismiss) private var dismiss
     @StateObject private var proManager = ProFeatureManager.shared
+    @ObservedObject private var consent = HSConsentManager.shared
     @StateObject private var audio = ASMRAudioEngine.shared
     @AppStorage("fluidglow_haptics_enabled") private var hapticsEnabled = true
     
@@ -345,6 +347,14 @@ public struct SettingsView: View {
                                     Image(systemName: "arrow.up.right")
                                         .font(.system(size: 10))
                                 }
+                                .foregroundColor(.gray.opacity(0.8))
+                            }
+
+                            if consent.privacyOptionsRequired {
+                                Button("Privacy options") {
+                                    consent.presentPrivacyOptions()
+                                }
+                                .font(.system(size: 12, weight: .medium))
                                 .foregroundColor(.gray.opacity(0.8))
                             }
                             

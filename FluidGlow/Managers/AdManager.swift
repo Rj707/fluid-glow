@@ -11,10 +11,11 @@ public struct AdMobConfig {
     public static let interstitialAdUnitID = "ca-app-pub-3940256099942544/4411468910"
     public static let bannerAdUnitID = "ca-app-pub-3940256099942544/2934735716"
     #else
-    public static let appOpenAdUnitID = "ca-app-pub-3940256099942544/5575463023"
-    public static let rewardedAdUnitID = "ca-app-pub-3940256099942544/1712485313"
-    public static let interstitialAdUnitID = "ca-app-pub-3940256099942544/4411468910"
-    public static let bannerAdUnitID = "ca-app-pub-3940256099942544/2934735716"
+    // Paste the real AdMob unit ids here before release. Blank ids request nothing.
+    public static let appOpenAdUnitID = ""
+    public static let rewardedAdUnitID = ""
+    public static let interstitialAdUnitID = ""
+    public static let bannerAdUnitID = ""
     #endif
     
     public static var configuration: HSAdConfiguration {
@@ -43,9 +44,6 @@ public final class AdManager: NSObject, ObservableObject {
     private let hsAdManager = HSAdManager.shared
     private var cancellables = Set<AnyCancellable>()
     
-    private var switchCount = 0
-    private let interstitialSwitchThreshold = 3
-    
     override private init() {
         super.init()
         
@@ -53,6 +51,9 @@ public final class AdManager: NSObject, ObservableObject {
             configuration: AdMobConfig.configuration,
             onPrepareAudio: {
                 ASMRAudioEngine.shared.pauseAudio()
+            },
+            onFinishAudio: {
+                ASMRAudioEngine.shared.resumeAudio()
             },
             isProUnlockedCheck: {
                 ProFeatureManager.shared.isVIP
@@ -90,12 +91,7 @@ public final class AdManager: NSObject, ObservableObject {
     }
     
     public func recordPresetSwitch() {
-        guard !ProFeatureManager.shared.isVIP else { return }
-        switchCount += 1
-        if switchCount >= interstitialSwitchThreshold {
-            switchCount = 0
-            showInterstitial()
-        }
+        // Changing a shader is still the activity. The interstitial waits for a saved wallpaper.
     }
     
     public func showInterstitial(onClosed: (() -> Void)? = nil) {

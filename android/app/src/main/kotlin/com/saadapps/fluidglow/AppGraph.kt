@@ -47,8 +47,6 @@ class AppGraph(context: Context) {
     private val prefs = context.applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
     private val _temporaryPresets = MutableStateFlow<Set<String>>(emptySet())
     val temporaryPresets: StateFlow<Set<String>> = _temporaryPresets.asStateFlow()
-    private var presetSwitches = 0
-
     var soundEnabled: Boolean
         get() = prefs.getBoolean(SOUND, true)
         set(value) {
@@ -75,14 +73,6 @@ class AppGraph(context: Context) {
 
     fun grantTemporaryPreset(preset: FluidPreset) {
         _temporaryPresets.value = _temporaryPresets.value + preset.name
-    }
-
-    fun notePresetSwitch(vip: Boolean): Boolean {
-        if (vip) return false
-        presetSwitches += 1
-        if (presetSwitches < 3) return false
-        presetSwitches = 0
-        return true
     }
 
     init {

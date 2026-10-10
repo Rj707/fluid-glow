@@ -23,8 +23,10 @@ struct FluidGlowApp: App {
             .ignoresSafeArea()
             .preferredColorScheme(theme.preferredColorScheme)
             .onAppear {
-                HSConsentManager.shared.requestTrackingPermission { _ in
-                    AdManager.shared.preloadAds()
+                if !ProcessInfo.processInfo.arguments.contains(where: { $0.hasPrefix("-screenshot") }) {
+                    HSConsentManager.shared.requestTrackingPermission { _ in
+                        AdManager.shared.preloadAds()
+                    }
                 }
             }
             .onChange(of: scenePhase) { _, newPhase in

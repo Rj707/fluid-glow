@@ -50,5 +50,7 @@
 	<string>Your data will be used to deliver personalized fluid visual themes and relevant ads.</string>
 	<key>UILaunchScreen</key>
 	<dict/>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 </dict>
 </plist>

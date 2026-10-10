@@ -278,6 +278,15 @@ public struct MainFluidCanvasView: View {
             }
             if args.contains("-screenshot_gold") {
                 engine.setPreset(.liquidGold)
+                engine.particles = engine.generateSignatureParticles(in: CGSize(width: 393, height: 852))
+            }
+            if args.contains("-screenshot_hero") || args.contains("-screenshot_canvas") {
+                engine.particles = engine.generateSignatureParticles(in: CGSize(width: 393, height: 852))
+            }
+            if args.contains("-screenshot_toast") {
+                engine.particles = engine.generateSignatureParticles(in: CGSize(width: 393, height: 852))
+                showSavedToast = true
+                toastMessage = String(localized: "Wallpaper Saved to Photos")
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -295,13 +304,15 @@ public struct MainFluidCanvasView: View {
                     return
                 }
                 
-                engine.handleTouchBegan(at: CGPoint(x: 195, y: 400))
-                for i in 1...25 {
-                    let angle = Double(i) * 0.25
-                    let r = Double(i) * 4.5
-                    let x = 195.0 + Darwin.cos(angle) * r
-                    let y = 400.0 + Darwin.sin(angle) * r
-                    engine.handleTouchMoved(to: CGPoint(x: x, y: y))
+                if engine.particles.isEmpty {
+                    engine.handleTouchBegan(at: CGPoint(x: 195, y: 400))
+                    for i in 1...25 {
+                        let angle = Double(i) * 0.25
+                        let r = Double(i) * 4.5
+                        let x = 195.0 + Darwin.cos(angle) * r
+                        let y = 400.0 + Darwin.sin(angle) * r
+                        engine.handleTouchMoved(to: CGPoint(x: x, y: y))
+                    }
                 }
             }
         }

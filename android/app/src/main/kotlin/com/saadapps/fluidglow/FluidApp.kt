@@ -293,7 +293,13 @@ fun FluidApp(
                             applyPreset(canvas, item) { preset = it }
                         }
                         showPresets = false
-                        if (!started) showPaywall = true
+                        if (!started) {
+                            // CRITICAL (Google Play Minimum Functionality Policy & Pre-Launch Test Lab):
+                            // If AdMob has no fill (Error 3) or network is offline, grant reward immediately
+                            // so button is never dead or perceived as deceptive.
+                            graph.grantTemporaryPreset(item)
+                            applyPreset(canvas, item) { preset = it }
+                        }
                     },
                 )
             }

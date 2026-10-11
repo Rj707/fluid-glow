@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
@@ -144,6 +145,15 @@ fun FluidApp(
         if (flashing) {
             delay(120)
             flashing = false
+        }
+    }
+
+    BackHandler(enabled = showPresets || showSettings || showPaywall || showGuide) {
+        when {
+            showPresets -> showPresets = false
+            showSettings -> showSettings = false
+            showPaywall -> showPaywall = false
+            showGuide -> showGuide = false
         }
     }
 
@@ -330,7 +340,7 @@ fun FluidApp(
                     },
                     onRestore = { graph.billing.restore() },
                     onPrivacy = {
-                        activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://rj707.github.io/fluid-glow/")))
+                        activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://rj707.github.io/fluid-glow/#privacy")))
                     },
                     onPrivacyOptions = { graph.consent.showPrivacyOptions(activity) },
                 )
@@ -343,7 +353,7 @@ fun FluidApp(
                     onPurchase = { graph.billing.purchase(activity) },
                     onRestore = { graph.billing.restore() },
                     onPrivacy = {
-                        activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://rj707.github.io/fluid-glow/")))
+                        activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://rj707.github.io/fluid-glow/#privacy")))
                     },
                 )
             }

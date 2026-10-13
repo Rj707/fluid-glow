@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -31,6 +32,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -193,61 +195,74 @@ fun FluidApp(
             )
 
             AnimatedVisibility(visible = controlsVisible, enter = fadeIn(), exit = fadeOut()) {
-                Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().padding(top = 8.dp, bottom = 16.dp)) {
-                    Row(
-                        Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-                        verticalAlignment = Alignment.CenterVertically,
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.TopCenter,
+                ) {
+                    Column(
+                        Modifier
+                            .fillMaxHeight()
+                            .widthIn(max = 640.dp)
+                            .fillMaxWidth()
+                            .statusBarsPadding()
+                            .navigationBarsPadding()
+                            .padding(top = 8.dp, bottom = 16.dp),
                     ) {
-                        CircleButton(onClick = {
-                            soundOn = !soundOn
-                            graph.soundEnabled = soundOn
-                            pulse()
-                        }) {
-                            Icon(
-                                if (soundOn) Icons.AutoMirrored.Filled.VolumeUp else Icons.AutoMirrored.Filled.VolumeOff,
-                                contentDescription = "Sound",
-                                tint = if (soundOn) Accent else Color.White.copy(alpha = 0.5f),
-                                modifier = Modifier.size(16.dp),
-                            )
-                        }
-                        Spacer(Modifier.weight(1f))
-                        ShaderCapsule(preset) {
-                            pulse(strong = true)
-                            showPresets = true
-                        }
-                        Spacer(Modifier.weight(1f))
-                        CircleButton(onClick = {
-                            pulse(strong = true)
-                            showSettings = true
-                        }) {
-                            Icon(Icons.Filled.Settings, contentDescription = "Settings", tint = Color.White, modifier = Modifier.size(16.dp))
-                        }
-                    }
-                    Spacer(Modifier.weight(1f))
-                    Row(
-                        Modifier.fillMaxWidth().padding(horizontal = 20.dp),
-                        horizontalArrangement = if (vip) Arrangement.Center else Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        CapsuleButton(
-                            label = "Save Wallpaper",
-                            icon = Icons.Filled.PhotoCamera,
-                            brush = null,
+                        Row(
+                            Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+                            verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            if (Build.VERSION.SDK_INT < 29 &&
-                                ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                            ) {
-                                savePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                            } else {
-                                flashing = true
+                            CircleButton(onClick = {
+                                soundOn = !soundOn
+                                graph.soundEnabled = soundOn
+                                pulse()
+                            }) {
+                                Icon(
+                                    if (soundOn) Icons.AutoMirrored.Filled.VolumeUp else Icons.AutoMirrored.Filled.VolumeOff,
+                                    contentDescription = "Sound",
+                                    tint = if (soundOn) Accent else Color.White.copy(alpha = 0.5f),
+                                    modifier = Modifier.size(16.dp),
+                                )
+                            }
+                            Spacer(Modifier.weight(1f))
+                            ShaderCapsule(preset) {
                                 pulse(strong = true)
-                                toast = saveWallpaper(canvas, context, graph, activity, vip)
+                                showPresets = true
+                            }
+                            Spacer(Modifier.weight(1f))
+                            CircleButton(onClick = {
+                                pulse(strong = true)
+                                showSettings = true
+                            }) {
+                                Icon(Icons.Filled.Settings, contentDescription = "Settings", tint = Color.White, modifier = Modifier.size(16.dp))
                             }
                         }
-                        if (!vip) {
-                            CapsuleButton(label = "VIP Pass", icon = null, brush = VipBrush, crown = true) {
-                                pulse(strong = true)
-                                showPaywall = true
+                        Spacer(Modifier.weight(1f))
+                        Row(
+                            Modifier.fillMaxWidth().padding(horizontal = 20.dp),
+                            horizontalArrangement = if (vip) Arrangement.Center else Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            CapsuleButton(
+                                label = "Save Wallpaper",
+                                icon = Icons.Filled.PhotoCamera,
+                                brush = null,
+                            ) {
+                                if (Build.VERSION.SDK_INT < 29 &&
+                                    ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                                ) {
+                                    savePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                } else {
+                                    flashing = true
+                                    pulse(strong = true)
+                                    toast = saveWallpaper(canvas, context, graph, activity, vip)
+                                }
+                            }
+                            if (!vip) {
+                                CapsuleButton(label = "VIP Pass", icon = null, brush = VipBrush, crown = true) {
+                                    pulse(strong = true)
+                                    showPaywall = true
+                                }
                             }
                         }
                     }
@@ -485,11 +500,17 @@ private fun CrownMark(modifier: Modifier, tint: Color) {
 
 @Composable
 private fun SheetScaffold(title: String, onClose: () -> Unit, content: @Composable ColumnScope.() -> Unit) {
-    Box(Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.45f))) {
+    Box(
+        Modifier
+            .fillMaxSize()
+            .background(Night),
+        contentAlignment = Alignment.TopCenter,
+    ) {
         Column(
             Modifier
-                .fillMaxSize()
-                .background(Night)
+                .fillMaxHeight()
+                .widthIn(max = 640.dp)
+                .fillMaxWidth()
                 .statusBarsPadding()
                 .navigationBarsPadding(),
         ) {
@@ -762,8 +783,21 @@ private fun PaywallSheet(
     onRestore: () -> Unit,
     onPrivacy: () -> Unit,
 ) {
-    Box(Modifier.fillMaxSize().background(Color(0xFF0D121C))) {
-        Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().padding(horizontal = 20.dp)) {
+    Box(
+        Modifier
+            .fillMaxSize()
+            .background(Color(0xFF0D121C)),
+        contentAlignment = Alignment.TopCenter,
+    ) {
+        Column(
+            Modifier
+                .fillMaxHeight()
+                .widthIn(max = 640.dp)
+                .fillMaxWidth()
+                .statusBarsPadding()
+                .navigationBarsPadding()
+                .padding(horizontal = 20.dp),
+        ) {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                 Text("Close", color = Color.White.copy(alpha = 0.55f), fontWeight = FontWeight.SemiBold, modifier = Modifier.clickable(onClick = onClose).padding(12.dp))
             }
@@ -809,14 +843,26 @@ private fun PaywallSheet(
 
 @Composable
 private fun WelcomeGuide(showBack: Boolean, onClose: () -> Unit) {
-    Box(Modifier.fillMaxSize().background(Night)) {
+    Box(
+        Modifier
+            .fillMaxSize()
+            .background(Night),
+        contentAlignment = Alignment.TopCenter,
+    ) {
         Box(
             Modifier
                 .fillMaxWidth()
                 .height(280.dp)
                 .background(Brush.radialGradient(listOf(Color(0xFF00BFF2).copy(alpha = 0.16f), Color(0xFFBF26D9).copy(alpha = 0.08f), Color.Transparent))),
         )
-        Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding()) {
+        Column(
+            Modifier
+                .fillMaxHeight()
+                .widthIn(max = 640.dp)
+                .fillMaxWidth()
+                .statusBarsPadding()
+                .navigationBarsPadding(),
+        ) {
             Row(Modifier.fillMaxWidth().padding(start = 16.dp, top = 8.dp)) {
                 CircleButton(onClick = onClose) {
                     Icon(

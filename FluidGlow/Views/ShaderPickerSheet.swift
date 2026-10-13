@@ -119,6 +119,8 @@ public struct ShaderPickerSheet: View {
                     }
                     .padding(.horizontal, 20)
                     .padding(.vertical, 16)
+                    .frame(maxWidth: 640)
+                    .frame(maxWidth: .infinity, alignment: .center)
                 }
                 
                 if !proManager.isVIP {

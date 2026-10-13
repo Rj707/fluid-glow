@@ -146,6 +146,8 @@ public struct VIPPaywallView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 22)
             }
+            .frame(maxWidth: 640)
+            .frame(maxWidth: .infinity, alignment: .center)
         }
         .overlay(alignment: .topTrailing) {
             Button(action: { dismiss() }) {

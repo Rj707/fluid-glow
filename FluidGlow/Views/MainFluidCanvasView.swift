@@ -210,6 +210,8 @@ public struct MainFluidCanvasView: View {
             }
             .padding(.top, 54)
             .padding(.bottom, 24)
+            .frame(maxWidth: 640)
+            .frame(maxWidth: .infinity, alignment: .center)
             .opacity(isControlsHidden ? 0.0 : 1.0)
             .animation(.easeInOut(duration: 0.25), value: isControlsHidden)
             .allowsHitTesting(!isControlsHidden)
@@ -245,6 +247,8 @@ public struct MainFluidCanvasView: View {
                     
                     Spacer()
                 }
+                .frame(maxWidth: 640)
+                .frame(maxWidth: .infinity, alignment: .center)
                 .transition(.move(edge: .top).combined(with: .opacity))
                 .zIndex(10)
                 .allowsHitTesting(false)

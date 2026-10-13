@@ -12,6 +12,9 @@ billing = "7.1.1"
 ads = "23.6.0"
 ump = "3.1.0"
 junit = "4.13.2"
+firebaseBom = "33.16.0"
+googleServices = "4.5.0"
+crashlyticsGradle = "3.0.8"
 
 [libraries]
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
@@ -33,6 +36,9 @@ play-services-ads = { module = "com.google.android.gms:play-services-ads", versi
 ump = { module = "com.google.android.ump:user-messaging-platform", version.ref = "ump" }
 junit = { module = "junit:junit", version.ref = "junit" }
 play-review = { module = "com.google.android.play:review-ktx", version = "2.0.2" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -40,3 +46,5 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlyticsGradle" }

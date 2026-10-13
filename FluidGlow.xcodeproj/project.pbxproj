@@ -33,6 +33,11 @@
 		ER0100092C00000100000001 /* AdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0100092C00000100000001 /* AdManager.swift */; };
 		ER0100162C00000100000001 /* ConsentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0100162C00000100000001 /* ConsentManager.swift */; };
 		ER0100102C00000100000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF0100102C00000100000001 /* Assets.xcassets */; };
+		PR0100012C00000100000001 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = PF0100012C00000100000001 /* PrivacyInfo.xcprivacy */; };
+		AR0100012C00000100000001 /* AppReports.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0100012C00000100000001 /* AppReports.swift */; };
+		GR0100012C00000100000001 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = GF0100012C00000100000001 /* GoogleService-Info.plist */; };
+		ZZ0000022C00000100000001 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = YY0000022C00000100000001 /* FirebaseAnalytics */; };
+		ZZ0000032C00000100000001 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = YY0000032C00000100000001 /* FirebaseCrashlytics */; };
 		GW0200012C00000100000002 /* FluidGlowSplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = GW0100012C00000100000002 /* FluidGlowSplashView.swift */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +78,9 @@
 		EF0100162C00000100000001 /* ConsentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentManager.swift; sourceTree = "<group>"; };
 		EF0100102C00000100000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EF0100122C00000100000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		PF0100012C00000100000001 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		AF0100012C00000100000001 /* AppReports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReports.swift; sourceTree = "<group>"; };
+		GF0100012C00000100000001 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		GW0100012C00000100000002 /* FluidGlowSplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FluidGlowSplashView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,6 +91,8 @@
 			files = (
 				HK0200012C00000100000001 /* HSCore in Frameworks */,
 				ZZ0000012C00000100000001 /* GoogleMobileAds in Frameworks */,
+				ZZ0000022C00000100000001 /* FirebaseAnalytics in Frameworks */,
+				ZZ0000032C00000100000001 /* FirebaseCrashlytics in Frameworks */,
 				HK0200032C00000100000001 /* HSAds in Frameworks */,
 				HK0200042C00000100000001 /* HSUI in Frameworks */,
 			);
@@ -175,6 +185,7 @@
 				EF0100082C00000100000001 /* ProFeatureManager.swift */,
 				EF0100092C00000100000001 /* AdManager.swift */,
 				EF0100162C00000100000001 /* ConsentManager.swift */,
+				AF0100012C00000100000001 /* AppReports.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -186,6 +197,8 @@
 				EF0100102C00000100000001 /* Assets.xcassets */,
 				EF0100182C00000100000001 /* Localizable.xcstrings */,
 				EF0100122C00000100000001 /* Info.plist */,
+				PF0100012C00000100000001 /* PrivacyInfo.xcprivacy */,
+				GF0100012C00000100000001 /* GoogleService-Info.plist */,
 			);
 			name = Resources;
 			path = Resources;
@@ -230,6 +243,7 @@
 				GG0000012C00000100000001 /* Sources */,
 				CC0000012C00000100000001 /* Frameworks */,
 				HH0000012C00000100000001 /* Resources */,
+				SC0000012C00000100000001 /* Upload Crashlytics symbols */,
 			);
 			buildRules = (
 			);
@@ -239,6 +253,8 @@
 			packageProductDependencies = (
 				HK0100012C00000100000001 /* HSCore */,
 				YY0000012C00000100000001 /* GoogleMobileAds */,
+				YY0000022C00000100000001 /* FirebaseAnalytics */,
+				YY0000032C00000100000001 /* FirebaseCrashlytics */,
 				HK0100032C00000100000001 /* HSAds */,
 				HK0100042C00000100000001 /* HSUI */,
 			);
@@ -296,6 +312,7 @@
 			mainGroup = DD0000012C00000100000001;
 			packageReferences = (
 				XX0000012C00000100000001 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+				XX0000022C00000100000001 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				HK0000012C00000100000001 /* XCLocalSwiftPackageReference "../HSKit" */,
 			);
 			productRefGroup = DD0000032C00000100000001 /* Products */;
@@ -315,6 +332,8 @@
 			files = (
 				ER0100102C00000100000001 /* Assets.xcassets in Resources */,
 				ER0100182C00000100000001 /* Localizable.xcstrings in Resources */,
+				PR0100012C00000100000001 /* PrivacyInfo.xcprivacy in Resources */,
+				GR0100012C00000100000001 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,6 +345,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		SC0000012C00000100000001 /* Upload Crashlytics symbols */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+			);
+			name = "Upload Crashlytics symbols";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${CONFIGURATION}\" != \"Release\" ]; then\n  exit 0\nfi\nSCRIPT=\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\nif [ -x \"$SCRIPT\" ]; then\n  \"$SCRIPT\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		GG0000012C00000100000001 /* Sources */ = {
@@ -347,6 +387,7 @@
 				ER0100082C00000100000001 /* ProFeatureManager.swift in Sources */,
 				ER0100092C00000100000001 /* AdManager.swift in Sources */,
 				ER0100162C00000100000001 /* ConsentManager.swift in Sources */,
+				AR0100012C00000100000001 /* AppReports.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,6 +586,14 @@
 				minimumVersion = 11.0.0;
 			};
 		};
+		XX0000022C00000100000001 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCLocalSwiftPackageReference section */
@@ -559,6 +608,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = XX0000012C00000100000001 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
 			productName = GoogleMobileAds;
+		};
+		YY0000022C00000100000001 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = XX0000022C00000100000001 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		YY0000032C00000100000001 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = XX0000022C00000100000001 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
 		};
 		HK0100012C00000100000001 /* HSCore */ = {
 			isa = XCSwiftPackageProductDependency;

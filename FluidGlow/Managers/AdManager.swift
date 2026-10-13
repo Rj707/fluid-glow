@@ -11,11 +11,11 @@ public struct AdMobConfig {
     public static let interstitialAdUnitID = HSAdConfiguration.test.interstitialAdUnitID
     public static let bannerAdUnitID = HSAdConfiguration.test.bannerAdUnitID
     #else
-    // Paste the real AdMob unit ids here before release. Blank ids request nothing.
-    public static let appOpenAdUnitID = ""
-    public static let rewardedAdUnitID = ""
-    public static let interstitialAdUnitID = ""
-    public static let bannerAdUnitID = ""
+    // Production AdMob Unit IDs (iOS)
+    public static let appOpenAdUnitID = "ca-app-pub-4042428849777474/9839298668"
+    public static let rewardedAdUnitID = "ca-app-pub-4042428849777474/9563966499"
+    public static let interstitialAdUnitID = "ca-app-pub-4042428849777474/3190129830"
+    public static let bannerAdUnitID = "ca-app-pub-4042428849777474/1481287331"
     #endif
     
     public static var configuration: HSAdConfiguration {

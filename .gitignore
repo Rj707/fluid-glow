@@ -3,3 +3,8 @@ build/
 *.xcuserstate
 .DS_Store
 xcuserdata/
+.gradle/
+.kotlin/
+*.aab
+*.apk
+

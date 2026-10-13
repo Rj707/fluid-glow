@@ -368,6 +368,8 @@ public struct SettingsView: View {
                     }
                     .padding(.horizontal, 18)
                     .padding(.top, 12)
+                    .frame(maxWidth: 640)
+                    .frame(maxWidth: .infinity, alignment: .center)
                 }
             }
             .navigationTitle(String(localized: "Settings"))

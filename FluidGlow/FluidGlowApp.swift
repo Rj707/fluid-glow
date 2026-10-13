@@ -9,6 +9,10 @@ struct FluidGlowApp: App {
     @ObservedObject private var theme = HSThemeManager.shared
     @State private var isSplashActive = true
     
+    init() {
+        AppReports.start()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ZStack {
@@ -24,7 +28,8 @@ struct FluidGlowApp: App {
             .preferredColorScheme(theme.preferredColorScheme)
             .onAppear {
                 if !ProcessInfo.processInfo.arguments.contains(where: { $0.hasPrefix("-screenshot") }) {
-                    HSConsentManager.shared.requestTrackingPermission { _ in
+                    HSConsentManager.shared.requestTrackingPermission { allowed in
+                        AppReports.setCollectionAllowed(allowed)
                         AdManager.shared.preloadAds()
                     }
                 }

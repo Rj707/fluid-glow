@@ -201,6 +201,8 @@ public struct WelcomeGuideView: View {
                 .padding(.horizontal, 24)
                 .padding(.bottom, 20)
             }
+            .frame(maxWidth: 640)
+            .frame(maxWidth: .infinity, alignment: .center)
         }
         .preferredColorScheme(.dark)
     }

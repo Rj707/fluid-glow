@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "337628099374",
+    "project_id": "fluid-glow",
+    "storage_bucket": "fluid-glow.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:337628099374:android:5f2f6df2f8a696634900bf",
+        "android_client_info": {
+          "package_name": "com.saadapps.fluidglow"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCskc_CKVuIbaJ4tAqt2qxT4hScRvL8XmE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

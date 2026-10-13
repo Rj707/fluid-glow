@@ -20,6 +20,8 @@ class MainActivity : ComponentActivity() {
         val graph = (application as FluidApplication).graph
         welcomeBlockingAds = !graph.hasSeenWelcome()
         graph.consent.gather(this) {
+            val allowed = graph.consent.canRequestAds.value
+            AppReports.setCollectionAllowed(allowed)
             graph.ads.startIfAllowed()
         }
         ProcessLifecycleOwner.get().lifecycle.addObserver(

@@ -115,6 +115,8 @@ public struct FluidGlowSplashView: View {
                 }
                 .padding(.bottom, 48)
             }
+            .frame(maxWidth: 640)
+            .frame(maxWidth: .infinity, alignment: .center)
         }
         .onAppear {
             let args = ProcessInfo.processInfo.arguments

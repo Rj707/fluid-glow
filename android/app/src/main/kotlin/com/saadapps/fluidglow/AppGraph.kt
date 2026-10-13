@@ -16,6 +16,7 @@ class FluidApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        AppReports.start(this)
         graph = AppGraph(this)
         graph.billing.start()
     }
@@ -31,10 +32,10 @@ class AppGraph(context: Context) {
             AdUnits.googleTest
         } else {
             AdUnits.productionOrOff(
-                banner = "",
-                interstitial = "",
-                rewarded = "",
-                appOpen = "",
+                banner = "ca-app-pub-4042428849777474/1629636157",
+                interstitial = "ca-app-pub-4042428849777474/1960808648",
+                rewarded = "ca-app-pub-4042428849777474/9316554486",
+                appOpen = "ca-app-pub-4042428849777474/5433149792",
             )
         },
         premium = billing,

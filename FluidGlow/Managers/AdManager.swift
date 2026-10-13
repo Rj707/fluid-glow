@@ -6,10 +6,10 @@ import HSCore
 // MARK: - AdMob Configuration (FluidGlow Specific)
 public struct AdMobConfig {
     #if DEBUG
-    public static let appOpenAdUnitID = "ca-app-pub-3940256099942544/5575463023"
-    public static let rewardedAdUnitID = "ca-app-pub-3940256099942544/1712485313"
-    public static let interstitialAdUnitID = "ca-app-pub-3940256099942544/4411468910"
-    public static let bannerAdUnitID = "ca-app-pub-3940256099942544/2934735716"
+    public static let appOpenAdUnitID = HSAdConfiguration.test.appOpenAdUnitID
+    public static let rewardedAdUnitID = HSAdConfiguration.test.rewardedAdUnitID
+    public static let interstitialAdUnitID = HSAdConfiguration.test.interstitialAdUnitID
+    public static let bannerAdUnitID = HSAdConfiguration.test.bannerAdUnitID
     #else
     // Paste the real AdMob unit ids here before release. Blank ids request nothing.
     public static let appOpenAdUnitID = ""
@@ -19,12 +19,16 @@ public struct AdMobConfig {
     #endif
     
     public static var configuration: HSAdConfiguration {
-        HSAdConfiguration(
+        #if DEBUG
+        return .test
+        #else
+        return HSAdConfiguration(
             appOpenAdUnitID: appOpenAdUnitID,
             rewardedAdUnitID: rewardedAdUnitID,
             interstitialAdUnitID: interstitialAdUnitID,
             bannerAdUnitID: bannerAdUnitID
         )
+        #endif
     }
 }
 

@@ -81,6 +81,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -172,6 +173,9 @@ fun FluidApp(
         }
     }
 
+    val configuration = LocalConfiguration.current
+    val isTablet = configuration.smallestScreenWidthDp >= 600
+
     MaterialTheme(colorScheme = MaterialTheme.colorScheme.copy(background = Color.Black)) {
         Box(Modifier.fillMaxSize().background(Color.Black)) {
             AndroidView(
@@ -202,44 +206,50 @@ fun FluidApp(
                     Column(
                         Modifier
                             .fillMaxHeight()
-                            .widthIn(max = 640.dp)
+                            .then(if (isTablet) Modifier.widthIn(max = 680.dp) else Modifier.widthIn(max = 640.dp))
                             .fillMaxWidth()
                             .statusBarsPadding()
                             .navigationBarsPadding()
-                            .padding(top = 8.dp, bottom = 16.dp),
+                            .padding(top = if (isTablet) 12.dp else 8.dp, bottom = if (isTablet) 20.dp else 16.dp),
                     ) {
                         Row(
-                            Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+                            Modifier.fillMaxWidth().padding(horizontal = if (isTablet) 24.dp else 16.dp),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            CircleButton(onClick = {
-                                soundOn = !soundOn
-                                graph.soundEnabled = soundOn
-                                pulse()
-                            }) {
+                            CircleButton(
+                                onClick = {
+                                    soundOn = !soundOn
+                                    graph.soundEnabled = soundOn
+                                    pulse()
+                                },
+                                modifier = if (isTablet) Modifier.size(44.dp) else Modifier.size(36.dp),
+                            ) {
                                 Icon(
                                     if (soundOn) Icons.AutoMirrored.Filled.VolumeUp else Icons.AutoMirrored.Filled.VolumeOff,
                                     contentDescription = "Sound",
                                     tint = if (soundOn) Accent else Color.White.copy(alpha = 0.5f),
-                                    modifier = Modifier.size(16.dp),
+                                    modifier = Modifier.size(if (isTablet) 20.dp else 16.dp),
                                 )
                             }
                             Spacer(Modifier.weight(1f))
-                            ShaderCapsule(preset) {
+                            ShaderCapsule(preset, isTablet = isTablet) {
                                 pulse(strong = true)
                                 showPresets = true
                             }
                             Spacer(Modifier.weight(1f))
-                            CircleButton(onClick = {
-                                pulse(strong = true)
-                                showSettings = true
-                            }) {
-                                Icon(Icons.Filled.Settings, contentDescription = "Settings", tint = Color.White, modifier = Modifier.size(16.dp))
+                            CircleButton(
+                                onClick = {
+                                    pulse(strong = true)
+                                    showSettings = true
+                                },
+                                modifier = if (isTablet) Modifier.size(44.dp) else Modifier.size(36.dp),
+                            ) {
+                                Icon(Icons.Filled.Settings, contentDescription = "Settings", tint = Color.White, modifier = Modifier.size(if (isTablet) 20.dp else 16.dp))
                             }
                         }
                         Spacer(Modifier.weight(1f))
                         Row(
-                            Modifier.fillMaxWidth().padding(horizontal = 20.dp),
+                            Modifier.fillMaxWidth().padding(horizontal = if (isTablet) 24.dp else 20.dp),
                             horizontalArrangement = if (vip) Arrangement.Center else Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
@@ -247,6 +257,7 @@ fun FluidApp(
                                 label = "Save Wallpaper",
                                 icon = Icons.Filled.PhotoCamera,
                                 brush = null,
+                                isTablet = isTablet,
                             ) {
                                 if (Build.VERSION.SDK_INT < 29 &&
                                     ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
@@ -259,7 +270,7 @@ fun FluidApp(
                                 }
                             }
                             if (!vip) {
-                                CapsuleButton(label = "VIP Pass", icon = null, brush = VipBrush, crown = true) {
+                                CapsuleButton(label = "VIP Pass", icon = null, brush = VipBrush, crown = true, isTablet = isTablet) {
                                     pulse(strong = true)
                                     showPaywall = true
                                 }
@@ -274,16 +285,16 @@ fun FluidApp(
                     Modifier
                         .align(Alignment.TopCenter)
                         .statusBarsPadding()
-                        .padding(top = 64.dp)
+                        .padding(top = if (isTablet) 72.dp else 64.dp)
                         .clip(RoundedCornerShape(50))
                         .background(Glass)
                         .border(1.dp, Color.White.copy(alpha = 0.2f), RoundedCornerShape(50))
-                        .padding(horizontal = 18.dp, vertical = 11.dp),
+                        .padding(horizontal = if (isTablet) 22.dp else 18.dp, vertical = if (isTablet) 13.dp else 11.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Icon(Icons.Filled.CheckCircle, contentDescription = null, tint = Color(0xFF1AE699), modifier = Modifier.size(16.dp))
+                    Icon(Icons.Filled.CheckCircle, contentDescription = null, tint = Color(0xFF1AE699), modifier = Modifier.size(if (isTablet) 19.dp else 16.dp))
                     Spacer(Modifier.width(8.dp))
-                    Text(message, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                    Text(message, color = Color.White, fontWeight = FontWeight.Bold, fontSize = if (isTablet) 15.5.sp else 13.sp)
                 }
             }
 
@@ -297,6 +308,7 @@ fun FluidApp(
                     vip = vip,
                     unlocked = unlocked,
                     graph = graph,
+                    isTablet = isTablet,
                     onClose = { showPresets = false },
                     onSelect = { item, locked ->
                         pulse(strong = true)
@@ -336,6 +348,7 @@ fun FluidApp(
                     soundOn = soundOn,
                     hapticsOn = hapticsOn,
                     privacyOptions = privacyOptions,
+                    isTablet = isTablet,
                     onSound = {
                         soundOn = it
                         graph.soundEnabled = it
@@ -364,6 +377,7 @@ fun FluidApp(
             if (showPaywall) {
                 PaywallSheet(
                     price = price ?: "$2.99",
+                    isTablet = isTablet,
                     onClose = { showPaywall = false },
                     onPurchase = { graph.billing.purchase(activity) },
                     onRestore = { graph.billing.restore() },
@@ -374,7 +388,7 @@ fun FluidApp(
             }
 
             if (showWelcome || showGuide) {
-                WelcomeGuide(showBack = showGuide || !showWelcome) {
+                WelcomeGuide(showBack = showGuide || !showWelcome, isTablet = isTablet) {
                     if (showWelcome) {
                         graph.markWelcomeSeen()
                         showWelcome = false
@@ -384,7 +398,7 @@ fun FluidApp(
                 }
             }
 
-            if (showSplash) LaunchSplash()
+            if (showSplash) LaunchSplash(isTablet = isTablet)
         }
     }
 }
@@ -408,10 +422,13 @@ private fun FluidPreset.symbol(): ImageVector = when (this) {
 }
 
 @Composable
-private fun CircleButton(onClick: () -> Unit, content: @Composable () -> Unit) {
+private fun CircleButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier.size(36.dp),
+    content: @Composable () -> Unit,
+) {
     Box(
-        Modifier
-            .size(36.dp)
+        modifier
             .shadow(6.dp, CircleShape, ambientColor = Color.Black, spotColor = Color.Black)
             .clip(CircleShape)
             .background(Color(0xFF3A3F49))
@@ -421,7 +438,7 @@ private fun CircleButton(onClick: () -> Unit, content: @Composable () -> Unit) {
 }
 
 @Composable
-private fun ShaderCapsule(preset: FluidPreset, onClick: () -> Unit) {
+private fun ShaderCapsule(preset: FluidPreset, isTablet: Boolean = false, onClick: () -> Unit) {
     val accent = preset.accent()
     Row(
         Modifier
@@ -430,14 +447,14 @@ private fun ShaderCapsule(preset: FluidPreset, onClick: () -> Unit) {
             .background(Color(0xFF14181C))
             .border(1.2.dp, accent.copy(alpha = 0.7f), RoundedCornerShape(50))
             .clickable(onClick = onClick)
-            .padding(horizontal = 13.dp, vertical = 8.dp),
+            .padding(horizontal = if (isTablet) 16.dp else 13.dp, vertical = if (isTablet) 10.dp else 8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Icon(preset.symbol(), contentDescription = null, tint = accent, modifier = Modifier.size(14.dp))
-        Spacer(Modifier.width(6.dp))
-        Text(preset.label, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 13.sp, maxLines = 1)
-        Spacer(Modifier.width(4.dp))
-        Icon(Icons.Filled.KeyboardArrowDown, contentDescription = null, tint = Color.White.copy(alpha = 0.55f), modifier = Modifier.size(14.dp))
+        Icon(preset.symbol(), contentDescription = null, tint = accent, modifier = Modifier.size(if (isTablet) 16.dp else 14.dp))
+        Spacer(Modifier.width(if (isTablet) 8.dp else 6.dp))
+        Text(preset.label, color = Color.White, fontWeight = FontWeight.Bold, fontSize = if (isTablet) 15.5.sp else 13.sp, maxLines = 1)
+        Spacer(Modifier.width(if (isTablet) 6.dp else 4.dp))
+        Icon(Icons.Filled.KeyboardArrowDown, contentDescription = null, tint = Color.White.copy(alpha = 0.55f), modifier = Modifier.size(if (isTablet) 16.dp else 14.dp))
     }
 }
 
@@ -447,6 +464,7 @@ private fun CapsuleButton(
     icon: ImageVector?,
     brush: Brush?,
     crown: Boolean = false,
+    isTablet: Boolean = false,
     onClick: () -> Unit,
 ) {
     val shape = RoundedCornerShape(50)
@@ -462,17 +480,17 @@ private fun CapsuleButton(
             .clip(shape)
             .then(if (brush != null) Modifier.background(brush) else Modifier.background(Color(0xFF3A3F49)))
             .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp, vertical = 10.dp),
+            .padding(horizontal = if (isTablet) 20.dp else 16.dp, vertical = if (isTablet) 13.dp else 10.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         if (crown) {
-            CrownMark(Modifier.size(14.dp), Color(0xFFFFE14A))
-            Spacer(Modifier.width(6.dp))
+            CrownMark(Modifier.size(if (isTablet) 16.dp else 14.dp), Color(0xFFFFE14A))
+            Spacer(Modifier.width(if (isTablet) 8.dp else 6.dp))
         } else if (icon != null) {
-            Icon(icon, contentDescription = null, tint = Color.White.copy(alpha = 0.95f), modifier = Modifier.size(15.dp))
-            Spacer(Modifier.width(6.dp))
+            Icon(icon, contentDescription = null, tint = Color.White.copy(alpha = 0.95f), modifier = Modifier.size(if (isTablet) 18.dp else 15.dp))
+            Spacer(Modifier.width(if (isTablet) 8.dp else 6.dp))
         }
-        Text(label, color = Color.White, fontWeight = if (brush != null) FontWeight.Bold else FontWeight.SemiBold, fontSize = 13.sp)
+        Text(label, color = Color.White, fontWeight = if (brush != null) FontWeight.Bold else FontWeight.SemiBold, fontSize = if (isTablet) 15.5.sp else 13.sp)
     }
 }
 
@@ -499,7 +517,12 @@ private fun CrownMark(modifier: Modifier, tint: Color) {
 }
 
 @Composable
-private fun SheetScaffold(title: String, onClose: () -> Unit, content: @Composable ColumnScope.() -> Unit) {
+private fun SheetScaffold(
+    title: String,
+    onClose: () -> Unit,
+    isTablet: Boolean = false,
+    content: @Composable ColumnScope.() -> Unit,
+) {
     Box(
         Modifier
             .fillMaxSize()
@@ -508,22 +531,32 @@ private fun SheetScaffold(title: String, onClose: () -> Unit, content: @Composab
     ) {
         Column(
             Modifier
-                .fillMaxHeight()
-                .widthIn(max = 640.dp)
-                .fillMaxWidth()
+                .fillMaxSize()
                 .statusBarsPadding()
                 .navigationBarsPadding(),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Box(Modifier.fillMaxWidth().padding(top = 8.dp), contentAlignment = Alignment.Center) {
-                Box(Modifier.width(40.dp).height(4.dp).clip(RoundedCornerShape(2.dp)).background(Color.White.copy(alpha = 0.25f)))
+            Box(Modifier.fillMaxWidth().padding(top = if (isTablet) 12.dp else 8.dp), contentAlignment = Alignment.Center) {
+                Box(Modifier.width(if (isTablet) 48.dp else 40.dp).height(if (isTablet) 5.dp else 4.dp).clip(RoundedCornerShape(2.dp)).background(Color.White.copy(alpha = 0.25f)))
             }
-            Box(Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 8.dp)) {
-                Text(title, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 17.sp, modifier = Modifier.align(Alignment.Center))
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .then(if (isTablet) Modifier.widthIn(max = 680.dp) else Modifier.widthIn(max = 640.dp))
+                    .padding(horizontal = if (isTablet) 24.dp else 18.dp, vertical = if (isTablet) 12.dp else 8.dp),
+            ) {
+                Text(
+                    title,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = if (isTablet) 19.sp else 17.sp,
+                    modifier = Modifier.align(Alignment.Center),
+                )
                 Text(
                     "Done",
                     color = Accent,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp,
+                    fontSize = if (isTablet) 17.5.sp else 16.sp,
                     modifier = Modifier.align(Alignment.CenterEnd).clickable(onClick = onClose),
                 )
             }
@@ -538,69 +571,216 @@ private fun ShaderSheet(
     vip: Boolean,
     unlocked: Set<String>,
     graph: AppGraph,
+    isTablet: Boolean = false,
     onClose: () -> Unit,
     onSelect: (FluidPreset, Boolean) -> Unit,
     onWatchAd: (FluidPreset) -> Unit,
 ) {
-    SheetScaffold("Fluid Shaders", onClose) {
-        Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 8.dp)) {
-            FluidPreset.entries.forEach { item ->
-                val locked = !graph.isPresetUnlocked(item, vip) && item.name !in unlocked
-                val selected = item == current
-                val accent = item.accent()
-                Row(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 12.dp)
-                        .clip(RoundedCornerShape(16.dp))
-                        .background(Color(0xFF1E2633))
-                        .border(1.5.dp, if (selected) accent else Color.White.copy(alpha = 0.08f), RoundedCornerShape(16.dp))
-                        .clickable { onSelect(item, locked) }
-                        .padding(horizontal = 14.dp, vertical = 12.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Box(
-                        Modifier.size(42.dp).clip(CircleShape).background(accent.copy(alpha = 0.18f)),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        if (item == FluidPreset.LiquidGold) CrownMark(Modifier.size(18.dp), accent)
-                        else Icon(item.symbol(), contentDescription = null, tint = accent, modifier = Modifier.size(18.dp))
-                    }
-                    Spacer(Modifier.width(12.dp))
-                    Column(Modifier.weight(1f)) {
-                        Text(item.label, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 15.sp)
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            if (item.vipOnly && !vip) {
-                                CrownMark(Modifier.size(10.dp), Gold)
-                                Spacer(Modifier.width(4.dp))
-                            }
-                            Text(
-                                if (item.vipOnly) "VIP Fluid Preset" else "Standard Fluid",
-                                color = if (item.vipOnly && !vip) Gold.copy(alpha = 0.9f) else Muted,
-                                fontSize = 12.sp,
-                            )
-                        }
-                    }
-                    if (selected) {
-                        Icon(Icons.Filled.CheckCircle, contentDescription = null, tint = accent, modifier = Modifier.size(22.dp))
-                    } else if (locked) {
+    SheetScaffold("Fluid Shaders", onClose, isTablet = isTablet) {
+        Box(
+            Modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState()),
+            contentAlignment = Alignment.TopCenter,
+        ) {
+            Column(
+                Modifier
+                    .then(if (isTablet) Modifier.widthIn(max = 680.dp) else Modifier.widthIn(max = 640.dp))
+                    .fillMaxWidth()
+                    .padding(horizontal = if (isTablet) 24.dp else 20.dp, vertical = if (isTablet) 12.dp else 8.dp),
+            ) {
+                if (isTablet) {
+                    FluidPreset.entries.chunked(2).forEach { rowPresets ->
                         Row(
-                            Modifier
-                                .clip(RoundedCornerShape(12.dp))
-                                .background(Color(0xFF1A3A66))
-                                .clickable { onWatchAd(item) }
-                                .padding(horizontal = 9.dp, vertical = 5.dp),
-                            verticalAlignment = Alignment.CenterVertically,
+                            Modifier.fillMaxWidth().padding(bottom = 14.dp),
+                            horizontalArrangement = Arrangement.spacedBy(14.dp),
                         ) {
-                            Icon(Icons.Filled.PlayCircle, contentDescription = null, tint = Color(0xFF4DA3FF), modifier = Modifier.size(14.dp))
-                            Spacer(Modifier.width(4.dp))
-                            Text("Ad", color = Color(0xFF4DA3FF), fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            rowPresets.forEach { item ->
+                                ShaderCard(
+                                    item = item,
+                                    selected = item == current,
+                                    locked = !graph.isPresetUnlocked(item, vip) && item.name !in unlocked,
+                                    vip = vip,
+                                    isTablet = true,
+                                    modifier = Modifier.weight(1f),
+                                    onSelect = onSelect,
+                                    onWatchAd = onWatchAd,
+                                )
+                            }
+                            if (rowPresets.size == 1) {
+                                Spacer(Modifier.weight(1f))
+                            }
                         }
+                    }
+                } else {
+                    FluidPreset.entries.forEach { item ->
+                        ShaderCard(
+                            item = item,
+                            selected = item == current,
+                            locked = !graph.isPresetUnlocked(item, vip) && item.name !in unlocked,
+                            vip = vip,
+                            isTablet = false,
+                            modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp),
+                            onSelect = onSelect,
+                            onWatchAd = onWatchAd,
+                        )
                     }
                 }
             }
         }
         AdBanner(graph, Modifier.fillMaxWidth())
+    }
+}
+
+@Composable
+private fun ShaderCard(
+    item: FluidPreset,
+    selected: Boolean,
+    locked: Boolean,
+    vip: Boolean,
+    isTablet: Boolean,
+    modifier: Modifier = Modifier,
+    onSelect: (FluidPreset, Boolean) -> Unit,
+    onWatchAd: (FluidPreset) -> Unit,
+) {
+    val accent = item.accent()
+    if (isTablet) {
+        Column(
+            modifier
+                .clip(RoundedCornerShape(16.dp))
+                .background(Color(0xFF1E2633))
+                .border(
+                    1.5.dp,
+                    if (selected) accent else Color.White.copy(alpha = 0.08f),
+                    RoundedCornerShape(16.dp),
+                )
+                .clickable { onSelect(item, locked) }
+                .padding(14.dp),
+        ) {
+            Row(
+                Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Box(
+                    Modifier
+                        .size(44.dp)
+                        .clip(CircleShape)
+                        .background(accent.copy(alpha = 0.18f)),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    if (item == FluidPreset.LiquidGold) {
+                        CrownMark(Modifier.size(20.dp), accent)
+                    } else {
+                        Icon(item.symbol(), contentDescription = null, tint = accent, modifier = Modifier.size(20.dp))
+                    }
+                }
+                if (selected) {
+                    Icon(Icons.Filled.CheckCircle, contentDescription = null, tint = accent, modifier = Modifier.size(24.dp))
+                } else if (locked) {
+                    Row(
+                        Modifier
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(Color(0xFF1A3A66))
+                            .clickable { onWatchAd(item) }
+                            .padding(horizontal = 10.dp, vertical = 6.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Icon(Icons.Filled.PlayCircle, contentDescription = null, tint = Color(0xFF4DA3FF), modifier = Modifier.size(14.dp))
+                        Spacer(Modifier.width(4.dp))
+                        Text("Ad", color = Color(0xFF4DA3FF), fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                    }
+                }
+            }
+            Spacer(Modifier.height(10.dp))
+            Text(
+                item.label,
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontSize = 15.5.sp,
+                maxLines = 1,
+            )
+            Spacer(Modifier.height(2.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                if (item.vipOnly && !vip) {
+                    CrownMark(Modifier.size(10.dp), Gold)
+                    Spacer(Modifier.width(4.dp))
+                }
+                Text(
+                    if (item.vipOnly) "VIP Fluid Preset" else "Standard Fluid",
+                    color = if (item.vipOnly && !vip) Gold.copy(alpha = 0.9f) else Muted,
+                    fontSize = 12.5.sp,
+                    maxLines = 1,
+                )
+            }
+        }
+    } else {
+        Row(
+            modifier
+                .clip(RoundedCornerShape(16.dp))
+                .background(Color(0xFF1E2633))
+                .border(
+                    1.5.dp,
+                    if (selected) accent else Color.White.copy(alpha = 0.08f),
+                    RoundedCornerShape(16.dp),
+                )
+                .clickable { onSelect(item, locked) }
+                .padding(horizontal = 14.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Box(
+                Modifier
+                    .size(42.dp)
+                    .clip(CircleShape)
+                    .background(accent.copy(alpha = 0.18f)),
+                contentAlignment = Alignment.Center,
+            ) {
+                if (item == FluidPreset.LiquidGold) {
+                    CrownMark(Modifier.size(18.dp), accent)
+                } else {
+                    Icon(item.symbol(), contentDescription = null, tint = accent, modifier = Modifier.size(18.dp))
+                }
+            }
+            Spacer(Modifier.width(12.dp))
+            Column(Modifier.weight(1f)) {
+                Text(
+                    item.label,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 15.sp,
+                    maxLines = 1,
+                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    if (item.vipOnly && !vip) {
+                        CrownMark(Modifier.size(10.dp), Gold)
+                        Spacer(Modifier.width(4.dp))
+                    }
+                    Text(
+                        if (item.vipOnly) "VIP Fluid Preset" else "Standard Fluid",
+                        color = if (item.vipOnly && !vip) Gold.copy(alpha = 0.9f) else Muted,
+                        fontSize = 12.sp,
+                        maxLines = 1,
+                    )
+                }
+            }
+            if (selected) {
+                Icon(Icons.Filled.CheckCircle, contentDescription = null, tint = accent, modifier = Modifier.size(22.dp))
+            } else if (locked) {
+                Row(
+                    Modifier
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(Color(0xFF1A3A66))
+                        .clickable { onWatchAd(item) }
+                        .padding(horizontal = 9.dp, vertical = 5.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Icon(Icons.Filled.PlayCircle, contentDescription = null, tint = Color(0xFF4DA3FF), modifier = Modifier.size(14.dp))
+                    Spacer(Modifier.width(4.dp))
+                    Text("Ad", color = Color(0xFF4DA3FF), fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                }
+            }
+        }
     }
 }
 
@@ -611,6 +791,7 @@ private fun SettingsSheet(
     soundOn: Boolean,
     hapticsOn: Boolean,
     privacyOptions: Boolean,
+    isTablet: Boolean = false,
     onSound: (Boolean) -> Unit,
     onHaptics: (Boolean) -> Unit,
     onClose: () -> Unit,
@@ -620,157 +801,184 @@ private fun SettingsSheet(
     onPrivacy: () -> Unit,
     onPrivacyOptions: () -> Unit,
 ) {
-    SheetScaffold("Settings", onClose) {
-        Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 18.dp)) {
-            if (!vip) {
-                Column(
-                    Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(20.dp))
-                        .background(Brush.linearGradient(listOf(Color(0xFF261F14), Color(0xFF1A1F2B))))
-                        .border(1.5.dp, Brush.linearGradient(listOf(Gold.copy(alpha = 0.6f), Orange.copy(alpha = 0.2f))), RoundedCornerShape(20.dp))
-                        .clickable(onClick = onVip)
-                        .padding(16.dp),
-                ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Box(
-                            Modifier.size(44.dp).clip(CircleShape).background(Brush.linearGradient(listOf(Gold.copy(alpha = 0.35f), Orange.copy(alpha = 0.12f)))),
-                            contentAlignment = Alignment.Center,
-                        ) { CrownMark(Modifier.size(22.dp), Gold) }
-                        Spacer(Modifier.width(12.dp))
-                        Column {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Text("Lifetime VIP Pass", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 17.sp)
-                                Spacer(Modifier.width(6.dp))
-                                Text(
-                                    "PRO",
-                                    color = Color.Black,
-                                    fontSize = 9.sp,
-                                    fontWeight = FontWeight.Black,
-                                    modifier = Modifier.clip(RoundedCornerShape(50)).background(Gold).padding(horizontal = 6.dp, vertical = 2.dp),
-                                )
+    SheetScaffold("Settings", onClose, isTablet = isTablet) {
+        Box(
+            Modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState()),
+            contentAlignment = Alignment.TopCenter,
+        ) {
+            Column(
+                Modifier
+                    .then(if (isTablet) Modifier.widthIn(max = 680.dp) else Modifier.widthIn(max = 640.dp))
+                    .fillMaxWidth()
+                    .padding(horizontal = if (isTablet) 24.dp else 18.dp),
+            ) {
+                if (!vip) {
+                    Column(
+                        Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(if (isTablet) 24.dp else 20.dp))
+                            .background(Brush.linearGradient(listOf(Color(0xFF261F14), Color(0xFF1A1F2B))))
+                            .border(
+                                if (isTablet) 1.8.dp else 1.5.dp,
+                                Brush.linearGradient(listOf(Gold.copy(alpha = 0.6f), Orange.copy(alpha = 0.2f))),
+                                RoundedCornerShape(if (isTablet) 24.dp else 20.dp),
+                            )
+                            .clickable(onClick = onVip)
+                            .padding(if (isTablet) 20.dp else 16.dp),
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Box(
+                                Modifier
+                                    .size(if (isTablet) 52.dp else 44.dp)
+                                    .clip(CircleShape)
+                                    .background(Brush.linearGradient(listOf(Gold.copy(alpha = 0.35f), Orange.copy(alpha = 0.12f)))),
+                                contentAlignment = Alignment.Center,
+                            ) { CrownMark(Modifier.size(if (isTablet) 26.dp else 22.dp), Gold) }
+                            Spacer(Modifier.width(if (isTablet) 14.dp else 12.dp))
+                            Column {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Text("Lifetime VIP Pass", color = Color.White, fontWeight = FontWeight.Bold, fontSize = if (isTablet) 20.sp else 17.sp)
+                                    Spacer(Modifier.width(6.dp))
+                                    Text(
+                                        "PRO",
+                                        color = Color.Black,
+                                        fontSize = if (isTablet) 10.5.sp else 9.sp,
+                                        fontWeight = FontWeight.Black,
+                                        modifier = Modifier.clip(RoundedCornerShape(50)).background(Gold).padding(horizontal = if (isTablet) 7.dp else 6.dp, vertical = 2.dp),
+                                    )
+                                }
+                                Text("Unlock Everything Permanently", color = Muted, fontSize = if (isTablet) 15.sp else 13.sp)
                             }
-                            Text("Unlock Everything Permanently", color = Muted, fontSize = 13.sp)
+                        }
+                        Spacer(Modifier.height(if (isTablet) 14.dp else 12.dp))
+                        PerkLine("100% Ad-Free (No Banners & Videos)", isTablet = isTablet)
+                        PerkLine("All 6 Hypnotic Shaders Unlocked", isTablet = isTablet)
+                        Spacer(Modifier.height(if (isTablet) 14.dp else 12.dp))
+                        Row(
+                            Modifier
+                                .fillMaxWidth()
+                                .shadow(8.dp, RoundedCornerShape(if (isTablet) 14.dp else 12.dp), ambientColor = Orange, spotColor = Orange)
+                                .clip(RoundedCornerShape(if (isTablet) 14.dp else 12.dp))
+                                .background(VipBrush)
+                                .padding(horizontal = if (isTablet) 18.dp else 16.dp, vertical = if (isTablet) 13.dp else 11.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Text("Get VIP Pass", color = Color.White, fontWeight = FontWeight.Bold, fontSize = if (isTablet) 16.sp else 14.sp)
+                            Spacer(Modifier.weight(1f))
+                            Text("$price • Lifetime", color = Color.White, fontWeight = FontWeight.Bold, fontSize = if (isTablet) 15.sp else 13.sp)
+                            Icon(Icons.Filled.ChevronRight, contentDescription = null, tint = Color.White.copy(alpha = 0.8f), modifier = Modifier.size(if (isTablet) 18.dp else 16.dp))
                         }
                     }
-                    Spacer(Modifier.height(12.dp))
-                    PerkLine("100% Ad-Free (No Banners & Videos)")
-                    PerkLine("All 6 Hypnotic Shaders Unlocked")
-                    Spacer(Modifier.height(12.dp))
+                } else {
                     Row(
                         Modifier
                             .fillMaxWidth()
-                            .shadow(8.dp, RoundedCornerShape(12.dp), ambientColor = Orange, spotColor = Orange)
-                            .clip(RoundedCornerShape(12.dp))
-                            .background(VipBrush)
-                            .padding(horizontal = 16.dp, vertical = 11.dp),
+                            .clip(RoundedCornerShape(if (isTablet) 22.dp else 18.dp))
+                            .background(Color(0xFF14301F))
+                            .border(1.dp, Color(0xFF34C759).copy(alpha = 0.3f), RoundedCornerShape(if (isTablet) 22.dp else 18.dp))
+                            .padding(if (isTablet) 18.dp else 16.dp),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        Text("Get VIP Pass", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 14.sp)
-                        Spacer(Modifier.weight(1f))
-                        Text("$price • Lifetime", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 13.sp)
-                        Icon(Icons.Filled.ChevronRight, contentDescription = null, tint = Color.White.copy(alpha = 0.8f), modifier = Modifier.size(16.dp))
+                        Icon(Icons.Filled.CheckCircle, contentDescription = null, tint = Color(0xFF34C759), modifier = Modifier.size(if (isTablet) 26.dp else 22.dp))
+                        Spacer(Modifier.width(12.dp))
+                        Column {
+                            Text("VIP Active", color = Color.White, fontWeight = FontWeight.Bold, fontSize = if (isTablet) 18.sp else 16.sp)
+                            Text("All Features & Shaders Unlocked", color = Color(0xFF34C759), fontSize = if (isTablet) 14.sp else 12.sp)
+                        }
                     }
                 }
-            } else {
+
+                SectionLabel("HOW TO PLAY & GESTURES", isTablet = isTablet)
                 Row(
-                    Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp)).background(Color(0xFF14301F)).border(1.dp, Color(0xFF34C759).copy(alpha = 0.3f), RoundedCornerShape(18.dp)).padding(16.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(if (isTablet) 22.dp else 18.dp))
+                        .background(Card)
+                        .border(1.dp, Color.White.copy(alpha = 0.08f), RoundedCornerShape(if (isTablet) 22.dp else 18.dp))
+                        .clickable(onClick = onGuide)
+                        .padding(horizontal = if (isTablet) 18.dp else 16.dp, vertical = if (isTablet) 16.dp else 14.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Icon(Icons.Filled.CheckCircle, contentDescription = null, tint = Color(0xFF34C759), modifier = Modifier.size(22.dp))
-                    Spacer(Modifier.width(12.dp))
-                    Column {
-                        Text("VIP Active", color = Color.White, fontWeight = FontWeight.Bold)
-                        Text("All Features & Shaders Unlocked", color = Color(0xFF34C759), fontSize = 12.sp)
+                    IconBadge(Icons.Filled.QuestionMark, listOf(Color(0xFF00CCF2), Color(0xFF0073E6)), isTablet = isTablet)
+                    Spacer(Modifier.width(if (isTablet) 14.dp else 12.dp))
+                    Column(Modifier.weight(1f)) {
+                        Text("How to Play & Gesture Guide", color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = if (isTablet) 17.sp else 15.sp)
+                        Text("Master swirls, bursts & interactive soundscapes", color = Muted, fontSize = if (isTablet) 13.5.sp else 12.sp)
                     }
+                    Icon(Icons.Filled.ChevronRight, contentDescription = null, tint = Muted, modifier = Modifier.size(if (isTablet) 18.dp else 16.dp))
                 }
-            }
 
-            SectionLabel("HOW TO PLAY & GESTURES")
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(18.dp))
-                    .background(Card)
-                    .border(1.dp, Color.White.copy(alpha = 0.08f), RoundedCornerShape(18.dp))
-                    .clickable(onClick = onGuide)
-                    .padding(horizontal = 16.dp, vertical = 14.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                IconBadge(Icons.Filled.QuestionMark, listOf(Color(0xFF00CCF2), Color(0xFF0073E6)))
-                Spacer(Modifier.width(12.dp))
-                Column(Modifier.weight(1f)) {
-                    Text("How to Play & Gesture Guide", color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 15.sp)
-                    Text("Master swirls, bursts & interactive soundscapes", color = Muted, fontSize = 12.sp)
+                SectionLabel("SENSORY CONTROLS", isTablet = isTablet)
+                Column(
+                    Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(if (isTablet) 22.dp else 18.dp))
+                        .background(Card)
+                        .border(1.dp, Color.White.copy(alpha = 0.08f), RoundedCornerShape(if (isTablet) 22.dp else 18.dp)),
+                ) {
+                    SensoryToggle(
+                        icon = if (soundOn) Icons.AutoMirrored.Filled.VolumeUp else Icons.AutoMirrored.Filled.VolumeOff,
+                        colors = listOf(Color(0xFF00D9CC), Color(0xFF0099BF)),
+                        title = "Sound Effects",
+                        subtitle = "Generative ASMR harmonic chimes",
+                        checked = soundOn,
+                        track = Accent,
+                        isTablet = isTablet,
+                        onChange = onSound,
+                    )
+                    Box(Modifier.padding(start = if (isTablet) 72.dp else 64.dp).fillMaxWidth().height(1.dp).background(Color.White.copy(alpha = 0.08f)))
+                    SensoryToggle(
+                        icon = Icons.Filled.Vibration,
+                        colors = listOf(Color(0xFFBF40F2), Color(0xFF8C1AD9)),
+                        title = "Haptic Feedback",
+                        subtitle = "Fluid dynamic micro-vibrations",
+                        checked = hapticsOn,
+                        track = Color(0xFFBF40F2),
+                        isTablet = isTablet,
+                        onChange = onHaptics,
+                    )
                 }
-                Icon(Icons.Filled.ChevronRight, contentDescription = null, tint = Muted, modifier = Modifier.size(16.dp))
-            }
 
-            SectionLabel("SENSORY CONTROLS")
-            Column(
-                Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(18.dp))
-                    .background(Card)
-                    .border(1.dp, Color.White.copy(alpha = 0.08f), RoundedCornerShape(18.dp)),
-            ) {
-                SensoryToggle(
-                    icon = if (soundOn) Icons.AutoMirrored.Filled.VolumeUp else Icons.AutoMirrored.Filled.VolumeOff,
-                    colors = listOf(Color(0xFF00D9CC), Color(0xFF0099BF)),
-                    title = "Sound Effects",
-                    subtitle = "Generative ASMR harmonic chimes",
-                    checked = soundOn,
-                    track = Accent,
-                    onChange = onSound,
-                )
-                Box(Modifier.padding(start = 64.dp).fillMaxWidth().height(1.dp).background(Color.White.copy(alpha = 0.08f)))
-                SensoryToggle(
-                    icon = Icons.Filled.Vibration,
-                    colors = listOf(Color(0xFFBF40F2), Color(0xFF8C1AD9)),
-                    title = "Haptic Feedback",
-                    subtitle = "Fluid dynamic micro-vibrations",
-                    checked = hapticsOn,
-                    track = Color(0xFFBF40F2),
-                    onChange = onHaptics,
-                )
-            }
-
-            Spacer(Modifier.height(22.dp))
-            Row(
-                Modifier.fillMaxWidth().clickable(onClick = onRestore),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Icon(Icons.Filled.Check, contentDescription = null, tint = Accent, modifier = Modifier.size(16.dp))
-                Spacer(Modifier.width(6.dp))
-                Text("Restore Purchases", color = Accent, fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
-            }
-            Spacer(Modifier.height(14.dp))
-            Row(
-                Modifier.fillMaxWidth().clickable(onClick = onPrivacy),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text("Privacy Policy & Terms of Service", color = Muted, fontSize = 12.sp)
-                Spacer(Modifier.width(4.dp))
-                Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null, tint = Muted, modifier = Modifier.size(11.dp))
-            }
-            if (privacyOptions) {
+                Spacer(Modifier.height(if (isTablet) 26.dp else 22.dp))
+                Row(
+                    Modifier.fillMaxWidth().clickable(onClick = onRestore),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Icon(Icons.Filled.Check, contentDescription = null, tint = Accent, modifier = Modifier.size(if (isTablet) 18.dp else 16.dp))
+                    Spacer(Modifier.width(6.dp))
+                    Text("Restore Purchases", color = Accent, fontWeight = FontWeight.SemiBold, fontSize = if (isTablet) 16.sp else 14.sp)
+                }
+                Spacer(Modifier.height(if (isTablet) 16.dp else 14.dp))
+                Row(
+                    Modifier.fillMaxWidth().clickable(onClick = onPrivacy),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text("Privacy Policy & Terms of Service", color = Muted, fontSize = if (isTablet) 13.5.sp else 12.sp)
+                    Spacer(Modifier.width(4.dp))
+                    Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null, tint = Muted, modifier = Modifier.size(if (isTablet) 13.dp else 11.dp))
+                }
+                if (privacyOptions) {
+                    Text(
+                        "Privacy options",
+                        color = Muted,
+                        fontSize = if (isTablet) 13.5.sp else 12.sp,
+                        modifier = Modifier.fillMaxWidth().clickable(onClick = onPrivacyOptions).padding(top = 10.dp),
+                        textAlign = TextAlign.Center,
+                    )
+                }
                 Text(
-                    "Privacy options",
-                    color = Muted,
-                    fontSize = 12.sp,
-                    modifier = Modifier.fillMaxWidth().clickable(onClick = onPrivacyOptions).padding(top = 10.dp),
+                    "Fluid Glow v${BuildConfig.VERSION_NAME} (Build ${BuildConfig.VERSION_CODE})",
+                    color = Muted.copy(alpha = 0.6f),
+                    fontSize = if (isTablet) 12.5.sp else 11.sp,
+                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 24.dp),
                     textAlign = TextAlign.Center,
                 )
             }
-            Text(
-                "Fluid Glow v${BuildConfig.VERSION_NAME} (Build ${BuildConfig.VERSION_CODE})",
-                color = Muted.copy(alpha = 0.6f),
-                fontSize = 11.sp,
-                modifier = Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 24.dp),
-                textAlign = TextAlign.Center,
-            )
         }
     }
 }
@@ -778,6 +986,7 @@ private fun SettingsSheet(
 @Composable
 private fun PaywallSheet(
     price: String,
+    isTablet: Boolean = false,
     onClose: () -> Unit,
     onPurchase: () -> Unit,
     onRestore: () -> Unit,
@@ -792,57 +1001,71 @@ private fun PaywallSheet(
         Column(
             Modifier
                 .fillMaxHeight()
-                .widthIn(max = 640.dp)
+                .then(if (isTablet) Modifier.widthIn(max = 680.dp) else Modifier.widthIn(max = 640.dp))
                 .fillMaxWidth()
                 .statusBarsPadding()
                 .navigationBarsPadding()
-                .padding(horizontal = 20.dp),
+                .padding(horizontal = if (isTablet) 24.dp else 20.dp),
         ) {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                Text("Close", color = Color.White.copy(alpha = 0.55f), fontWeight = FontWeight.SemiBold, modifier = Modifier.clickable(onClick = onClose).padding(12.dp))
+                Text(
+                    "Close",
+                    color = Color.White.copy(alpha = 0.55f),
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = if (isTablet) 16.5.sp else 14.sp,
+                    modifier = Modifier.clickable(onClick = onClose).padding(if (isTablet) 14.dp else 12.dp),
+                )
             }
             Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
                 Box(
-                    Modifier.size(44.dp).clip(CircleShape).background(Brush.linearGradient(listOf(Gold.copy(alpha = 0.28f), Orange.copy(alpha = 0.12f)))),
+                    Modifier
+                        .size(if (isTablet) 54.dp else 44.dp)
+                        .clip(CircleShape)
+                        .background(Brush.linearGradient(listOf(Gold.copy(alpha = 0.28f), Orange.copy(alpha = 0.12f)))),
                     contentAlignment = Alignment.Center,
-                ) { CrownMark(Modifier.size(22.dp), Gold) }
-                Spacer(Modifier.height(6.dp))
-                Text("Lifetime VIP Pass", color = Color.White, fontWeight = FontWeight.Black, fontSize = 20.sp)
-                Text("$price One-Time • Forever", color = Gold, fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                ) { CrownMark(Modifier.size(if (isTablet) 28.dp else 22.dp), Gold) }
+                Spacer(Modifier.height(if (isTablet) 8.dp else 6.dp))
+                Text("Lifetime VIP Pass", color = Color.White, fontWeight = FontWeight.Black, fontSize = if (isTablet) 24.sp else 20.sp)
+                Text("$price One-Time • Forever", color = Gold, fontWeight = FontWeight.Bold, fontSize = if (isTablet) 15.5.sp else 13.sp)
             }
-            Spacer(Modifier.height(18.dp))
+            Spacer(Modifier.height(if (isTablet) 22.dp else 18.dp))
             Column(
-                Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(Color(0xFF171E2B)).border(1.dp, Color.White.copy(alpha = 0.06f), RoundedCornerShape(16.dp)).padding(14.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(if (isTablet) 20.dp else 16.dp))
+                    .background(Color(0xFF171E2B))
+                    .border(1.dp, Color.White.copy(alpha = 0.06f), RoundedCornerShape(if (isTablet) 20.dp else 16.dp))
+                    .padding(if (isTablet) 18.dp else 14.dp),
             ) {
-                PayPerk("100% Ad-Free Forever", "Zero banner ads, popups, or interruptions")
-                PayPerk("All 6 Hypnotic Shaders", "Liquid Gold, Cyberpunk Plasma & Solar Flare")
-                PayPerk("Generative ASMR Audio", "Uncapped interactive harmonic soundscapes")
-                PayPerk("Fluid Dynamic Haptics", "Micro-vibrations synced to your touch")
+                PayPerk("100% Ad-Free Forever", "Zero banner ads, popups, or interruptions", isTablet = isTablet)
+                PayPerk("All 6 Hypnotic Shaders", "Liquid Gold, Cyberpunk Plasma & Solar Flare", isTablet = isTablet)
+                PayPerk("Generative ASMR Audio", "Uncapped interactive harmonic soundscapes", isTablet = isTablet)
+                PayPerk("Fluid Dynamic Haptics", "Micro-vibrations synced to your touch", isTablet = isTablet)
             }
             Spacer(Modifier.weight(1f))
             Box(
                 Modifier
                     .fillMaxWidth()
-                    .shadow(12.dp, RoundedCornerShape(16.dp), ambientColor = Orange, spotColor = Orange)
-                    .clip(RoundedCornerShape(16.dp))
+                    .shadow(12.dp, RoundedCornerShape(if (isTablet) 20.dp else 16.dp), ambientColor = Orange, spotColor = Orange)
+                    .clip(RoundedCornerShape(if (isTablet) 20.dp else 16.dp))
                     .background(VipBrush)
                     .clickable(onClick = onPurchase)
-                    .padding(vertical = 14.dp),
+                    .padding(vertical = if (isTablet) 17.dp else 14.dp),
                 contentAlignment = Alignment.Center,
             ) {
-                Text("Unlock Lifetime VIP • $price", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                Text("Unlock Lifetime VIP • $price", color = Color.White, fontWeight = FontWeight.Bold, fontSize = if (isTablet) 18.5.sp else 16.sp)
             }
-            Row(Modifier.fillMaxWidth().padding(top = 12.dp, bottom = 16.dp), horizontalArrangement = Arrangement.Center) {
-                Text("Restore Purchases", color = Muted, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.clickable(onClick = onRestore))
+            Row(Modifier.fillMaxWidth().padding(top = if (isTablet) 14.dp else 12.dp, bottom = if (isTablet) 20.dp else 16.dp), horizontalArrangement = Arrangement.Center) {
+                Text("Restore Purchases", color = Muted, fontSize = if (isTablet) 13.5.sp else 12.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.clickable(onClick = onRestore))
                 Text("  •  ", color = Muted.copy(alpha = 0.4f))
-                Text("Terms & Privacy", color = Muted, fontSize = 12.sp, modifier = Modifier.clickable(onClick = onPrivacy))
+                Text("Terms & Privacy", color = Muted, fontSize = if (isTablet) 13.5.sp else 12.sp, modifier = Modifier.clickable(onClick = onPrivacy))
             }
         }
     }
 }
 
 @Composable
-private fun WelcomeGuide(showBack: Boolean, onClose: () -> Unit) {
+private fun WelcomeGuide(showBack: Boolean, isTablet: Boolean = false, onClose: () -> Unit) {
     Box(
         Modifier
             .fillMaxSize()
@@ -852,90 +1075,148 @@ private fun WelcomeGuide(showBack: Boolean, onClose: () -> Unit) {
         Box(
             Modifier
                 .fillMaxWidth()
-                .height(280.dp)
+                .height(if (isTablet) 320.dp else 280.dp)
                 .background(Brush.radialGradient(listOf(Color(0xFF00BFF2).copy(alpha = 0.16f), Color(0xFFBF26D9).copy(alpha = 0.08f), Color.Transparent))),
         )
         Column(
             Modifier
-                .fillMaxHeight()
-                .widthIn(max = 640.dp)
-                .fillMaxWidth()
+                .fillMaxSize()
                 .statusBarsPadding()
                 .navigationBarsPadding(),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Row(Modifier.fillMaxWidth().padding(start = 16.dp, top = 8.dp)) {
-                CircleButton(onClick = onClose) {
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .then(if (isTablet) Modifier.widthIn(max = 680.dp) else Modifier.widthIn(max = 640.dp))
+                    .padding(start = if (isTablet) 20.dp else 16.dp, top = 8.dp),
+            ) {
+                CircleButton(
+                    onClick = onClose,
+                    modifier = if (isTablet) Modifier.size(44.dp) else Modifier.size(36.dp),
+                ) {
                     Icon(
                         if (showBack) Icons.AutoMirrored.Filled.ArrowBack else Icons.Filled.Close,
                         contentDescription = if (showBack) "Back" else "Close",
                         tint = Color.White,
-                        modifier = Modifier.size(16.dp),
+                        modifier = Modifier.size(if (isTablet) 20.dp else 16.dp),
                     )
                 }
             }
-            Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                Box(contentAlignment = Alignment.Center) {
-                    Box(Modifier.size(86.dp).clip(RoundedCornerShape(24.dp)).background(Brush.sweepGradient(listOf(Accent, Color(0xFFFF4AD4), Color(0xFFBF40F2), Gold, Accent))))
-                    Box(
-                        Modifier.size(72.dp).clip(RoundedCornerShape(20.dp)).background(Brush.linearGradient(listOf(Color(0xFF1A1F2E), Color(0xFF0D101A)))).border(1.5.dp, Brush.linearGradient(listOf(Accent.copy(alpha = 0.7f), Color(0xFFFF4AD4).copy(alpha = 0.5f))), RoundedCornerShape(20.dp)),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Icon(Icons.Filled.AutoAwesome, contentDescription = null, tint = Accent, modifier = Modifier.size(32.dp))
+            Box(
+                Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState()),
+                contentAlignment = Alignment.TopCenter,
+            ) {
+                Column(
+                    Modifier
+                        .then(if (isTablet) Modifier.widthIn(max = 680.dp) else Modifier.widthIn(max = 640.dp))
+                        .fillMaxWidth()
+                        .padding(horizontal = if (isTablet) 28.dp else 24.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    Box(contentAlignment = Alignment.Center) {
+                        Box(
+                            Modifier
+                                .size(if (isTablet) 96.dp else 86.dp)
+                                .clip(RoundedCornerShape(if (isTablet) 28.dp else 24.dp))
+                                .background(Brush.sweepGradient(listOf(Accent, Color(0xFFFF4AD4), Color(0xFFBF40F2), Gold, Accent))),
+                        )
+                        Box(
+                            Modifier
+                                .size(if (isTablet) 80.dp else 72.dp)
+                                .clip(RoundedCornerShape(if (isTablet) 23.dp else 20.dp))
+                                .background(Brush.linearGradient(listOf(Color(0xFF1A1F2E), Color(0xFF0D101A))))
+                                .border(
+                                    1.5.dp,
+                                    Brush.linearGradient(listOf(Accent.copy(alpha = 0.7f), Color(0xFFFF4AD4).copy(alpha = 0.5f))),
+                                    RoundedCornerShape(if (isTablet) 23.dp else 20.dp),
+                                ),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            Icon(Icons.Filled.AutoAwesome, contentDescription = null, tint = Accent, modifier = Modifier.size(if (isTablet) 38.dp else 32.dp))
+                        }
                     }
+                    Spacer(Modifier.height(if (isTablet) 14.dp else 12.dp))
+                    Text("WELCOME TO", color = Color.White.copy(alpha = 0.6f), fontWeight = FontWeight.Bold, fontSize = if (isTablet) 14.5.sp else 13.sp, letterSpacing = 1.5.sp)
+                    Text(
+                        "Fluid Glow",
+                        fontSize = if (isTablet) 42.sp else 34.sp,
+                        fontWeight = FontWeight.Black,
+                        style = TextStyle(brush = Brush.horizontalGradient(listOf(Color(0xFF26E6D9), Color(0xFFD940F2), Gold))),
+                    )
+                    Text("ASMR SENSORY & LIQUID PHYSICS", color = Gold, fontWeight = FontWeight.Black, fontSize = if (isTablet) 13.5.sp else 12.sp, letterSpacing = 1.2.sp)
+                    Spacer(Modifier.height(if (isTablet) 20.dp else 24.dp))
+                    if (isTablet) {
+                        Row(Modifier.fillMaxWidth().padding(bottom = 14.dp), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                            GuideRow(Icons.Filled.TouchApp, listOf(Color(0xFF00D9F2), Color(0xFF0080E6)), "One-Finger Swirl", "Drag across the canvas to draw silky glowing streams that flow with realistic fluid physics.", isTablet = true, modifier = Modifier.weight(1f))
+                            GuideRow(Icons.Filled.Autorenew, listOf(Color(0xFFBF40F2), Color(0xFF801AD9)), "Multi-Touch Vortex", "Use 2 or 3 fingers simultaneously to create intense swirling whirlpools and gravitational vortexes.", isTablet = true, modifier = Modifier.weight(1f))
+                        }
+                        Row(Modifier.fillMaxWidth().padding(bottom = 14.dp), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                            GuideRow(Icons.Filled.AutoAwesome, listOf(Orange, OrangeDeep), "Tap Stardust Burst", "Tap anywhere to trigger an instant radial explosion of glowing particles and soft ASMR pops.", isTablet = true, modifier = Modifier.weight(1f))
+                            GuideRow(Icons.Filled.Palette, listOf(Color(0xFFF23399), Color(0xFFCC0D73)), "6 Hypnotic Shaders", "Switch between Neon Aurora, Liquid Gold, Bioluminescent Deep, Cyberpunk Plasma, and OLED.", isTablet = true, modifier = Modifier.weight(1f))
+                        }
+                        GuideRow(Icons.Filled.Headphones, listOf(Color(0xFF1AD98C), Color(0xFF0D994D)), "Generative ASMR Audio", "Put on headphones. Ambient harmonic chimes and soothing frequencies react to your swirl speed.", isTablet = true, modifier = Modifier.fillMaxWidth())
+                    } else {
+                        GuideRow(Icons.Filled.TouchApp, listOf(Color(0xFF00D9F2), Color(0xFF0080E6)), "One-Finger Swirl", "Drag across the canvas to draw silky glowing streams that flow with realistic fluid physics.", isTablet = false, modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp))
+                        GuideRow(Icons.Filled.Autorenew, listOf(Color(0xFFBF40F2), Color(0xFF801AD9)), "Multi-Touch Vortex", "Use 2 or 3 fingers simultaneously to create intense swirling whirlpools and gravitational vortexes.", isTablet = false, modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp))
+                        GuideRow(Icons.Filled.AutoAwesome, listOf(Orange, OrangeDeep), "Tap Stardust Burst", "Tap anywhere to trigger an instant radial explosion of glowing particles and soft ASMR pops.", isTablet = false, modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp))
+                        GuideRow(Icons.Filled.Palette, listOf(Color(0xFFF23399), Color(0xFFCC0D73)), "6 Hypnotic Shaders", "Switch between Neon Aurora, Liquid Gold, Bioluminescent Deep, Cyberpunk Plasma, and OLED.", isTablet = false, modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp))
+                        GuideRow(Icons.Filled.Headphones, listOf(Color(0xFF1AD98C), Color(0xFF0D994D)), "Generative ASMR Audio", "Put on headphones. Ambient harmonic chimes and soothing frequencies react to your swirl speed.", isTablet = false, modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp))
+                    }
+                    Spacer(Modifier.height(16.dp))
                 }
-                Spacer(Modifier.height(12.dp))
-                Text("WELCOME TO", color = Color.White.copy(alpha = 0.6f), fontWeight = FontWeight.Bold, fontSize = 13.sp, letterSpacing = 1.5.sp)
-                Text(
-                    "Fluid Glow",
-                    fontSize = 34.sp,
-                    fontWeight = FontWeight.Black,
-                    style = TextStyle(brush = Brush.horizontalGradient(listOf(Color(0xFF26E6D9), Color(0xFFD940F2), Gold))),
-                )
-                Text("ASMR SENSORY & LIQUID PHYSICS", color = Gold, fontWeight = FontWeight.Black, fontSize = 12.sp, letterSpacing = 1.2.sp)
-                Spacer(Modifier.height(24.dp))
-                GuideRow(Icons.Filled.TouchApp, listOf(Color(0xFF00D9F2), Color(0xFF0080E6)), "One-Finger Swirl", "Drag across the canvas to draw silky glowing streams that flow with realistic fluid physics.")
-                GuideRow(Icons.Filled.Autorenew, listOf(Color(0xFFBF40F2), Color(0xFF801AD9)), "Multi-Touch Vortex", "Use 2 or 3 fingers simultaneously to create intense swirling whirlpools and gravitational vortexes.")
-                GuideRow(Icons.Filled.AutoAwesome, listOf(Orange, OrangeDeep), "Tap Stardust Burst", "Tap anywhere to trigger an instant radial explosion of glowing particles and soft ASMR pops.")
-                GuideRow(Icons.Filled.Palette, listOf(Color(0xFFF23399), Color(0xFFCC0D73)), "6 Hypnotic Shaders", "Switch between Neon Aurora, Liquid Gold, Bioluminescent Deep, Cyberpunk Plasma, and OLED.")
-                GuideRow(Icons.Filled.Headphones, listOf(Color(0xFF1AD98C), Color(0xFF0D994D)), "Generative ASMR Audio", "Put on headphones. Ambient harmonic chimes and soothing frequencies react to your swirl speed.")
-                Spacer(Modifier.height(16.dp))
             }
             Box(
                 Modifier
-                    .padding(horizontal = 24.dp, vertical = 12.dp)
                     .fillMaxWidth()
+                    .then(if (isTablet) Modifier.widthIn(max = 680.dp) else Modifier.widthIn(max = 640.dp))
+                    .padding(horizontal = if (isTablet) 28.dp else 24.dp, vertical = if (isTablet) 14.dp else 12.dp)
                     .shadow(12.dp, RoundedCornerShape(50), ambientColor = Accent, spotColor = Color(0xFFB333E6))
                     .clip(RoundedCornerShape(50))
                     .background(Brush.horizontalGradient(listOf(Color(0xFF00BFF2), Color(0xFFB333E6))))
                     .clickable(onClick = onClose)
-                    .padding(vertical = 16.dp),
+                    .padding(vertical = if (isTablet) 18.dp else 16.dp),
                 contentAlignment = Alignment.Center,
             ) {
-                Text("Start Swirling  •  ✦  Relax", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 17.sp)
+                Text("Start Swirling  •  ✦  Relax", color = Color.White, fontWeight = FontWeight.Bold, fontSize = if (isTablet) 19.sp else 17.sp)
             }
         }
     }
 }
 
 @Composable
-private fun GuideRow(icon: ImageVector, colors: List<Color>, title: String, body: String) {
-    Row(Modifier.fillMaxWidth().padding(bottom = 20.dp), verticalAlignment = Alignment.Top) {
+private fun GuideRow(
+    icon: ImageVector,
+    colors: List<Color>,
+    title: String,
+    body: String,
+    isTablet: Boolean = false,
+    modifier: Modifier = Modifier,
+) {
+    Row(modifier, verticalAlignment = Alignment.Top) {
         Box(
-            Modifier.size(46.dp).shadow(8.dp, CircleShape, ambientColor = colors.first(), spotColor = colors.first()).clip(CircleShape).background(Brush.linearGradient(colors)),
+            Modifier
+                .size(if (isTablet) 46.dp else 46.dp)
+                .shadow(8.dp, CircleShape, ambientColor = colors.first(), spotColor = colors.first())
+                .clip(CircleShape)
+                .background(Brush.linearGradient(colors)),
             contentAlignment = Alignment.Center,
         ) {
-            Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(22.dp))
+            Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(if (isTablet) 22.dp else 22.dp))
         }
-        Spacer(Modifier.width(16.dp))
+        Spacer(Modifier.width(if (isTablet) 14.dp else 16.dp))
         Column {
-            Text(title, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
-            Text(body, color = Color.White.copy(alpha = 0.72f), fontSize = 13.sp)
+            Text(title, color = Color.White, fontWeight = FontWeight.Bold, fontSize = if (isTablet) 16.5.sp else 16.sp)
+            Text(body, color = Color.White.copy(alpha = 0.72f), fontSize = if (isTablet) 13.5.sp else 13.sp)
         }
     }
 }
 
 @Composable
-private fun LaunchSplash() {
+private fun LaunchSplash(isTablet: Boolean = false) {
     Column(
         Modifier.fillMaxSize().background(Color.Black),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -944,49 +1225,60 @@ private fun LaunchSplash() {
         Image(
             painter = painterResource(R.drawable.splash_icon),
             contentDescription = null,
-            modifier = Modifier.size(132.dp).clip(CircleShape),
+            modifier = Modifier.size(if (isTablet) 156.dp else 132.dp).clip(CircleShape),
         )
-        Spacer(Modifier.height(24.dp))
+        Spacer(Modifier.height(if (isTablet) 28.dp else 24.dp))
         Text(
             "Fluid Glow",
-            fontSize = 34.sp,
+            fontSize = if (isTablet) 42.sp else 34.sp,
             fontWeight = FontWeight.Black,
             style = TextStyle(brush = Brush.horizontalGradient(listOf(Color(0xFF1AE699), Color(0xFF00B3F2), Color(0xFFE61AB3)))),
         )
         Spacer(Modifier.height(8.dp))
-        Text("ASMR SENSORY RELAX", color = Color.White.copy(alpha = 0.65f), fontSize = 12.sp, fontWeight = FontWeight.Bold, letterSpacing = 3.5.sp)
+        Text("ASMR SENSORY RELAX", color = Color.White.copy(alpha = 0.65f), fontSize = if (isTablet) 14.sp else 12.sp, fontWeight = FontWeight.Bold, letterSpacing = 3.5.sp)
     }
 }
 
 @Composable
-private fun SectionLabel(text: String) {
-    Text(text, color = Muted, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp, modifier = Modifier.padding(start = 6.dp, top = 22.dp, bottom = 8.dp))
+private fun SectionLabel(text: String, isTablet: Boolean = false) {
+    Text(
+        text,
+        color = Muted,
+        fontSize = if (isTablet) 12.5.sp else 11.sp,
+        fontWeight = FontWeight.Bold,
+        letterSpacing = 1.2.sp,
+        modifier = Modifier.padding(start = 6.dp, top = if (isTablet) 26.dp else 22.dp, bottom = 8.dp),
+    )
 }
 
 @Composable
-private fun PerkLine(text: String) {
+private fun PerkLine(text: String, isTablet: Boolean = false) {
     Row(Modifier.padding(bottom = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-        Icon(Icons.Filled.Check, contentDescription = null, tint = Gold, modifier = Modifier.size(14.dp))
+        Icon(Icons.Filled.Check, contentDescription = null, tint = Gold, modifier = Modifier.size(if (isTablet) 16.dp else 14.dp))
         Spacer(Modifier.width(8.dp))
-        Text(text, color = Color.White.copy(alpha = 0.9f), fontSize = 13.sp)
+        Text(text, color = Color.White.copy(alpha = 0.9f), fontSize = if (isTablet) 15.sp else 13.sp)
     }
 }
 
 @Composable
-private fun PayPerk(title: String, subtitle: String) {
-    Column(Modifier.padding(vertical = 6.dp)) {
-        Text(title, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 13.sp)
-        Text(subtitle, color = Muted, fontSize = 11.sp)
+private fun PayPerk(title: String, subtitle: String, isTablet: Boolean = false) {
+    Column(Modifier.padding(vertical = if (isTablet) 7.dp else 6.dp)) {
+        Text(title, color = Color.White, fontWeight = FontWeight.Bold, fontSize = if (isTablet) 15.5.sp else 13.sp)
+        Text(subtitle, color = Muted, fontSize = if (isTablet) 13.sp else 11.sp)
     }
 }
 
 @Composable
-private fun IconBadge(icon: ImageVector, colors: List<Color>) {
+private fun IconBadge(icon: ImageVector, colors: List<Color>, isTablet: Boolean = false) {
     Box(
-        Modifier.size(36.dp).shadow(6.dp, RoundedCornerShape(10.dp), ambientColor = colors.first(), spotColor = colors.first()).clip(RoundedCornerShape(10.dp)).background(Brush.linearGradient(colors)),
+        Modifier
+            .size(if (isTablet) 42.dp else 36.dp)
+            .shadow(6.dp, RoundedCornerShape(if (isTablet) 12.dp else 10.dp), ambientColor = colors.first(), spotColor = colors.first())
+            .clip(RoundedCornerShape(if (isTablet) 12.dp else 10.dp))
+            .background(Brush.linearGradient(colors)),
         contentAlignment = Alignment.Center,
     ) {
-        Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(18.dp))
+        Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(if (isTablet) 21.dp else 18.dp))
     }
 }
 
@@ -998,14 +1290,15 @@ private fun SensoryToggle(
     subtitle: String,
     checked: Boolean,
     track: Color,
+    isTablet: Boolean = false,
     onChange: (Boolean) -> Unit,
 ) {
-    Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp), verticalAlignment = Alignment.CenterVertically) {
-        IconBadge(icon, colors)
-        Spacer(Modifier.width(12.dp))
+    Row(Modifier.fillMaxWidth().padding(horizontal = if (isTablet) 18.dp else 16.dp, vertical = if (isTablet) 14.dp else 12.dp), verticalAlignment = Alignment.CenterVertically) {
+        IconBadge(icon, colors, isTablet = isTablet)
+        Spacer(Modifier.width(if (isTablet) 14.dp else 12.dp))
         Column(Modifier.weight(1f)) {
-            Text(title, color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 15.sp)
-            Text(subtitle, color = Muted, fontSize = 12.sp)
+            Text(title, color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = if (isTablet) 17.sp else 15.sp)
+            Text(subtitle, color = Muted, fontSize = if (isTablet) 13.5.sp else 12.sp)
         }
         Switch(
             checked = checked,

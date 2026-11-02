@@ -27,7 +27,7 @@ public struct FluidGlowSplashView: View {
             )
             .ignoresSafeArea()
             
-            VStack(spacing: 24) {
+            VStack(spacing: UIDevice.isTablet ? 30 : 24) {
                 Spacer()
                 
                 // Animated Glowing Swirl Emblem
@@ -40,8 +40,8 @@ public struct FluidGlowSplashView: View {
                                 center: .center
                             )
                         )
-                        .frame(width: 110, height: 110)
-                        .blur(radius: 20)
+                        .frame(width: UIDevice.isTablet ? 140 : 110, height: UIDevice.isTablet ? 140 : 110)
+                        .blur(radius: UIDevice.isTablet ? 26 : 20)
                         .opacity(pulseAura ? 0.8 : 0.4)
                         .scaleEffect(pulseAura ? 1.15 : 0.95)
                     
@@ -58,24 +58,24 @@ public struct FluidGlowSplashView: View {
                                 ]),
                                 center: .center
                             ),
-                            lineWidth: 5
+                            lineWidth: UIDevice.isTablet ? 6 : 5
                         )
-                        .frame(width: 86, height: 86)
+                        .frame(width: UIDevice.isTablet ? 108 : 86, height: UIDevice.isTablet ? 108 : 86)
                         .rotationEffect(.degrees(isAnimating ? 360 : 0))
                     
                     // Center stardust node
                     Circle()
                         .fill(Color.white)
-                        .frame(width: 14, height: 14)
+                        .frame(width: UIDevice.isTablet ? 18 : 14, height: UIDevice.isTablet ? 18 : 14)
                         .shadow(color: .cyan, radius: 10)
                         .shadow(color: .white, radius: 4)
                         .scaleEffect(pulseAura ? 1.2 : 0.8)
                 }
                 
                 // App Title & Tagline
-                VStack(spacing: 8) {
+                VStack(spacing: UIDevice.isTablet ? 10 : 8) {
                     Text("Fluid Glow")
-                        .font(.system(size: 34, weight: .black, design: .rounded))
+                        .font(.system(size: UIDevice.isTablet ? 44 : 34, weight: .black, design: .rounded))
                         .foregroundStyle(
                             LinearGradient(
                                 colors: [
@@ -90,8 +90,8 @@ public struct FluidGlowSplashView: View {
                         .shadow(color: Color(red: 0.1, green: 0.9, blue: 0.6).opacity(0.5), radius: 12)
                     
                     Text("ASMR SENSORY RELAX")
-                        .font(.system(size: 12, weight: .bold, design: .rounded))
-                        .tracking(3.5)
+                        .font(.system(size: UIDevice.isTablet ? 15 : 12, weight: .bold, design: .rounded))
+                        .tracking(UIDevice.isTablet ? 4.0 : 3.5)
                         .foregroundStyle(Color.white.opacity(0.65))
                 }
                 .opacity(textOpacity)
@@ -99,24 +99,23 @@ public struct FluidGlowSplashView: View {
                 Spacer()
                 
                 // Subtle loading pulse dots
-                HStack(spacing: 8) {
+                HStack(spacing: UIDevice.isTablet ? 10 : 8) {
                     ForEach(0..<3) { index in
                         Circle()
                             .fill(Color.white.opacity(0.4))
-                            .frame(width: 6, height: 6)
+                            .frame(width: UIDevice.isTablet ? 8 : 6, height: UIDevice.isTablet ? 8 : 6)
                             .scaleEffect(pulseAura ? 1.3 : 0.7)
                             .animation(
                                 .easeInOut(duration: 0.6)
                                     .repeatForever()
                                     .delay(Double(index) * 0.15),
-                                value: pulseAura
+                                 value: pulseAura
                             )
                     }
                 }
-                .padding(.bottom, 48)
+                .padding(.bottom, UIDevice.isTablet ? 60 : 48)
             }
-            .frame(maxWidth: 640)
-            .frame(maxWidth: .infinity, alignment: .center)
+            .tabletContainer(maxWidth: 680)
         }
         .onAppear {
             let args = ProcessInfo.processInfo.arguments

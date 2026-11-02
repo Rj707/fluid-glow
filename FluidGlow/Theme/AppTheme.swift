@@ -76,3 +76,23 @@ public struct AppTheme {
         }
     }
 }
+
+// MARK: - Dual Tablet Optimization Helpers
+extension UIDevice {
+    public static var isTablet: Bool {
+        UIDevice.current.userInterfaceIdiom == .pad || min(UIScreen.main.bounds.width, UIScreen.main.bounds.height) >= 600
+    }
+}
+
+extension View {
+    @ViewBuilder
+    public func tabletContainer(maxWidth: CGFloat = 680) -> some View {
+        if UIDevice.isTablet {
+            self
+                .frame(maxWidth: maxWidth)
+                .frame(maxWidth: .infinity, alignment: .center)
+        } else {
+            self
+        }
+    }
+}

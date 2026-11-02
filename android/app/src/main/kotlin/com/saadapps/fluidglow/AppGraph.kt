@@ -28,7 +28,7 @@ class AppGraph(context: Context) {
     val consent = ConsentController(context)
     val ads = HsAdController(
         context = context,
-        units = if (BuildConfig.DEBUG) {
+        units = if (BuildConfig.DEBUG || IS_CLOSED_TESTING) {
             AdUnits.googleTest
         } else {
             AdUnits.productionOrOff(
@@ -91,6 +91,12 @@ class AppGraph(context: Context) {
     }
 
     companion object {
+        /**
+         * Set to true during the 14-day Closed Testing track to serve safe Google Test Ads.
+         * Set to false when compiling the final public Production release.
+         */
+        const val IS_CLOSED_TESTING = true
+
         const val LIFETIME_PRODUCT = "com.saadapps.fluidglow.vip"
         private const val PREFS = "fluidglow"
         private const val SOUND = "sound_enabled"

@@ -87,15 +87,15 @@ public struct MainFluidCanvasView: View {
             VStack {
                 // Top Header: Unified Balanced HStack with Guaranteed Padding
                 HStack(alignment: .center, spacing: 0) {
-                    // Left: Audio Ambience Toggle (36x36 Circle)
+                    // Left: Audio Ambience Toggle
                     Button(action: {
                         audio.isSoundEnabled.toggle()
                         FluidHapticsManager.fluidSwirl(speed: 10)
                     }) {
                         Image(systemName: audio.isSoundEnabled ? "speaker.wave.2.fill" : "speaker.slash.fill")
-                            .font(.system(size: 13, weight: .semibold))
+                            .font(.system(size: UIDevice.isTablet ? 16 : 13, weight: .semibold))
                             .foregroundColor(audio.isSoundEnabled ? AppTheme.primaryAccent : .white.opacity(0.5))
-                            .frame(width: 36, height: 36)
+                            .frame(width: UIDevice.isTablet ? 44 : 36, height: UIDevice.isTablet ? 44 : 36)
                             .background(.ultraThinMaterial)
                             .clipShape(Circle())
                     }
@@ -107,23 +107,23 @@ public struct MainFluidCanvasView: View {
                         FluidHapticsManager.presetSwitched()
                         showingShaderPicker = true
                     }) {
-                        HStack(spacing: 6) {
+                        HStack(spacing: UIDevice.isTablet ? 8 : 6) {
                             Image(systemName: engine.currentPreset.iconName)
-                                .font(.system(size: 12, weight: .bold))
+                                .font(.system(size: UIDevice.isTablet ? 15 : 12, weight: .bold))
                                 .foregroundColor(engine.currentPreset.primaryColor)
                             
                             Text(engine.currentPreset.rawValue)
-                                .font(.system(size: 13, weight: .bold, design: .rounded))
+                                .font(.system(size: UIDevice.isTablet ? 15.5 : 13, weight: .bold, design: .rounded))
                                 .foregroundColor(.white)
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.85)
                             
                             Image(systemName: "chevron.down")
-                                .font(.system(size: 8, weight: .bold))
+                                .font(.system(size: UIDevice.isTablet ? 10 : 8, weight: .bold))
                                 .foregroundColor(.white.opacity(0.55))
                         }
-                        .padding(.horizontal, 13)
-                        .padding(.vertical, 8)
+                        .padding(.horizontal, UIDevice.isTablet ? 16 : 13)
+                        .padding(.vertical, UIDevice.isTablet ? 10 : 8)
                         .background(.ultraThinMaterial)
                         .clipShape(Capsule())
                         .overlay(
@@ -135,20 +135,20 @@ public struct MainFluidCanvasView: View {
                     
                     Spacer(minLength: 12)
                     
-                    // Right: Settings Control (36x36 Circle)
+                    // Right: Settings Control
                     Button(action: {
                         FluidHapticsManager.presetSwitched()
                         showingSettings = true
                     }) {
                         Image(systemName: "gearshape.fill")
-                            .font(.system(size: 13, weight: .semibold))
+                            .font(.system(size: UIDevice.isTablet ? 16 : 13, weight: .semibold))
                             .foregroundColor(.white)
-                            .frame(width: 36, height: 36)
+                            .frame(width: UIDevice.isTablet ? 44 : 36, height: UIDevice.isTablet ? 44 : 36)
                             .background(.ultraThinMaterial)
                             .clipShape(Circle())
                     }
                 }
-                .padding(.horizontal, 16)
+                .padding(.horizontal, UIDevice.isTablet ? 24 : 16)
                 
                 Spacer()
                 
@@ -161,17 +161,17 @@ public struct MainFluidCanvasView: View {
                     Button(action: {
                         saveCurrentWallpaper()
                     }) {
-                        HStack(spacing: 6) {
+                        HStack(spacing: UIDevice.isTablet ? 8 : 6) {
                             Image(systemName: "camera.viewfinder")
-                                .font(.system(size: 13, weight: .semibold))
+                                .font(.system(size: UIDevice.isTablet ? 15.5 : 13, weight: .semibold))
                             Text(String(localized: "Save Wallpaper"))
-                                .font(.system(size: 13, weight: .semibold, design: .rounded))
+                                .font(.system(size: UIDevice.isTablet ? 15.5 : 13, weight: .semibold, design: .rounded))
                                 .lineLimit(1)
                                 .fixedSize(horizontal: true, vertical: false)
                         }
                         .foregroundColor(.white.opacity(0.95))
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 10)
+                        .padding(.horizontal, UIDevice.isTablet ? 20 : 16)
+                        .padding(.vertical, UIDevice.isTablet ? 13 : 10)
                         .background(.ultraThinMaterial)
                         .clipShape(Capsule())
                         .overlay(
@@ -187,17 +187,18 @@ public struct MainFluidCanvasView: View {
                             FluidHapticsManager.presetSwitched()
                             showingPaywall = true
                         }) {
-                            HStack(spacing: 6) {
+                            HStack(spacing: UIDevice.isTablet ? 8 : 6) {
                                 Image(systemName: "crown.fill")
+                                    .font(.system(size: UIDevice.isTablet ? 14 : 11))
                                     .foregroundColor(.yellow)
                                 Text(String(localized: "VIP Pass"))
-                                    .font(.system(size: 13, weight: .bold, design: .rounded))
+                                    .font(.system(size: UIDevice.isTablet ? 15.5 : 13, weight: .bold, design: .rounded))
                                     .lineLimit(1)
                                     .fixedSize(horizontal: true, vertical: false)
                             }
                             .foregroundColor(.white)
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 10)
+                            .padding(.horizontal, UIDevice.isTablet ? 20 : 16)
+                            .padding(.vertical, UIDevice.isTablet ? 13 : 10)
                             .background(
                                 LinearGradient(colors: [.orange, .red], startPoint: .leading, endPoint: .trailing)
                             )
@@ -206,12 +207,11 @@ public struct MainFluidCanvasView: View {
                         }
                     }
                 }
-                .padding(.horizontal, 20)
+                .padding(.horizontal, UIDevice.isTablet ? 24 : 20)
             }
-            .padding(.top, 54)
-            .padding(.bottom, 24)
-            .frame(maxWidth: 640)
-            .frame(maxWidth: .infinity, alignment: .center)
+            .padding(.top, UIDevice.isTablet ? 64 : 54)
+            .padding(.bottom, UIDevice.isTablet ? 30 : 24)
+            .tabletContainer(maxWidth: 680)
             .opacity(isControlsHidden ? 0.0 : 1.0)
             .animation(.easeInOut(duration: 0.25), value: isControlsHidden)
             .allowsHitTesting(!isControlsHidden)
@@ -230,25 +230,24 @@ public struct MainFluidCanvasView: View {
                     HStack(spacing: 8) {
                         Image(systemName: "checkmark.circle.fill")
                             .foregroundColor(Color(red: 0.1, green: 0.9, blue: 0.6))
-                            .font(.system(size: 15, weight: .bold))
+                            .font(.system(size: UIDevice.isTablet ? 18 : 15, weight: .bold))
                         Text(toastMessage)
-                            .font(.system(size: 13, weight: .bold, design: .rounded))
+                            .font(.system(size: UIDevice.isTablet ? 15.5 : 13, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
                     }
-                    .padding(.horizontal, 18)
-                    .padding(.vertical, 11)
+                    .padding(.horizontal, UIDevice.isTablet ? 22 : 18)
+                    .padding(.vertical, UIDevice.isTablet ? 13 : 11)
                     .background(.ultraThinMaterial)
                     .clipShape(Capsule())
                     .overlay(
                         Capsule().stroke(Color.white.opacity(0.2), lineWidth: 1)
                     )
                     .shadow(color: .black.opacity(0.4), radius: 12, y: 5)
-                    .padding(.top, 105)
+                    .padding(.top, UIDevice.isTablet ? 115 : 105)
                     
                     Spacer()
                 }
-                .frame(maxWidth: 640)
-                .frame(maxWidth: .infinity, alignment: .center)
+                .tabletContainer(maxWidth: 680)
                 .transition(.move(edge: .top).combined(with: .opacity))
                 .zIndex(10)
                 .allowsHitTesting(false)
@@ -257,7 +256,7 @@ public struct MainFluidCanvasView: View {
         .ignoresSafeArea()
         .sheet(isPresented: $showingShaderPicker) {
             ShaderPickerSheet(engine: engine, showingPaywall: $showingPaywall)
-                .presentationDetents([.medium, .large])
+                .presentationDetents(UIDevice.isTablet ? [.large] : [.medium, .large])
                 .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $showingSettings) {

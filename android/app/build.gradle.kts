@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace = "com.saadapps.fluidglow"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.saadapps.fluidglow"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0.0"
         manifestPlaceholders["admobAppId"] = "ca-app-pub-4042428849777474~4255799490"
